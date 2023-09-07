@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-export const AskingPriceAssets: React.FC = () => {
+export const GetOrderDetail: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [responseData, setResponseData] = useState<any | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -11,9 +11,15 @@ export const AskingPriceAssets: React.FC = () => {
     const fetchData = async () => {
       try {
         const options = {
-          method: "GET",
-          url: "https://api.bithumb.com/public/orderbook/BTC_KRW",
-          headers: { accept: "application/json" },
+          method: 'POST',
+          url: 'https://api.bithumb.com/info/order_detail',
+          headers: {
+            accept: 'application/json',
+            'content-type': 'application/x-www-form-urlencoded',
+            'Api-Key': '사용자 Access Key',
+            'Api-Nonce': '현재시각(ms)',
+            'Api-Sign': '상세 가이드 참고'
+          }
         };
 
         const response = await axios.request(options);
