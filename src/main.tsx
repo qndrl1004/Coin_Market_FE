@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import "./index.css";
-import { AskingPrice } from "./api/public/Asking-price";
+import { GetAssetInformation } from "./api/private/Get-Asset-Information";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <AskingPrice />
+    <GetAssetInformation />
   </React.StrictMode>
 );

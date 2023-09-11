@@ -7,21 +7,22 @@ export const GetAssetInformation: React.FC = () => {
   const [responseData, setResponseData] = useState<any | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const encodedParams = querystring.stringify({ currency: 'BTC' });
+        const encodedParams = querystring.stringify({ currency: "BTC" });
 
         const options = {
-          method: 'POST',
-          url: 'https://api.bithumb.com/info/balance',
+          method: "POST",
+          url: "https://api.bithumb.com/info/balance",
           headers: {
-            accept: 'application/json',
-            'content-type': 'application/x-www-form-urlencoded',
-            'Api-Key': '사용자 Access Key',
-            'Api-Nonce': '현재시각(ms)',
-            'Api-Sign': '상세 가이드 참고'
+            accept: "application/json",
+            "content-type": "application/x-www-form-urlencoded",
+            "Api-Key": "227cd1454c45e0c1fd1462b7c0a9a452",
+            "Api-Nonce": "169416222316",
+            "Api-Sign":
+              "pm+5hnnV5OpBKfUruv6YFszfch54ahwqIjQhkKi4sBVaUXipi9I+yjf9C2HoqZF/WsQ4FOIPRCE21X9itLB5BA==",
           },
           data: encodedParams,
         };
