@@ -5,6 +5,7 @@ import {
   faSearch,
   faStarHalfAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import { ScrollToTop } from "./ScrollToTop";
 
 export default function Header() {
   return (
@@ -68,6 +69,7 @@ export default function Header() {
           </div>
         </section>
       </header>
+      <ScrollToTop/>
     </>
   );
 }
