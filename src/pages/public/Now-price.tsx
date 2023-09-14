@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Header from "../../components/header/Header";
 
 interface BithumbResponse {
   status: string;
@@ -26,6 +27,7 @@ export const NowPrice: React.FC = () => {
   );
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,63 +48,81 @@ export const NowPrice: React.FC = () => {
     };
 
     fetchData();
+    const intervalId = setInterval(fetchData, 5000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
-  const renderTable = (data: BithumbResponse | null) => {
-    if (!data) return null;
+  const handleSearch = (searchTerm: string) => {
+    setSearchTerm(searchTerm);
+  };
 
-    const tableData = Object.entries(data.data).map(([key, value]) => ({
-      currency: key,
-      ...value,
-    }));
+  const filterCoins = (data: BithumbResponse | null, searchTerm: string) => {
+    if (!data) return [];
+    if (!searchTerm) return Object.keys(data.data);
 
-    return (
-      <table className="w-2/3 ml-4 mt-28">
-        <thead className="text-center">
-          <tr className="space-x-4 bg-gray-200">
-            <th className="flex-1 py-2">즐겨찾기</th>
-            <th className="flex-1 py-2">가상코인</th>
-            <th className="flex-1 py-2">시가기준</th>
-            <th className="flex-1 py-2">거래량</th>
-            <th className="flex-1 py-2">거래금액</th>
-            <th className="flex-1 py-2">전일종가</th>
-            <th className="flex-1 py-2">변동률(24h)</th>
-          </tr>
-        </thead>
-        <tbody className="text-center">
-          {tableData.map((item) => {
-            if (item.currency === "date") return null;
-            return (
-              <tr key={item.currency} className="space-x-4 bg-white">
-                <td className="flex-1 py-2">
-                  <FontAwesomeIcon icon={faStar} className="" />
-                </td>
-                <td className="flex-1 py-2">{item.currency}</td>
-                <td className="flex-1 py-2">
-                  {Number(item.opening_price).toLocaleString()}원
-                </td>
-                <td className="flex-1 py-2">{Math.floor(item.units_traded)}</td>
-                <td className="flex-1 py-2">
-                  {Math.floor(item.acc_trade_value).toLocaleString()}원
-                </td>
-                <td className="flex-1 py-2">
-                  {Number(item.prev_closing_price).toLocaleString()}원
-                </td>
-                <td className="flex-1 py-2">{item.fluctate_rate_24H}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+    return Object.keys(data.data).filter((key) =>
+      key.toLowerCase().includes(searchTerm.toLowerCase())
     );
   };
 
+  const filteredCoins = filterCoins(responseData, searchTerm);
+
   return (
     <div>
+      <Header onSearch={handleSearch} />
       <h1 className="mb-4 text-2xl font-semibold">Bithumb API Data</h1>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      {responseData && renderTable(responseData)}
+      <div className="ml-4 mt-28">
+        <table className="w-2/3">
+          <thead className="text-center">
+            <tr className="space-x-4 bg-gray-200">
+              <th className="flex-1 py-2">즐겨찾기</th>
+              <th className="flex-1 py-2">가상코인</th>
+              <th className="flex-1 py-2">현재가</th>
+              <th className="flex-1 py-2">거래량</th>
+              <th className="flex-1 py-2">거래금액</th>
+              <th className="flex-1 py-2">전일종가(24h)</th>
+              <th className="flex-1 py-2">변동률(24h)</th>
+            </tr>
+          </thead>
+          <tbody className="text-center">
+            {filteredCoins.map((currency) => {
+              const item = responseData?.data[currency];
+              if (!item) return null;
+              return (
+                <tr key={currency} className="space-x-4 bg-white">
+                  <td className="flex-1 py-2">
+                    <FontAwesomeIcon icon={faStar} className="" />
+                  </td>
+                  <td className="flex-1 py-2">
+                    <a
+                      href="#"
+                      className="cursor-pointer hover:underline underline-offset-2 hover:text-[#efda7a]"
+                    >
+                      {currency}
+                    </a>
+                  </td>
+                  <td className="flex-1 py-2">
+                    {Number(item.opening_price).toLocaleString()}원
+                  </td>
+                  <td className="flex-1 py-2">
+                    {Math.floor(item.units_traded)}
+                  </td>
+                  <td className="flex-1 py-2">
+                    {Math.floor(item.acc_trade_value).toLocaleString()}원
+                  </td>
+                  <td className="flex-1 py-2">
+                    {Number(item.prev_closing_price).toLocaleString()}원
+                  </td>
+                  <td className="flex-1 py-2">{item.fluctate_rate_24H}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

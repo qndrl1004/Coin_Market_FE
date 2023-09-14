@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartPie,
@@ -6,8 +7,18 @@ import {
   faStarHalfAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { ScrollToTop } from "./ScrollToTop";
+import { useState } from "react";
 
-export default function Header() {
+interface HeaderProps {
+  onSearch: (searchTerm: string) => void;
+}
+
+export default function Header({ onSearch }: HeaderProps) {
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const handleSearch = () => {
+    onSearch(searchTerm);
+  };
   return (
     <>
       <header>
@@ -62,14 +73,17 @@ export default function Header() {
                 type="text"
                 placeholder="코인입력"
                 id="search"
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className=" bg-slate-200 focus:outline-none"
               />
-              <button className="px-2 hover:text-white ">검색</button>
+              <button className="px-2 hover:text-white" onClick={handleSearch}>
+                검색
+              </button>
             </div>
           </div>
         </section>
       </header>
-      <ScrollToTop/>
+      <ScrollToTop />
     </>
   );
 }
