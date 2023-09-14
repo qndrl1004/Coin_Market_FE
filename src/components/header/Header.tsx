@@ -12,7 +12,7 @@ export default function Header() {
       <header>
         <section className="w-screen">
           <div>
-            <div className="fixed w-full h-32 bg-white border-black border-solid border-y-4"></div>
+            <div className="fixed block w-full h-32 bg-white border-black border-solid border-y-4"></div>
             <a href="#">
               <img
                 src="/src/assets/header.png"
