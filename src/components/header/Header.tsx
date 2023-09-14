@@ -1,17 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartPie,
-  faSearch,
   faMoon,
+  faSearch,
   faStarHalfAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
   return (
     <>
-      <nav>
-        <section>
-          <article>
+      <header>
+        <section className="w-screen">
+          <div>
+            <div className="fixed w-full h-32 bg-white border-black border-solid border-y-4"></div>
             <a href="#">
               <img
                 src="/src/assets/header.png"
@@ -19,16 +20,16 @@ export default function Header() {
                 className="fixed top-0 left-0 right-0 w-48 h-48 -mt-8 cursor-pointer"
               />
             </a>
-          </article>
-          <article>
-            <button className="fixed top-0 w-16 h-16 right-24 ">
-              <FontAwesomeIcon icon={faMoon} />
+          </div>
+          <div>
+            <button className="fixed top-0 w-[70px] h-[70px] text-xl right-24 ">
+              <FontAwesomeIcon icon={faMoon} size="lg" />
             </button>
-            <button className="fixed w-20 px-2 py-1 border-solid rounded h-15 top-4 border-1 border-amber-300 right-4 hover:bg-amber-500 hover:ring-amber-500 hover:text-white">
+            <button className="fixed w-20 px-2 py-1 border-black border-solid rounded h-15 top-4 border-1 right-4 hover:bg-[#efda7a] hover:ring-[#efda7a] hover:text-white">
               로그인
             </button>
-          </article>
-          <article>
+          </div>
+          <div>
             <a className="fixed px-5 cursor-pointer hover:underline underline-offset-2 hover:text-[#efda7a] mr-80 top-20 right-10 ">
               <FontAwesomeIcon
                 icon={faStarHalfAlt}
@@ -64,13 +65,9 @@ export default function Header() {
               />
               <button className="px-2 hover:text-white ">검색</button>
             </div>
-          </article>
+          </div>
         </section>
-        <section>
-          <div className="border-b-4 border-black"></div>
-          <div className="h-32 border-b-4 border-black"></div>
-        </section>
-      </nav>
+      </header>
     </>
   );
 }

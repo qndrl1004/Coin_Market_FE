@@ -30,7 +30,7 @@ export const AskingPrice: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="">
       <h1>Bithumb API Data</h1>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}

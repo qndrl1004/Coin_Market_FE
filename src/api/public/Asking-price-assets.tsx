@@ -30,15 +30,17 @@ export const AskingPriceAssets: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Bithumb API Data</h1>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      {responseData && (
-        <pre>
-          <code>{JSON.stringify(responseData, null, 2)}</code>
-        </pre>
-      )}
-    </div>
+    <main>
+      <div className="">
+        <h1 className="">Bithumb API Data</h1>
+        {loading && <p>Loading...</p>}
+        {error && <p>Error: {error}</p>}
+        {responseData && (
+          <pre>
+            <code>{JSON.stringify(responseData, null, 2)}</code>
+          </pre>
+        )}
+      </div>
+    </main>
   );
 };
