@@ -21,30 +21,31 @@ export default function NowPriceAssets() {
 
   return (
     <main className='mt-[140px] mb-[20px] '>
-    <div className='w-screen flex'>
-      <section className='flex-1 max-w-[20%] mt-[2%] mx-[4%]'>
-        <div>
-          <section className='flex'>
-            <div>
+      <div className='w-screen mt-[2%] md:flex'>
+        {/* 왼쪽창 */}
+        <section className='w-[100%] my-[30px] md:max-w-[20%] object-scale-down'>
+        
+        <div className=' mx-[4%]'>
+          <div className=''>
+            <div className='flex justify-between'>
               <div>
-                <img src="" alt="" />
-                  <span className='text-[15px]'>{coinName} / KRW</span>
+                <div>
+                  <span className='block text-[15px]'>{coinName} / KRW</span>
+                </div>
+                <div className='w-[190px]'>
+                  <span className='block w-[.8wh] text-[30px] font-extrabold'>
+                      ₩{ price }
+                  </span>
+                </div>
               </div>
-              <div className='w-[280px]'>
-                <span className='w-[100%] text-[34px] font-extrabold'>
-                  ₩ { price }
-                </span>
-              </div>
-            </div>
-            <div className='flex-1 w-[90px] '>   
-              <div className='flex items-center h-[100%]'>
-                <div className=' flex-1 text-center'>
+                  
+              <div className='flex mt-[20px]'>
+                <div className=' flex-1 text-center mr-[7px]'>
                   <div className='group cursor-pointer'>
                     <div className='mx-auto w-[25px] bg-slate-200	rounded-md overflow-hidden transition-all duration-500 group-hover:bg-yellow-400 group-hover:opacity-100 opacity-70'>
                       <button><FontAwesomeIcon icon={faStar} size="sm" /></button>
                     </div>
                   </div>
-                  
                 </div>
                 <div className='flex-1 text-center'>
                   <div>
@@ -56,11 +57,13 @@ export default function NowPriceAssets() {
                   </div>
                 </div>
               </div>  
-            </div>
-          </section>
+              </div>
+            
+          </div>
           <section>
             <div className='group cursor-pointer'>
-              <div className='w-[100%] h-[30px] my-[4%] rounded-lg overflow-hidden'>
+                <div className='w-[100%] h-[30px] my-[4%] rounded-lg overflow-hidden'>
+                  
                 <button className='bg-slate-200 w-[100%] h-[100%] transition-opacity duration-500 group-hover:opacity-100 opacity-60'>
                   <div className='flex justify-between px-[6%]'>
                     <div>
@@ -91,12 +94,15 @@ export default function NowPriceAssets() {
               </div>
           </section>
           </div>
+          <div className='hidden md:block'>
           <ChattingWidget />
+          </div>
       </section>
 
-        <section className='flex-1 border-s-2 border-solid border-grey-200'>
+        {/* 오른쪽창 */}
+        <section className='flex-1 md:border-s-2 border-solid border-grey-200'>
         <TradingViewWidget/>
-      </section>
+        </section>
       </div> 
     </main>
   );

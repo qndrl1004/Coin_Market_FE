@@ -4,17 +4,17 @@ export default function Footer() {
   return (
     <footer>
       <section className='w-screen'>
-        <div className='flex items-center bg-black text-white'>
-          <div>
-            <div className='w-[200px]'>
+        <div className='md:flex items-center justify-between bg-black text-white'>
+          <div className='flex items-end justify-center md:flex-col w-[300px]' >
+            <div className='w-[30%] md:w-[200px]'>
               <img src="../../src/assets/footer.png" alt='' className='' />
             </div>
-            <div className='bg-black text-white'>
-              <span className='ml-[40px] text-xs'>© 2023 CoinView. All rights reserved</span>
+            <div className='mb-[20px] text-white'>
+              <span className='text-[5px] md:ml-[40px]text'>© 2023 CoinView. All rights reserved</span>
             </div>
           </div>
 
-          <div className='flex-1 flex-wrap'>
+          <div className=' hidden md:block visible '>
             <div className='inset-y-0 right-0 my-6 mr-20 border-4 rounded-xl border-[#efda7a] border-opacity-70 overflow-hidden	'>
 
               <div className='flex justify-center mt-2'>
@@ -27,7 +27,7 @@ export default function Footer() {
                   <li>
                     <a href="https://github.com/qndrl1004" className='group cursor-pointer'>
                       <div className='border-2 rounded-lg overflow-hidden transition-opacity duration-500 group-hover:opacity-100 opacity-80'>
-                        <img src="https://avatars.githubusercontent.com/u/82863770?v=4" alt="정붕기 깃허브 프로필" className='w-[100%]' />
+                        <img src="https://avatars.githubusercontent.com/u/82863770?v=4" alt="정붕기 깃허브 프로필" className='md:w-[100%]' />
                       </div>
                       <div className='text-[8px] text-center mt-[10px] group-hover:text-[#efda7a]'>
                         qndrl1004
