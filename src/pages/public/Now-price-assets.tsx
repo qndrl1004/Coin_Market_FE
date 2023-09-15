@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { coinName } from './TradingView-api';
 
 export const NowPriceAssets: React.FC = () => {
+
   const [responseData, setResponseData] = useState<any | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error] = useState<string | null>(null);
   const [price, setPrice] = useState<string | null>(null);
 
   // 데이터를 주기적으로 업데이트할 시간 간격 (밀리초 단위)
@@ -14,15 +14,13 @@ export const NowPriceAssets: React.FC = () => {
     try {
       const options = {
         method: "GET",
-        url: "https://api.bithumb.com/public/ticker/BTC_KRW",
+        url: `https://api.bithumb.com/public/ticker/${coinName}_KRW`,
         headers: { accept: "application/json" },
       };
 
       const response = await axios.request(options);
       setResponseData(response.data);
-      setLoading(false);
     } catch (error) {
-      setLoading(false);
     }
   };
 

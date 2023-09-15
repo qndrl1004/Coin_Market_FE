@@ -22,14 +22,14 @@ export default function Header({ onSearch }: HeaderProps) {
   return (
     <>
       <header>
-        <section className="w-screen">
+        <section className="fixed w-screen -translate-y-36 z-10">
           <div>
-            <div className="fixed block w-full h-32 bg-white border-black border-solid border-y-4"></div>
+            <div className="fixed block w-full h-36 bg-white border-grey-200 border-solid border-y-2 "></div>
             <a href="#">
               <img
                 src="/src/assets/header.png"
                 alt=""
-                className="fixed top-0 left-0 right-0 w-48 h-48 -mt-8 cursor-pointer"
+                className="fixed top-0 left-0 right-0 w-72 h-36 cursor-pointer "
               />
             </a>
           </div>

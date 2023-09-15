@@ -9,10 +9,11 @@ import {
   faShareNodes
 } from "@fortawesome/free-solid-svg-icons";
 
+
+export const coinName = 'XRP'
 const price = <NowPriceAssets />
 let tvScriptLoadingPromise: Promise<void> | undefined;
 export default function TradingViewWidget() {
-
   const onLoadScriptRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
@@ -40,11 +41,14 @@ export default function TradingViewWidget() {
       onLoadScriptRef.current = null;
     };
 
+
+
     function createWidget() {
       if (document.getElementById('tradingview_56581') && 'TradingView' in window) {
         new (window as any).TradingView.widget({
+          
           autosize: true,
-          symbol: 'BITHUMB:BTCKRW',
+          symbol: `BITHUMB:${ coinName }KRW`,
           interval: '240',
           timezone: 'Asia/Seoul',
           theme: 'white',
@@ -57,21 +61,24 @@ export default function TradingViewWidget() {
           allow_symbol_change: true,
           studies: ['STD;RSI', 'STD;Stochastic_RSI', 'Volume@tv-basicstudies'],
           container_id: 'tradingview_56581',
+          refresh_interval: 3000, // 3초마다 업데이트 (밀리초 단위)
         });
       }
     }
   }, []);
 
+
+
   return (
-    <main className='my-36 '>
-    <div className='flex w-[60%]'>
+    <main className='my-[140px] '>
+    <div className='flex w-[60%] '>
       <section className='flex-1 mt-[2%] mx-[4%]'>
         <div>
           <section className='flex'>
             <div>
               <div>
                 <img src="" alt="" />
-                <span>BTC</span>
+                  <span className='text-[15px]'>{coinName} / KRW</span>
               </div>
               <div className='w-[280px]'>
                 <span className='w-[100%] text-[34px] font-extrabold'>
@@ -138,8 +145,8 @@ export default function TradingViewWidget() {
       </section>
 
       <section className='border-s-2 border-solid border-grey-200'>
-        <div className='tradingview-widget-container bg-yellow-500 mx-[5%] mt-[2%] '>
-        <div id='tradingview_56581' className='h-[700px] w-[1300px]'/>
+        <div className='tradingview-widget-container mx-[5%] mt-[2%] '>
+        <div id='tradingview_56581' className='h-[700px] w-[900px]'/>
           <div className='tradingview-widget-copyright'>
             <a href='https://kr.tradingview.com/' rel='noopener nofollow' target='_blank'>
             </a>
