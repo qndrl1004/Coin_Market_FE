@@ -6,11 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export default function ChattingWidget() {
   
   return (
-    <section className='flex flex-col my-[10%]  w-[100%] h-[500px] group'>
+    <section className='flex flex-col my-[10%] mx-auto w-[90%] h-[500px] group border-2 border-solid rounded-lg border-gray-200'>
       {/* 채팅 */}
-      <div className='h-[90%] bottom-0 overflow-scroll mb-[5%]'>
+      <div className='h-[90%] bottom-0 overflow-scroll mb-[5%] '>
         {/* 채팅내용 */}
-        <div className='flex  w-[100%] min-h-[50px] border-b-2 border-solid border-grey-200'>
+        <div className='flex  w-[100%] min-h-[50px] border-b-2 border-solid  border-gray-200'>
           <div className=' w-[90px] mx-[10px] mt-[20px]'>
             <img className='' src="../../src/assets/KakaoTalk_Photo_2023-09-11-15-47-34.png" alt="프로필 이미지" />
           </div>

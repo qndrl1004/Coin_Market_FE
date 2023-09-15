@@ -60,8 +60,8 @@ export default function TradingViewWidget() {
   }, [isTVScriptLoaded, coinName]);
 
   return (
-    <div className='tradingview-widget-container mx-[5%] mt-[2%] '>
-      <div id='tradingview_56581' className='h-[700px] max-w-[1000px]' />
+    <div className='tradingview-widget-container mt-[2%] md:w-full'>
+      <div id='tradingview_56581' className='h-[700px] w-[90%] mx-auto ' />
       <div className='tradingview-widget-copyright'>
         <a href='https://kr.tradingview.com/' rel='noopener nofollow' target='_blank'>
           Powered by TradingView
