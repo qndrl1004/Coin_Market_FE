@@ -6,7 +6,7 @@ import {
   faSearch,
   faStarHalfAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { ScrollToTop } from "./ScrollToTop";
+import { ScrollToTop } from "../../api/ScrollToTop-api";
 import { useState } from "react";
 
 interface HeaderProps {

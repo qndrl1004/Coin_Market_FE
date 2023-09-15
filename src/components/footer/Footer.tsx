@@ -1,12 +1,13 @@
+
 export default function Footer() {
+
   return (
     <footer>
       <section className='w-screen'>
-        <div className='relative flex items-center bg-black text-white'>
-
+        <div className='flex items-center bg-black text-white'>
           <div>
             <div className='w-[200px]'>
-              <img src="src/assets/footer.png" alt='' className='' />
+              <img src="../../src/assets/footer.png" alt='' className='' />
             </div>
             <div className='bg-black text-white'>
               <span className='ml-[40px] text-xs'>© 2023 CoinView. All rights reserved</span>
@@ -14,7 +15,7 @@ export default function Footer() {
           </div>
 
           <div className='flex-1 flex-wrap'>
-            <div className='absolute inset-y-0 right-0 my-6 mr-20 border-4 rounded-xl border-[#efda7a] border-opacity-70 overflow-hidden	'>
+            <div className='inset-y-0 right-0 my-6 mr-20 border-4 rounded-xl border-[#efda7a] border-opacity-70 overflow-hidden	'>
 
               <div className='flex justify-center mt-2'>
                 <h2 className='font-bold mb-[25px]'>CoinView's Developers</h2>
