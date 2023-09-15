@@ -1,7 +1,14 @@
-import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { NowPrice } from "./pages/public/Now-price";
+import TradingViewWidget from "./pages/public/TradingView-api";
 
 export default function App() {
   return (
-    <h1 className="text-6xl font-bold underline bg-slate-300">Hello world!</h1>
+    <Router>
+      <Routes>
+        <Route path="/" element={<NowPrice />} />
+        <Route path="/trading-view/:currency" element={<TradingViewWidget />} />
+      </Routes>
+    </Router>
   );
 }

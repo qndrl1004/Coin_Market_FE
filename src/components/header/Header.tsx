@@ -20,29 +20,29 @@ export default function Header({ onSearch }: HeaderProps) {
     onSearch(searchTerm);
   };
   return (
-    <>
+    <div className="w-screen  my-[140px]">
       <header>
-        <section className="fixed w-screen -translate-y-36 z-10">
+        <section className="fixed z-10 w-screen -translate-y-36">
           <div>
-            <div className="fixed block w-full h-36 bg-white border-grey-200 border-solid border-y-2 "></div>
-            <a href="#">
+            <div className="fixed block w-full bg-white border-solid h-36 border-grey-200 border-y-2 "></div>
+            <a href="/">
               <img
                 src="/src/assets/header.png"
                 alt=""
-                className="fixed top-0 left-0 right-0 w-72 h-36 cursor-pointer "
+                className="fixed top-0 left-0 right-0 cursor-pointer w-72 h-36 "
               />
             </a>
           </div>
           <div>
-            <button className="fixed top-0 w-[70px] h-[70px] text-xl right-24 ">
+            <button className="fixed w-[70px] h-[70px] top-2 text-xl right-28 ">
               <FontAwesomeIcon icon={faMoon} size="lg" />
             </button>
-            <button className="fixed w-20 px-2 py-1 border-black border-solid rounded h-15 top-4 border-1 right-4 hover:bg-[#efda7a] hover:ring-[#efda7a] hover:text-white">
+            <button className="fixed w-20 px-2 py-1 border-black border-solid rounded top-6 border-1 right-8 hover:bg-[#efda7a] hover:ring-[#efda7a] hover:text-white">
               로그인
             </button>
           </div>
           <div>
-            <a className="fixed px-5 cursor-pointer hover:underline underline-offset-2 hover:text-[#efda7a] mr-80 top-20 right-10 ">
+            <a className="fixed px-5 cursor-pointer hover:underline underline-offset-2 hover:text-[#efda7a] mr-80 top-24 right-14 ">
               <FontAwesomeIcon
                 icon={faStarHalfAlt}
                 style={{
@@ -52,7 +52,7 @@ export default function Header({ onSearch }: HeaderProps) {
               />
               관심목록
             </a>
-            <a className="fixed px-2 cursor-pointer mr-60 top-20 right-6 hover:underline underline-offset-2 hover:text-[#38bdf8] ">
+            <a className="fixed px-2 cursor-pointer mr-60 top-24 right-10 hover:underline underline-offset-2 hover:text-[#38bdf8] ">
               <FontAwesomeIcon
                 icon={faChartPie}
                 style={{
@@ -62,7 +62,7 @@ export default function Header({ onSearch }: HeaderProps) {
               />
               포트폴리오
             </a>
-            <div className="fixed rounded-l-lg rounded-r-lg top-20 right-3 bg-slate-200 ">
+            <div className="fixed rounded-l-lg rounded-r-lg top-24 right-7 bg-slate-200 ">
               <label htmlFor="search" className="px-1">
                 <FontAwesomeIcon
                   icon={faSearch}
@@ -76,7 +76,7 @@ export default function Header({ onSearch }: HeaderProps) {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className=" bg-slate-200 focus:outline-none"
               />
-              <button className="px-2 hover:text-white" onClick={handleSearch}>
+              <button className="px-1 hover:text-white" onClick={handleSearch}>
                 검색
               </button>
             </div>
@@ -84,6 +84,6 @@ export default function Header({ onSearch }: HeaderProps) {
         </section>
       </header>
       <ScrollToTop />
-    </>
+    </div>
   );
 }

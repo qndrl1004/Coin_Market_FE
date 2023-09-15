@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../../components/header/Header";
+import { Link } from "react-router-dom";
 
 interface BithumbResponse {
   status: string;
@@ -71,11 +73,10 @@ export const NowPrice: React.FC = () => {
   return (
     <div>
       <Header onSearch={handleSearch} />
-      <h1 className="mb-4 text-2xl font-semibold">Bithumb API Data</h1>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       <div className="ml-4 mt-28">
-        <table className="w-2/3">
+        <table className="w-2/3 ">
           <thead className="text-center">
             <tr className="space-x-4 bg-gray-200">
               <th className="flex-1 py-2">즐겨찾기</th>
@@ -91,32 +92,39 @@ export const NowPrice: React.FC = () => {
             {filteredCoins.map((currency) => {
               const item = responseData?.data[currency];
               if (!item) return null;
+
               return (
-                <tr key={currency} className="space-x-4 bg-white">
+                <tr
+                  key={currency}
+                  className="cursor-pointer hover:bg-[#efda7a]"
+                >
                   <td className="flex-1 py-2">
-                    <FontAwesomeIcon icon={faStar} className="" />
+                    <FontAwesomeIcon icon={faStar} />
                   </td>
                   <td className="flex-1 py-2">
-                    <a
-                      href="#"
-                      className="cursor-pointer hover:underline underline-offset-2 hover:text-[#efda7a]"
-                    >
-                      {currency}
+                    <Link to={`/trading-view/${currency}`}>{currency}</Link>
+                  </td>
+                  <td className="flex-1 py-2">
+                    <a href="#">
+                      {Number(item.opening_price).toLocaleString()}원
                     </a>
                   </td>
                   <td className="flex-1 py-2">
-                    {Number(item.opening_price).toLocaleString()}원
+                    <a href="#">{Math.floor(item.units_traded)}</a>
                   </td>
                   <td className="flex-1 py-2">
-                    {Math.floor(item.units_traded)}
+                    <a href="#">
+                      {Math.floor(item.acc_trade_value).toLocaleString()}원
+                    </a>
                   </td>
                   <td className="flex-1 py-2">
-                    {Math.floor(item.acc_trade_value).toLocaleString()}원
+                    <a href="#">
+                      {Number(item.prev_closing_price).toLocaleString()}원
+                    </a>
                   </td>
                   <td className="flex-1 py-2">
-                    {Number(item.prev_closing_price).toLocaleString()}원
+                    <a href="#">{item.fluctate_rate_24H}</a>
                   </td>
-                  <td className="flex-1 py-2">{item.fluctate_rate_24H}</td>
                 </tr>
               );
             })}
