@@ -1,63 +1,39 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Header from "../../components/header/Header";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
-interface BithumbResponse {
-  status: string;
-  data: {
-    [key: string]: {
-      opening_price: number;
-      closing_price: number;
-      max_price: number;
-      min_price: number;
-      units_traded: number;
-      acc_trade_value: number;
-      prev_closing_price: number;
-      fluctate_rate_24H: number;
-    };
-  };
-}
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import { BithumbResponse, TradingChartApi } from "../../api/TradingChart-api";
 
 export const NowPrice: React.FC = () => {
   const [responseData, setResponseData] = useState<BithumbResponse | null>(
     null
   );
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const onDataLoaded = (data: BithumbResponse) => {
+    setResponseData(data);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const options = {
-          method: "GET",
-          url: "https://api.bithumb.com/public/ticker/ALL_KRW",
-          headers: { accept: "application/json" },
-        };
-
-        const response = await axios.request<BithumbResponse>(options);
-        setResponseData(response.data);
-        setLoading(false);
-      } catch (error: any) {
-        setError(error?.message || "An error occurred");
-        setLoading(false);
+        if (searchTerm.trim() !== "") {
+          const response = await axios.get(
+            `http://localhost:5173/search?term=${searchTerm}`
+          );
+          const data = response.data;
+          onDataLoaded(data);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-    const intervalId = setInterval(fetchData, 5000);
-
-    return () => clearInterval(intervalId);
-  }, []);
-
-  const handleSearch = (searchTerm: string) => {
-    setSearchTerm(searchTerm);
-  };
+  }, [searchTerm]);
 
   const filterCoins = (data: BithumbResponse | null, searchTerm: string) => {
     if (!data) return [];
@@ -72,11 +48,9 @@ export const NowPrice: React.FC = () => {
 
   return (
     <div>
-      <Header onSearch={handleSearch} />
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      <div className="ml-4 mt-28">
-        <table className="w-2/3 ">
+      <TradingChartApi onDataLoaded={onDataLoaded} />
+      <div className="md:mt-36">
+        <table className="w-2/3">
           <thead className="text-center">
             <tr className="space-x-4 bg-gray-200">
               <th className="flex-1 py-2">즐겨찾기</th>
@@ -89,7 +63,7 @@ export const NowPrice: React.FC = () => {
             </tr>
           </thead>
           <tbody className="text-center">
-            {filteredCoins.map((currency) => {
+            {filteredCoins.map((currency: any) => {
               const item = responseData?.data[currency];
               if (!item) return null;
 
@@ -105,25 +79,29 @@ export const NowPrice: React.FC = () => {
                     <Link to={`/trading-view/${currency}`}>{currency}</Link>
                   </td>
                   <td className="flex-1 py-2">
-                    <a href="#">
-                      {Number(item.opening_price).toLocaleString()}원
-                    </a>
+                    <Link to={`/trading-view/${currency}`}>
+                      ₩{Number(item.opening_price).toLocaleString()}
+                    </Link>
                   </td>
                   <td className="flex-1 py-2">
-                    <a href="#">{Math.floor(item.units_traded)}</a>
+                    <Link to={`/trading-view/${currency}`}>
+                      {Math.floor(item.units_traded).toLocaleString()}
+                    </Link>
                   </td>
                   <td className="flex-1 py-2">
-                    <a href="#">
-                      {Math.floor(item.acc_trade_value).toLocaleString()}원
-                    </a>
+                    <Link to={`/trading-view/${currency}`}>
+                      ₩{Math.floor(item.acc_trade_value).toLocaleString()}
+                    </Link>
                   </td>
                   <td className="flex-1 py-2">
-                    <a href="#">
-                      {Number(item.prev_closing_price).toLocaleString()}원
-                    </a>
+                    <Link to={`/trading-view/${currency}`}>
+                      ₩{Number(item.prev_closing_price).toLocaleString()}
+                    </Link>
                   </td>
                   <td className="flex-1 py-2">
-                    <a href="#">{item.fluctate_rate_24H}</a>
+                    <Link to={`/trading-view/${currency}`}>
+                      {item.fluctate_rate_24H}%
+                    </Link>
                   </td>
                 </tr>
               );
