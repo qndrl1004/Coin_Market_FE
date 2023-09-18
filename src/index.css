@@ -17,6 +17,10 @@ body {
   font-size: 1rem;
 }
 
+::-webkit-scrollbar {
+  display: auto;
+}
+
 li {
   list-style: none;
 }
@@ -44,6 +48,21 @@ svg,
 canvas,
 iframe {
   display: block;
+}
+
+.container {
+  overflow: hidden;
+  margin: 0 auto;
+  padding-top: 45px;
+}
+
+.table-container {
+  max-height: 535px;
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 @tailwind base;

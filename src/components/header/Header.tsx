@@ -3,6 +3,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartPie,
+  faKey,
   faMoon,
   faSearch,
   faStarHalfAlt,
@@ -20,24 +21,44 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 z-10 w-full bg-white shadow-md">
-      <div className="container flex items-center justify-between h-full px-4 py-2 mx-auto md:py-4">
-        <a href="/" className="">
-          <img src="/src/assets/header.png" alt="" className="w-72 h-36" />
+    <header className="md:fixed md:top-0 md:z-10 md:w-full md:bg-white md:shadow-md md:h-1/6 ">
+      <div className="mx-auto md:container md:flex md:items-center md:justify-around md:w-full md:h-full md:px-4 md:py-2 ">
+        <a href="/" className="md:fixed md:flex md:flex-shrink-0 ">
+          <img
+            src="/src/assets/header.png"
+            alt="logo"
+            className="w-48 h-24 md:w-72 md:h-36"
+          />
         </a>
-        <div className="hidden space-x-4 md:flex">
-          <button className="text-xl">
-            <FontAwesomeIcon icon={faMoon} size="lg" />
+
+        <div className="md:fixed md:top-0 md:p-4 md:mt-3 md:space-x-8 md:right-[20%] md:flex">
+          <button className="md:text-xl md:cursor-pointer md:hover:text-[#efda7a]">
+            <FontAwesomeIcon
+              icon={faMoon}
+              size="lg"
+              style={{
+                paddingRight: "7px",
+              }}
+            />
           </button>
-          <button className="px-2 py-1 border border-black rounded hover:bg-[#efda7a] hover:ring-[#efda7a] hover:text-white">
+          <a
+            href="/login"
+            className=" md:cursor-pointer md:hover:underline md:hover:text-[#494949]"
+          >
+            <FontAwesomeIcon
+              icon={faKey}
+              style={{
+                paddingRight: "7px",
+              }}
+            />
             로그인
-          </button>
+          </a>
         </div>
-        <div className="flex-grow"></div>
-        <div className="flex items-center space-x-4 md:space-x-8">
+
+        <div className="md:fixed md:flex md:mt-12 md:mr-[50%] md:space-x-2 ">
           <a
             href="/favorites"
-            className="cursor-pointer hover:underline hover:text-[#efda7a]"
+            className="md:mt-1  md:cursor-pointer md:hover:underline md:hover:text-[#efda7a]"
           >
             <FontAwesomeIcon
               icon={faStarHalfAlt}
@@ -50,7 +71,7 @@ export default function Header() {
           </a>
           <a
             href="/portfolio"
-            className="cursor-pointer hover:underline hover:text-[#38bdf8]"
+            className="md:mt-1 md:px-6 md:cursor-pointer md:hover:underline md:hover:text-[#38bdf8] "
           >
             <FontAwesomeIcon
               icon={faChartPie}
@@ -61,30 +82,26 @@ export default function Header() {
             />
             포트폴리오
           </a>
+        </div>
 
-          <div className="relative bg-slate-200">
-            <label htmlFor="search" className="absolute px-1 top-1 left-2">
-              <FontAwesomeIcon
-                icon={faSearch}
-                style={{ paddingRight: "7px" }}
-              />
-            </label>
-            <input
-              type="text"
-              placeholder="코인입력"
-              onChange={(e) => setSearchTerm(e.target.value)}
-              onKeyPress={handleSearch}
-              value={searchTerm}
-              className="py-1 pl-8 pr-4 rounded focus:outline-none bg-slate-200"
-            />
-
-            <a
-              href={`/search/${searchTerm}`}
-              className="absolute px-1 top-1 right-2 hover:text-white"
-            >
-              검색
-            </a>
-          </div>
+        <div className="md:fixed md:flex md:bg-slate-200 md:mt-12 md:ml-[50%]">
+          <label htmlFor="search" className=" md:px-1 md:py-1">
+            <FontAwesomeIcon icon={faSearch} style={{ paddingRight: "7px" }} />
+          </label>
+          <input
+            type="text"
+            placeholder="코인입력"
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyPress={handleSearch}
+            value={searchTerm}
+            className="md:py-1 md:rounded md:focus:outline-none md:bg-slate-200"
+          />
+          <a
+            href={`/search/${searchTerm}`}
+            className="md:py-1 md:pr-1 md:bg-slate-200 md:hover:text-white "
+          >
+            검색
+          </a>
         </div>
       </div>
       <ScrollToTop />
