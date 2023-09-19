@@ -13,8 +13,11 @@ h1 {
   font-size: 20px;
 }
 
+html,
 body {
   font-size: 1rem;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -51,14 +54,14 @@ iframe {
 }
 
 .container {
-  overflow: hidden;
   margin: 0 auto;
-  padding-top: 45px;
 }
 
 .table-container {
-  max-height: 535px;
-  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 ::-webkit-scrollbar {

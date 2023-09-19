@@ -33,19 +33,19 @@ export const NowPrice: React.FC = () => {
   const filteredCoins = filterCoins(responseData, searchTerm);
 
   return (
-    <div className="container md:top-0 md:mt-[6%] md:flex md:items-center md:justify-center ">
+    <div className="container mt-[60%] md:top-0 md:mt-40 md:flex md:items-center md:justify-center ">
       <TradingChartApi onDataLoaded={onDataLoaded} />
       <div className="md:w-2/3">
-        <div className="table-container">
+        <div className="top-0 -mt-[27%] table-container md:top-0 md:flex md:mt-0">
           <table className="md:w-full">
-            <thead className=" md:border-gray-200 md:text-center md:border-b md:shadow-md">
-              <tr className="md:space-x-4 md:bg-gray-200 md:shadow-md">
+            <thead className="shadow-md md:border-gray-200 md:text-center md:border-b md:shadow-md">
+              <tr className="bg-gray-200 shadow-md md:bg-gray-200 md:shadow-md">
                 <th className="hidden md:flex-1 md:py-2 md:table-cell">
                   즐겨찾기
                 </th>
                 <th className="md:flex-1 md:py-2">가상코인</th>
                 <th className="md:flex-1 md:py-2">현재가</th>
-                <th className="md:flex-1 md:py-2">거래량</th>
+                <th className="md:flex-1 md:py-2 ">거래량</th>
                 <th className="hidden md:flex-1 md:py-2 md:table-cell">
                   거래금액
                 </th>
@@ -76,16 +76,16 @@ export const NowPrice: React.FC = () => {
                 return (
                   <tr
                     key={currency}
-                    className=" md:cursor-pointer md:hover:bg-[#efda7a] md:shadow"
+                    className="shadow hover:bg-[#efda7a] md:cursor-pointer md:hover:bg-[#efda7a] md:shadow"
                   >
                     <td className="hidden md:flex-1 md:py-2 md:table-cell md:border-r md:border-gray-200">
                       <FontAwesomeIcon icon={faStar} />
                     </td>
-                    <td className="md:flex-1 md:py-2 md:border-r md:border-gray-200">
+                    <td className="flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200">
                       <Link to={`/trading-view/${currency}`}>{currency}</Link>
                     </td>
                     <td
-                      className={`md:flex-1 md:py-2 md:border-r md:border-gray-200 ${nowPriceClass}`}
+                      className={`flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 ${nowPriceClass}`}
                     >
                       <Link to={`/trading-view/${currency}`}>
                         ₩{Number(item.opening_price).toLocaleString()}
@@ -93,7 +93,7 @@ export const NowPrice: React.FC = () => {
                     </td>
                     <td
                       className={
-                        "md:flex-1 md:py-2 md:border-r md:border-gray-200"
+                        "flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 md:table-cell"
                       }
                     >
                       <Link to={`/trading-view/${currency}`}>
@@ -102,7 +102,7 @@ export const NowPrice: React.FC = () => {
                     </td>
                     <td
                       className={
-                        "hidden md:flex-1 md:py-2 md:border-r md:border-gray-200 md:table-cell"
+                        "hidden flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 md:table-cell"
                       }
                     >
                       <Link to={`/trading-view/${currency}`}>
@@ -114,7 +114,9 @@ export const NowPrice: React.FC = () => {
                         ₩{Number(item.prev_closing_price).toLocaleString()}
                       </Link>
                     </td>
-                    <td className={`md:flex-1 md:py-2 ${fluctuationClass}`}>
+                    <td
+                      className={`flex-1 py-2 md:flex-1 md:py-2 ${fluctuationClass}`}
+                    >
                       <Link to={`/trading-view/${currency}`}>
                         <FontAwesomeIcon
                           icon={

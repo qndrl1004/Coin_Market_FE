@@ -21,17 +21,20 @@ export default function Header() {
   };
 
   return (
-    <header className="md:fixed md:top-0 md:z-10 md:w-full md:bg-white md:shadow-md md:h-1/6 ">
-      <div className="mx-auto md:container md:flex md:items-center md:justify-around md:w-full md:h-full md:px-4 md:py-2 ">
-        <a href="/" className="md:fixed md:flex md:flex-shrink-0 ">
+    <header className="fixed top-0 z-10 w-full bg-white shadow-md h-[15%] md:flex md:top-0 md:z-10 md:w-full md:bg-white md:shadow-md md:h-1/6 ">
+      <div className="fixed items-center justify-center w-full md:flex md:items-center md:justify-center">
+        <a
+          href="/"
+          className="fixed top-0 items-center justify-center mt-2.5 md:flex md:items-center md:justify-center"
+        >
           <img
-            src="/src/assets/header.png"
+            src="../public/header.png"
             alt="logo"
-            className="w-48 h-24 md:w-72 md:h-36"
+            className="w-48 h-24 md:flex md:w-72 md:h-36 "
           />
         </a>
 
-        <div className="md:fixed md:top-0 md:p-4 md:mt-3 md:space-x-8 md:right-[20%] md:flex">
+        <div className="fixed space-x-8 top-0 mt-4 ml-[65%] md:top-0 md:mt-8 md:space-x-8 md:right-[20%] md:flex">
           <button className="md:text-xl md:cursor-pointer md:hover:text-[#efda7a]">
             <FontAwesomeIcon
               icon={faMoon}
@@ -55,7 +58,7 @@ export default function Header() {
           </a>
         </div>
 
-        <div className="md:fixed md:flex md:mt-12 md:mr-[50%] md:space-x-2 ">
+        <div className="fixed top-0 mt-[55px] space-x-3 ml-[48%] md:flex md:top-0 md:mt-[5%] md:-ml-[50%] md:space-x-2 ">
           <a
             href="/favorites"
             className="md:mt-1  md:cursor-pointer md:hover:underline md:hover:text-[#efda7a]"
@@ -84,7 +87,7 @@ export default function Header() {
           </a>
         </div>
 
-        <div className="md:fixed md:flex md:bg-slate-200 md:mt-12 md:ml-[50%]">
+        <div className="fixed top-0 mt-24 ml-[45%] bg-slate-200 md:flex md:bg-slate-200 md:top-0 md:mt-30 md:ml-[50%]">
           <label htmlFor="search" className=" md:px-1 md:py-1">
             <FontAwesomeIcon icon={faSearch} style={{ paddingRight: "7px" }} />
           </label>
@@ -94,11 +97,11 @@ export default function Header() {
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyPress={handleSearch}
             value={searchTerm}
-            className="md:py-1 md:rounded md:focus:outline-none md:bg-slate-200"
+            className=" bg-slate-200 md:py-1 md:rounded md:focus:outline-none md:bg-slate-200"
           />
           <a
             href={`/search/${searchTerm}`}
-            className="md:py-1 md:pr-1 md:bg-slate-200 md:hover:text-white "
+            className="-ml-6 md:py-1 md:pr-1 md:bg-slate-200 md:hover:text-white"
           >
             검색
           </a>
