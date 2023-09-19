@@ -1,20 +1,99 @@
-import {
-  faFaceSmile
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState, useEffect } from 'react';
+import EmojiBtn from '../components/emojiBtn/EmojiBtn';
 
 export default function ChattingWidget() {
+  const [inputText, setInputText] = useState('');
+  const [socket, setSocket] = useState<WebSocket | null>(null); // WebSocket 또는 null로 타입 설정
+
+  useEffect(() => {
+    // WebSocket 서버에 연결
+    const newSocket = new WebSocket('ws://example.com'); // WebSocket 서버 주소로 변경하세요
+    setSocket(newSocket);
+
+    // 컴포넌트 언마운트 시 소켓 연결 해제
+    return () => {
+      newSocket.close();
+    };
+  }, []);
+
+  const handleEmojiSelect = (emoji: string) => {
+    setInputText((prevText) => prevText + emoji);
+  };
+
+  const sendMessage = () => {
+    if (inputText.trim() !== '' && socket) {
+      // WebSocket을 통해 메시지 전송
+      socket.send(inputText);
+
+      // 메시지 전송 후 입력 필드 초기화
+      setInputText('');
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      sendMessage();
+
+      // 엔터 키를 누를 때 입력 필드 초기화
+      setInputText('');
+    }
+  };
   
   return (
-    <section className='flex flex-col my-[10%] mx-auto w-[90%] h-[500px] group border-2 border-solid rounded-lg border-gray-200'>
+    <section className='flex flex-col my-[0] mx-auto w-[100%] h-[800px] group border-2 border-solid rounded-lg border-slate-300'>
       {/* 채팅 */}
-      <div className='h-[90%] bottom-0 overflow-scroll mb-[5%] '>
+      <div className='bg-slate-60 h-[90%] bottom-0 overflow-scroll mb-[5%] '>
         {/* 채팅내용 */}
-        <div className='flex  w-[100%] min-h-[50px] border-b-2 border-solid  border-gray-200'>
-          <div className=' w-[90px] mx-[10px] mt-[20px]'>
-            <img className='' src="../../src/assets/KakaoTalk_Photo_2023-09-11-15-47-34.png" alt="프로필 이미지" />
+        <div className=' flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300'>
+          <div className='border-2 border-slate-300 w-[50px] mx-[10px] mt-[20px]'>
+            <img className='w-full' src="../../public/profileImage.png" alt="프로필 이미지" />
           </div>
-          <div className='flex flex-col '>
+          <div className='flex-1 flex flex-col '>
+            <div className='mt-[27px]'>
+              <span>이름(닉네임)</span>
+              <span className='ml-[10%]'>몇분 전</span>
+            </div>
+            <div className='my-[20px]'>
+              <span>Lorem ipsum dolor sit amet. Necessitatibus?</span>
+            </div>
+          </div>
+        </div>
+        {/* 채팅내용 */}
+        <div className=' flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300'>
+          <div className='border-2 border-slate-300  w-[50px] mx-[10px] mt-[20px]'>
+            <img className='w-full' src="../../public/profileImage.png" alt="프로필 이미지" />
+          </div>
+          <div className='flex-1 flex flex-col '>
+            <div className='mt-[27px]'>
+              <span>이름(닉네임)</span>
+              <span className='ml-[10%]'>몇분 전</span>
+            </div>
+            <div className='my-[20px]'>
+              <span>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus?</span>
+            </div>
+          </div>
+        </div>
+        {/* 채팅내용 */}
+        <div className=' flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300'>
+          <div className='border-2 border-slate-300  w-[50px] mx-[10px] mt-[20px]'>
+            <img className='w-full' src="../../public/profileImage.png" alt="프로필 이미지" />
+          </div>
+          <div className='flex-1 flex flex-col '>
+            <div className='mt-[27px]'>
+              <span>이름(닉네임)</span>
+              <span className='ml-[10%]'>몇분 전</span>
+            </div>
+            <div className='my-[20px]'>
+              <span>Necessitatibus?</span>
+            </div>
+          </div>
+        </div>
+        {/* 채팅내용 */}
+        <div className=' flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300'>
+          <div className='border-2 border-slate-300  w-[50px] mx-[10px] mt-[20px]'>
+            <img className='w-full' src="../../public/profileImage.png" alt="프로필 이미지" />
+          </div>
+          <div className='flex-1 flex flex-col '>
             <div className='mt-[27px]'>
               <span>이름(닉네임)</span>
               <span className='ml-[10%]'>몇분 전</span>
@@ -25,11 +104,11 @@ export default function ChattingWidget() {
           </div>
         </div>
         {/* 채팅내용 */}
-        <div className='flex  w-[100%] min-h-[50px] border-b-2 border-solid border-grey-200'>
-          <div className=' w-[90px] mx-[10px] mt-[20px]'>
-            <img className='' src="../../src/assets/KakaoTalk_Photo_2023-09-11-15-47-34.png" alt="프로필 이미지" />
+        <div className=' flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300'>
+          <div className='border-2 border-slate-300  w-[50px] mx-[10px] mt-[20px]'>
+            <img className='w-full' src="../../public/profileImage.png" alt="프로필 이미지" />
           </div>
-          <div className='flex flex-col '>
+          <div className='flex-1 flex flex-col '>
             <div className='mt-[27px]'>
               <span>이름(닉네임)</span>
               <span className='ml-[10%]'>몇분 전</span>
@@ -40,11 +119,41 @@ export default function ChattingWidget() {
           </div>
         </div>
         {/* 채팅내용 */}
-        <div className='flex  w-[100%] min-h-[50px] border-b-2 border-solid border-grey-200'>
-          <div className=' w-[90px] mx-[10px] mt-[20px]'>
-            <img className='' src="../../src/assets/KakaoTalk_Photo_2023-09-11-15-47-34.png" alt="프로필 이미지" />
+        <div className=' flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300'>
+          <div className='border-2 border-slate-300  w-[50px] mx-[10px] mt-[20px]'>
+            <img className='w-full' src="../../public/profileImage.png" alt="프로필 이미지" />
           </div>
-          <div className='flex flex-col '>
+          <div className='flex-1 flex flex-col '>
+            <div className='mt-[27px]'>
+              <span>이름(닉네임)</span>
+              <span className='ml-[10%]'>몇분 전</span>
+            </div>
+            <div className='my-[20px]'>
+              <span>adipisicing elit. Necessitatibus?</span>
+            </div>
+          </div>
+        </div>
+        {/* 채팅내용 */}
+        <div className=' flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300'>
+          <div className='border-2 border-slate-300  w-[50px] mx-[10px] mt-[20px]'>
+            <img className='w-full' src="../../public/profileImage.png" alt="프로필 이미지" />
+          </div>
+          <div className='flex-1 flex flex-col '>
+            <div className='mt-[27px]'>
+              <span>이름(닉네임)</span>
+              <span className='ml-[10%]'>몇분 전</span>
+            </div>
+            <div className='my-[20px]'>
+              <span>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet consectetur adipisicing  Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus?</span>
+            </div>
+          </div>
+        </div>
+        {/* 채팅내용 */}
+        <div className=' flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300'>
+          <div className='border-2 border-slate-300  w-[50px] mx-[10px] mt-[20px]'>
+            <img className='w-full' src="../../public/profileImage.png" alt="프로필 이미지" />
+          </div>
+          <div className='flex-1 flex flex-col '>
             <div className='mt-[27px]'>
               <span>이름(닉네임)</span>
               <span className='ml-[10%]'>몇분 전</span>
@@ -55,41 +164,11 @@ export default function ChattingWidget() {
           </div>
         </div>
         {/* 채팅내용 */}
-        <div className='flex  w-[100%] min-h-[50px] border-b-2 border-solid border-grey-200'>
-          <div className=' w-[90px] mx-[10px] mt-[20px]'>
-            <img className='' src="../../src/assets/KakaoTalk_Photo_2023-09-11-15-47-34.png" alt="프로필 이미지" />
+        <div className=' flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300'>
+          <div className='border-2 border-slate-300  w-[50px] mx-[10px] mt-[20px]'>
+            <img className='w-full' src="../../public/profileImage.png" alt="프로필 이미지" />
           </div>
-          <div className='flex flex-col '>
-            <div className='mt-[27px]'>
-              <span>이름(닉네임)</span>
-              <span className='ml-[10%]'>몇분 전</span>
-            </div>
-            <div className='my-[20px]'>
-              <span>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus?</span>
-            </div>
-          </div>
-        </div>
-        {/* 채팅내용 */}
-        <div className='flex  w-[100%] min-h-[50px] border-b-2 border-solid border-grey-200'>
-          <div className=' w-[90px] mx-[10px] mt-[20px]'>
-            <img className='' src="../../src/assets/KakaoTalk_Photo_2023-09-11-15-47-34.png" alt="프로필 이미지" />
-          </div>
-          <div className='flex flex-col '>
-            <div className='mt-[27px]'>
-              <span>이름(닉네임)</span>
-              <span className='ml-[10%]'>몇분 전</span>
-            </div>
-            <div className='my-[20px]'>
-              <span>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus?</span>
-            </div>
-          </div>
-        </div>
-        {/* 채팅내용 */}
-        <div className='flex  w-[100%] min-h-[50px] border-b-2 border-solid border-grey-200'>
-          <div className=' w-[90px] mx-[10px] mt-[20px]'>
-            <img className='' src="../../src/assets/KakaoTalk_Photo_2023-09-11-15-47-34.png" alt="프로필 이미지" />
-          </div>
-          <div className='flex flex-col '>
+          <div className='flex-1 flex flex-col '>
             <div className='mt-[27px]'>
               <span>이름(닉네임)</span>
               <span className='ml-[10%]'>몇분 전</span>
@@ -103,10 +182,10 @@ export default function ChattingWidget() {
       </div>
 
       {/* 채팅입력창 */}
-      <div className=' group cursor-pointer flex-1 flex items-center justify-center w-full -[100%] rounded-lg border-2 border-solid border-grey-200 transition-opacity duration-500 group-hover:border-blue-300 opacity-60 group-focus-within:border-blue-300'>
-        <input placeholder='할 얘기가 있으신가요?' className=' mx-[2%] w-[85%] h-[90%] text-lg placeholder:text-slate-800 outline-none' type="text" />
-        <div className=' flex-1 mx-[1%] h-[90%] rounded-md overflow-hidden'>
-          <button className=' w-[100%] h-[100%] transition-opacity duration-500 group-hover:opacity-100 opacity-60 '><FontAwesomeIcon icon={faFaceSmile} bounce spinReverse style={{color: "#2a1f51",}} /></button>
+      <div className='group cursor-pointer flex-1 flex items-center justify-center w-full -[100%] rounded-lg border-2 border-solid border-grey-200 transition-opacity duration-500 group-hover:border-blue-300 opacity-60 group-focus-within:border-blue-300'>
+        <input placeholder='할 얘기가 있으신가요?' className=' mx-[2%] w-[85%] h-[90%] text-lg placeholder:text-slate-800 outline-none' type="text" value={inputText} onChange={(e) => setInputText(e.target.value)} onKeyDown={handleKeyDown} />
+        <div className=' flex-1 mx-[1%] h-[90%]'>
+          <EmojiBtn onEmojiSelect={handleEmojiSelect}/>
         </div>
       </div>
     </section>
