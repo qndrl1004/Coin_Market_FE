@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 export default function TradingViewWidget() {
   const onLoadScriptRef = useRef<(() => void) | null>(null);
@@ -14,10 +14,10 @@ export default function TradingViewWidget() {
     onLoadScriptRef.current = createWidget;
 
     if (!isTVScriptLoaded) {
-      const script = document.createElement("script");
-      script.id = "tradingview-widget-loading-script";
-      script.src = "https://s3.tradingview.com/tv.js";
-      script.type = "text/javascript";
+      const script = document.createElement('script');
+      script.id = 'tradingview-widget-loading-script';
+      script.src = 'https://s3.tradingview.com/tv.js';
+      script.type = 'text/javascript';
       script.onload = () => {
         setIsTVScriptLoaded(true);
       };
@@ -35,24 +35,31 @@ export default function TradingViewWidget() {
 
     function createWidget() {
       if (
-        document.getElementById("tradingview_56581") &&
-        "TradingView" in window
+        document.getElementById('tradingview_56581') &&
+        'TradingView' in window
       ) {
         new (window as any).TradingView.widget({
           autosize: true,
           symbol: `BITHUMB:${coinName}KRW`,
-          interval: "240",
-          timezone: "Asia/Seoul",
-          theme: "white",
-          style: "9",
-          locale: "kr",
+          interval: '240',
+          timezone: 'Asia/Seoul',
+          theme: 'white',
+          style: '9',
+          locale: 'kr',
           enable_publishing: false,
-          backgroundColor: "rgba(255, 255, 255, 1)",
+          backgroundColor: 'rgba(255, 255, 255, 1)',
           withdateranges: true,
           hide_side_toolbar: false,
           allow_symbol_change: true,
-          studies: ["STD;RSI", "STD;Stochastic_RSI", "Volume@tv-basicstudies"],
-          container_id: "tradingview_56581",
+          studies: [
+            'STD;RSI',
+            'STD;Stochastic_RSI',
+            'Volume@tv-basicstudies',
+            'STD;Average%Day%Range',
+            'STD;MA%Ribbon',
+            'STD;TEMA',
+          ],
+          container_id: 'tradingview_56581',
           refresh_interval: 3000, // 3초마다 업데이트 (밀리초 단위)
         });
       }
@@ -60,12 +67,14 @@ export default function TradingViewWidget() {
   }, [isTVScriptLoaded, coinName]);
 
   return (
-    <div className='tradingview-widget-container mt-[2%] md:w-full'>
-      <div id='tradingview_56581' className='h-[700px] w-[90%] mx-auto ' />
+    <div className='tradingview-widget-containe min-w-[200px] h-[500px] m-[20px] md:h-[1000px]'>
+      <div id='tradingview_56581' className='h-[100%]' />
       <div className='tradingview-widget-copyright'>
-        <a href='https://kr.tradingview.com/' rel='noopener nofollow' target='_blank'>
-          Powered by TradingView
-        </a>
+        <a
+          href='https://kr.tradingview.com/'
+          rel='noopener nofollow'
+          target='_blank'
+        ></a>
       </div>
     </div>
   );

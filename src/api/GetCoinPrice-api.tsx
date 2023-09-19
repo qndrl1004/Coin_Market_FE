@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 export const GetCoinPrice: React.FC = () => {
   const [responseData, setResponseData] = useState<any | null>(null);
   const [price, setPrice] = useState<string | null>(null);
+  const [realPrice, setRealPrice] = useState<string | null>(null);
 
   const { currency } = useParams();
 
@@ -29,9 +30,7 @@ export const GetCoinPrice: React.FC = () => {
 
   useEffect(() => {
     fetchData();
-
     const intervalId = setInterval(fetchData, updateInterval);
-
     return () => clearInterval(intervalId);
   }, []);
 
@@ -41,5 +40,11 @@ export const GetCoinPrice: React.FC = () => {
     }
   }, [responseData]);
 
-  return price;
+  useEffect(() => {
+    if (price) {
+      setRealPrice(Number(price).toLocaleString())
+    }
+  }, [price])
+
+  return realPrice;
 };
