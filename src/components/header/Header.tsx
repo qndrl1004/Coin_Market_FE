@@ -11,7 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { ScrollToTop } from "../../api/ScrollToTop-api";
 import { useDarkMode } from "../../context/Dark-mode";
-import LoginModal from '../modal/LoginModal';
+import LoginModal from "../modal/LoginModal";
 
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -23,7 +23,7 @@ export default function Header() {
   };
 
   const closeLoginModal = () => {
-    setLoginModalOpen(false); // 모달을 닫기 위해 상태 변경
+    setLoginModalOpen(false);
   };
 
   const handleSearch = (e: any) => {
@@ -36,10 +36,8 @@ export default function Header() {
   return (
     <header
       className={`${
-        darkMode
-          ? "bg-[#22243b] text-white md:bg-[#22243b] md:text-white"
-          : "bg-white md:bg-white"
-      } fixed top-0 w-full border-b-4 border-black md:border-b-4 md:border-black h-[16%] md:flex md:top-0 md:z-10 md:w-full md:h-[16.5%] `}
+        darkMode ? "dark" : "light"
+      } fixed top-0 w-full opacity-100 z-10 md:opacity-100 h-[16%] md:flex md:top-0 md:z-10 md:w-full md:h-[16.5%] `}
     >
       <div className="fixed items-center justify-center w-full md:flex md:items-center md:justify-center">
         <a
@@ -47,9 +45,9 @@ export default function Header() {
           className="fixed top-0 items-center justify-center mt-[2%] md:flex md:top-0 md:mt-[0.2%] md:items-center md:justify-center"
         >
           <img
-            src={`${darkMode ? "/header-dark.png" : "/header.png"}`}
-            alt={`${darkMode ? "Header-dark" : "Header"}`}
-            className="w-48 h-[100px] md:flex md:w-72 md:h-[110px] "
+            src="/test.png"
+            alt="test"
+            className="w-[10vw] md:flex md:v-[100vw] md:] bg-red-500 "
           />
         </a>
 
@@ -79,7 +77,9 @@ export default function Header() {
           </button>
           <button
             className=" md:cursor-pointer md:hover:underline md:hover:text-[#494949]"
-            onClick={()=>{openLoginModal()}}
+            onClick={() => {
+              openLoginModal();
+            }}
           >
             <FontAwesomeIcon
               icon={faKey}

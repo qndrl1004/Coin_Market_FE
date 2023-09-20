@@ -1,11 +1,7 @@
-import React from 'react';
-import googleImage from '../../../public/google.png';
-import kakaoImage from '../../../public/kakao.png';
-import naverImage from '../../../public/naver.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faX
-} from "@fortawesome/free-solid-svg-icons";
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX } from "@fortawesome/free-solid-svg-icons";
+import { useDarkMode } from "../../context/Dark-mode";
 
 interface LoginModalProps {
   isModalOpen: boolean;
@@ -13,13 +9,14 @@ interface LoginModalProps {
 }
 
 const LoginModal: React.FC<LoginModalProps> = ({ isModalOpen, onClose }) => {
+  const { darkMode } = useDarkMode();
   const modalStyle = {
-    backgroundColor: isModalOpen ? 'rgba(0, 0, 0, 0.8)' : 'transparent',
-    display: isModalOpen ? 'block' : 'none',
+    backgroundColor: isModalOpen ? "rgba(0, 0, 0, 0.8)" : "transparent",
+    display: isModalOpen ? "block" : "none",
   };
 
   const handleCloseClick = () => {
-    onClose(); // 모달을 닫기 위한 함수 호출
+    onClose();
   };
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -28,40 +25,83 @@ const LoginModal: React.FC<LoginModalProps> = ({ isModalOpen, onClose }) => {
     }
   };
 
-
   return (
-      <div className="modal fixed w-full h-[1000px] bg-black opacity-100 transition-opacity duration-100 z-400"  style={modalStyle} onClick={handleBackdropClick}>
-        <div className="modal-content flex flex-col  justify-between bg-slate-200 border-1 border-slate-300 overflow-hidden shadow-lg shadow-slate-100  rounded-lg opacity-100 mx-auto mt-[110px] w-[300px] h-[500px] ">
-
-        <section className='loginSection flex-1 p-[10px] flex flex-col '>
-            <button className='closeBtn shadow-lg border-0 border-solid rounded-sm shadow-slate-200 w-[20px] h-[25px] ml-auto mb-[10px] transition-all duration-500 hover:bg-[#efda7a]' onClick={handleCloseClick}><FontAwesomeIcon icon={faX} /></button>
-            <div className='upBox bg-white flex justify-between items-center flex-col border-3 border-slate-300 overflow-hidden shadow-md shadow-slate-400 rounded-lg flex-1 w-full h-full p-[10px] py-[30px] '>
-              <div className='loginTitle bg-400'>
-                <h1 className='text-lg font-bold'>로그인</h1>
+    <div
+      className="modal fixed w-full h-[1000px] bg-black opacity-100 transition-opacity duration-100 z-400"
+      style={modalStyle}
+      onClick={handleBackdropClick}
+    >
+      <div className="modal-content flex flex-col  justify-between bg-slate-200 border-1 border-slate-300 overflow-hidden shadow-lg shadow-slate-100  rounded-lg opacity-100 mx-auto mt-[110px] w-[300px] h-[500px] ">
+        <section className="loginSection flex-1 p-[10px] flex flex-col ">
+          <button
+            className="closeBtn shadow-lg border-0 border-solid rounded-sm shadow-slate-200 w-[20px] h-[25px] ml-auto mb-[10px] transition-all duration-500 hover:bg-[#efda7a]"
+            onClick={handleCloseClick}
+          >
+            <FontAwesomeIcon icon={faX} />
+          </button>
+          <div
+            className={`${
+              darkMode ? "bg-[#22243b] md:bg-[#22243b]" : ""
+            } upBox bg-white flex justify-between items-center flex-col border-3 border-slate-300 overflow-hidden shadow-md shadow-slate-400 rounded-lg flex-1 w-full h-full p-[10px] py-[30px]`}
+          >
+            <div className="loginTitle bg-400">
+              <h1 className="text-lg font-bold">로그인</h1>
             </div>
-            <div className='w-full'>
-              <button className='loginBtn flex justify-between items-center w-full shadow-sm shadow-slate-400 rounded-lg h-[50px] transition-all duration-500 hover:bg-green-500'>
-                <img className='ml-[10px] w-[30px] h-[30px]' src={naverImage} alt="Naver image" />
-                <span className='ml-[30px] flex-1 text-start'>Continue with Naver</span>
+            <div className="w-full">
+              <button className="loginBtn flex justify-between items-center w-full shadow-sm shadow-slate-400 rounded-lg h-[50px] transition-all duration-500 hover:bg-green-500">
+                <img
+                  className="ml-[10px] w-[30px] h-[30px]"
+                  src="/naver.png"
+                  alt="Naver image"
+                />
+                <span className="ml-[30px] flex-1 text-start">
+                  Continue with Naver
+                </span>
               </button>
-              <button className='loginBtn flex justify-between items-center w-full shadow-sm shadow-slate-400 rounded-lg h-[50px] transition-all duration-500 hover:bg-yellow-400 my-[20px]'>
-                <img className='ml-[10px] w-[30px] h-[30px]' src={kakaoImage} alt="kakao image" />
-                <span className='ml-[30px] flex-1 text-start'>Continue with Kakao</span>
+              <button className="loginBtn flex justify-between items-center w-full shadow-sm shadow-slate-400 rounded-lg h-[50px] transition-all duration-500 hover:bg-yellow-400 my-[20px]">
+                <img
+                  className="ml-[10px] w-[30px] h-[30px]"
+                  src="/kakao.png"
+                  alt="kakao image"
+                />
+                <span className="ml-[30px] flex-1 text-start">
+                  Continue with Kakao
+                </span>
               </button>
-              <button className='loginBtn flex justify-between items-center w-full shadow-sm shadow-slate-400 rounded-lg h-[50px] transition-all duration-500 hover:bg-blue-500'>
-                <img className='ml-[10px] w-[30px] h-[30px]' src={googleImage} alt="Google image" />
-                <span className='ml-[30px] flex-1 text-start'>Continue with Google</span>
+              <button className="loginBtn flex justify-between items-center w-full shadow-sm shadow-slate-400 rounded-lg h-[50px] transition-all duration-500 hover:bg-blue-500">
+                <img
+                  className="ml-[10px] w-[30px] h-[30px]"
+                  src="/google.png"
+                  alt="Google image"
+                />
+                <span className="ml-[30px] flex-1 text-start">
+                  Continue with Google
+                </span>
               </button>
             </div>
-              <div className='textCotainer'>
-                <p className='text-xs text-center'>
-                  By proceeding you agree to CoinView's <a href="/terms" className='TermsOfUse text-blue-500 underline hover:text-red-400'><br />Terms of Use</a> & <a href="/privacy" className='PrivacyPolicy text-blue-500 underline hover:text-red-400'>Privacy Policy</a>
-                </p>
-              </div>
+            <div className="textCotainer">
+              <p className="text-xs text-center">
+                By proceeding you agree to CoinView's{" "}
+                <a
+                  href="/terms"
+                  className="text-blue-500 underline TermsOfUse hover:text-red-400"
+                >
+                  <br />
+                  Terms of Use
+                </a>{" "}
+                &{" "}
+                <a
+                  href="/privacy"
+                  className="text-blue-500 underline PrivacyPolicy hover:text-red-400"
+                >
+                  Privacy Policy
+                </a>
+              </p>
             </div>
-          </section>
-        </div>
+          </div>
+        </section>
       </div>
+    </div>
   );
 };
 
