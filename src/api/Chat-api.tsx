@@ -199,7 +199,11 @@ export default function ChattingWidget() {
         {/* 채팅내용 */}
         <div className=" flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300">
           <div className="shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]">
-            <img className="w-full" src="profileImage.png" alt="profileImage" />
+            <img
+              className="w-full"
+              src="/profileImage.png"
+              alt="profileImage"
+            />
           </div>
           <div className="flex flex-col flex-1 ">
             <div className="mt-[27px]">
