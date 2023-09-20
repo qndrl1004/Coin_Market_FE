@@ -10,12 +10,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { BithumbResponse, TradingChartApi } from "../../api/TradingChart-api";
 import { ScrollToTop } from "../../api/ScrollToTop-api";
+import { useDarkMode } from "../../context/Dark-mode";
 
 export const NowPrice: React.FC = () => {
   const [responseData, setResponseData] = useState<BithumbResponse | null>(
     null
   );
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchTerm, _setSearchTerm] = useState<string>("");
+  const { darkMode } = useDarkMode();
 
   const onDataLoaded = (data: BithumbResponse) => {
     setResponseData(data);
@@ -33,13 +35,19 @@ export const NowPrice: React.FC = () => {
   const filteredCoins = filterCoins(responseData, searchTerm);
 
   return (
-    <div className="container mt-[60%] md:top-0 md:mt-40 md:flex md:items-center md:justify-center ">
+    <div className="container top-0 mt-[54%] items-center justify-center md:top-0 md:mt-[10%] md:flex md:items-center md:justify-center ">
       <TradingChartApi onDataLoaded={onDataLoaded} />
       <div className="md:w-2/3">
         <div className="top-0 -mt-[27%] table-container md:top-0 md:flex md:mt-0">
-          <table className="md:w-full">
+          <table className="w-full md:w-full">
             <thead className="shadow-md md:border-gray-200 md:text-center md:border-b md:shadow-md">
-              <tr className="bg-gray-200 shadow-md md:bg-gray-200 md:shadow-md">
+              <tr
+                className={`${
+                  darkMode
+                    ? "bg-[#22243b] text-white shadow-md md:bg-[#22243b] md:text-white md:shadow-md"
+                    : "bg-gray-200 shadow-md md:bg-gray-200 md:shadow-md"
+                }`}
+              >
                 <th className="hidden md:flex-1 md:py-2 md:table-cell">
                   즐겨찾기
                 </th>
@@ -55,7 +63,13 @@ export const NowPrice: React.FC = () => {
                 <th className="md:flex-1 md:py-2">변동률(24h)</th>
               </tr>
             </thead>
-            <tbody className="md:text-center">
+            <tbody
+              className={`text-center md:text-center ${
+                darkMode
+                  ? "bg-[#a9add5] text-white  md:bg-[#a9add5] md:text-white"
+                  : ""
+              }`}
+            >
               {filteredCoins.map((currency: any) => {
                 const item = responseData?.data[currency];
                 if (!item) return null;
@@ -88,7 +102,7 @@ export const NowPrice: React.FC = () => {
                       className={`flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 ${nowPriceClass}`}
                     >
                       <Link to={`/trading-view/${currency}`}>
-                        ₩{Number(item.opening_price).toLocaleString()}
+                        ₩{Number(item.closing_price).toLocaleString()}
                       </Link>
                     </td>
                     <td
@@ -136,8 +150,8 @@ export const NowPrice: React.FC = () => {
                 );
               })}
             </tbody>
-            <ScrollToTop />
           </table>
+          <ScrollToTop />
         </div>
       </div>
       <div />

@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { NowPrice } from "./pages/public/Now-price";
 import NowPriceAssets from "./pages/public/Now-price-assets";
-import NotFound from './pages/error/404';
+import NotFound from "./pages/error/404";
+import { PortFolioTracker } from "./pages/portfolio/Portfolio-tracker";
 
 export default function App() {
   return (
@@ -10,6 +11,7 @@ export default function App() {
         <Route path="/" element={<NowPrice />} />
         <Route path="/search/:currency" element={<NowPriceAssets />} />
         <Route path="/trading-view/:currency" element={<NowPriceAssets />} />
+        <Route path="/portfolio" element={<PortFolioTracker />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
