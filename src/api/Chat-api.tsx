@@ -40,12 +40,12 @@ export default function ChattingWidget() {
   };
   
   return (
-    <section className='flex flex-col my-[0] mx-auto w-[100%] h-[800px] group border-2 border-solid rounded-lg border-slate-300'>
+    <section className='relative flex flex-col my-[0] mx-auto w-[100%] h-[800px] group border-1 border-solid border-slate-300 rounded-lg shadow-md	shadow-slate-500 z-0'>
       {/* 채팅 */}
-      <div className='bg-slate-60 h-[90%] bottom-0 overflow-scroll mb-[5%] '>
+      <div className=' bg-slate-60 h-[90%] bottom-0 overflow-scroll mb-[5%] '>
         {/* 채팅내용 */}
         <div className=' flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300'>
-          <div className='border-2 border-slate-300 w-[50px] mx-[10px] mt-[20px]'>
+          <div className='shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]'>
             <img className='w-full' src="../../public/profileImage.png" alt="프로필 이미지" />
           </div>
           <div className='flex-1 flex flex-col '>
@@ -60,8 +60,8 @@ export default function ChattingWidget() {
         </div>
         {/* 채팅내용 */}
         <div className=' flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300'>
-          <div className='border-2 border-slate-300  w-[50px] mx-[10px] mt-[20px]'>
-            <img className='w-full' src="../../public/profileImage.png" alt="프로필 이미지" />
+          <div className='shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]'>
+            <img className='w-full' src="../../public/고양이.jpeg" alt="프로필 이미지" />
           </div>
           <div className='flex-1 flex flex-col '>
             <div className='mt-[27px]'>
@@ -75,8 +75,8 @@ export default function ChattingWidget() {
         </div>
         {/* 채팅내용 */}
         <div className=' flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300'>
-          <div className='border-2 border-slate-300  w-[50px] mx-[10px] mt-[20px]'>
-            <img className='w-full' src="../../public/profileImage.png" alt="프로필 이미지" />
+          <div className='shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]'>
+            <img className='w-full h-full' src="../../public/고윤정1.webp" alt="프로필 이미지" />
           </div>
           <div className='flex-1 flex flex-col '>
             <div className='mt-[27px]'>
@@ -90,8 +90,8 @@ export default function ChattingWidget() {
         </div>
         {/* 채팅내용 */}
         <div className=' flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300'>
-          <div className='border-2 border-slate-300  w-[50px] mx-[10px] mt-[20px]'>
-            <img className='w-full' src="../../public/profileImage.png" alt="프로필 이미지" />
+          <div className='shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]'>
+            <img className='w-full h-full' src="../../public/고윤정2.jpeg" alt="프로필 이미지" />
           </div>
           <div className='flex-1 flex flex-col '>
             <div className='mt-[27px]'>
@@ -105,8 +105,8 @@ export default function ChattingWidget() {
         </div>
         {/* 채팅내용 */}
         <div className=' flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300'>
-          <div className='border-2 border-slate-300  w-[50px] mx-[10px] mt-[20px]'>
-            <img className='w-full' src="../../public/profileImage.png" alt="프로필 이미지" />
+          <div className='shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]'>
+            <img className='w-full h-full' src="../../public/로파이.png" alt="프로필 이미지" />
           </div>
           <div className='flex-1 flex flex-col '>
             <div className='mt-[27px]'>
@@ -120,7 +120,7 @@ export default function ChattingWidget() {
         </div>
         {/* 채팅내용 */}
         <div className=' flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300'>
-          <div className='border-2 border-slate-300  w-[50px] mx-[10px] mt-[20px]'>
+          <div className='shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]'>
             <img className='w-full' src="../../public/profileImage.png" alt="프로필 이미지" />
           </div>
           <div className='flex-1 flex flex-col '>
@@ -135,7 +135,7 @@ export default function ChattingWidget() {
         </div>
         {/* 채팅내용 */}
         <div className=' flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300'>
-          <div className='border-2 border-slate-300  w-[50px] mx-[10px] mt-[20px]'>
+          <div className='shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]'>
             <img className='w-full' src="../../public/profileImage.png" alt="프로필 이미지" />
           </div>
           <div className='flex-1 flex flex-col '>
@@ -150,7 +150,7 @@ export default function ChattingWidget() {
         </div>
         {/* 채팅내용 */}
         <div className=' flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300'>
-          <div className='border-2 border-slate-300  w-[50px] mx-[10px] mt-[20px]'>
+          <div className='shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]'>
             <img className='w-full' src="../../public/profileImage.png" alt="프로필 이미지" />
           </div>
           <div className='flex-1 flex flex-col '>
@@ -165,7 +165,7 @@ export default function ChattingWidget() {
         </div>
         {/* 채팅내용 */}
         <div className=' flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300'>
-          <div className='border-2 border-slate-300  w-[50px] mx-[10px] mt-[20px]'>
+          <div className='shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]'>
             <img className='w-full' src="../../public/profileImage.png" alt="프로필 이미지" />
           </div>
           <div className='flex-1 flex flex-col '>
@@ -182,9 +182,9 @@ export default function ChattingWidget() {
       </div>
 
       {/* 채팅입력창 */}
-      <div className='group cursor-pointer flex-1 flex items-center justify-center w-full -[100%] rounded-lg border-2 border-solid border-grey-200 transition-opacity duration-500 group-hover:border-blue-300 opacity-60 group-focus-within:border-blue-300'>
+      <div className='absolute bottom-0 h-[60px] group cursor-pointer flex-1 flex items-center justify-center w-full rounded-lg border-2 border-solid border-grey-200 transition-opacity duration-500 group-hover:border-blue-300 group-focus-within:border-blue-300 opacity-100'>
         <input placeholder='할 얘기가 있으신가요?' className=' mx-[2%] w-[85%] h-[90%] text-lg placeholder:text-slate-800 outline-none' type="text" value={inputText} onChange={(e) => setInputText(e.target.value)} onKeyDown={handleKeyDown} />
-        <div className=' flex-1 mx-[1%] h-[90%]'>
+        <div className='z-410 flex-1 mx-[1%] h-[90%]'>
           <EmojiBtn onEmojiSelect={handleEmojiSelect}/>
         </div>
       </div>

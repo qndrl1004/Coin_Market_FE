@@ -20,17 +20,16 @@ export default function EmojiBtn({ onEmojiSelect }: EmojiBtnProps) {
 
   const handleEmojiSelect = (emoji: string) => {
     onEmojiSelect(emoji);
-    toggleSelector();
   };
 
   return (
-    <div className="relative emoji-container h-[100%] flex justify-center items-center border-2 rounded-lg w-[100%] ">
+    <div className="emoji-container h-[100%] flex justify-center items-center border-2 rounded-lg w-[100%] hover:bg-[#efda7a]">
       {isOpen && (
-        <div className="emoji-selector absolute bg-opacity-100 flex flex-wrap mb-[220px] mr-[114px] w-[150px] h-[150px] p-[3px] border-2 border-slate-500 rounded-lg bg-gray-500">
+        <div className="absolute emoji-selector z-400 flex flex-wrap mb-[220px] mr-[114px] w-[150px] h-[150px] p-[3px] border-2 shadow-lg shadow-slate-400 rounded-lg bg-white opacity-100">
           {emojiList.map((emoji, index) => (
             <div
               key={index}
-              className="emoji-item m-[4px] h-[20px] flex justify-center items-center border-2 border-slate-600 rounded-xl"
+              className="emoji-item m-[4px] w-[20px] h-[20px] flex justify-center items-center rounded-lg shadow-md shadow-slate-400"
               onClick={() => handleEmojiSelect(emoji)}
             >
               {emoji}
