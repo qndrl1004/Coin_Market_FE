@@ -9,7 +9,7 @@ export default function Footer() {
         <section className="w-screen">
           <div
             className={`md:flex items-center justify-between ${
-              darkMode ? "text-white bg-[#22243b]" : "text-black bg-white"
+              darkMode ? "dark" : "light"
             }`}
           >
             <div className="flex items-end md:items-center justify-center md:flex-col w-[300px] ">

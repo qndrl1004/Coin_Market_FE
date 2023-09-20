@@ -47,7 +47,7 @@ export default function Header() {
           <img
             src="/test.png"
             alt="test"
-            className="w-[10vw] md:flex md:v-[100vw] md:] bg-red-500 "
+            className="w-[10vw] md:flex md:w-[10vw] h-[200px] -mt-10 bg-red-500 "
           />
         </a>
 
