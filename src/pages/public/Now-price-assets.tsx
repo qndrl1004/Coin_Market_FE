@@ -19,11 +19,11 @@ export default function NowPriceAssets() {
   const coinName = currency;
 
   return (
-    <main className='mt-[140px] overflow-x-hidden md:min-h-[1100px]'>
-      <div className='w-screen md:flex overflow-x-hidden'>
+    <main className='mt-[130px] overflow-x-hidden md:min-h-[1100px]'>
+      <div className='w-screen md:flex overflow-x-hidden '>
         {/* 왼쪽창 */}
         <section className='min-w-[300px] p-[20px] border-b-2 border-solid border-grey-200 object-scale-down flex flex-col md:w-[400px] md:border-none '>
-        <div className='w-[100%] m-0 md:mb-[20px]'>
+        <div className='w-[100%] p-[10px] md:mb-[20px] shadow-sm	shadow-slate-500 border-1 rounded-md'>
           <div className=''>
             <div className='flex justify-between'>
               <div>
@@ -40,7 +40,7 @@ export default function NowPriceAssets() {
               <div className='flex mt-[20px]m'>
                 <div className=' flex-1 text-center mr-[7px]'>
                   <div className='group cursor-pointer'>
-                    <div className='mx-auto w-[25px] bg-slate-200	rounded-md overflow-hidden transition-all duration-500 group-hover:bg-yellow-400 group-hover:opacity-100 opacity-70'>
+                    <div className='mx-auto w-[25px] bg-slate-200	rounded-md overflow-hidden transition-all duration-500 group-hover:bg-[#efda7a] group-hover:opacity-100 opacity-70'>
                       <button><FontAwesomeIcon icon={faStar} size="sm" /></button>
                     </div>
                   </div>
@@ -48,7 +48,7 @@ export default function NowPriceAssets() {
                 <div className='flex-1 text-center'>
                   <div>
                     <div className='group cursor-pointer'>
-                      <div className='mx-auto w-[25px] bg-slate-200	rounded-md overflow-hidden transition-all duration-500 group-hover:bg-yellow-400 group-hover:opacity-100 opacity-70'>
+                      <div className='mx-auto w-[25px] bg-slate-200	rounded-md overflow-hidden transition-all duration-500 group-hover:bg-[#efda7a] group-hover:opacity-100 opacity-70'>
                         <button><FontAwesomeIcon icon={faShareNodes} size="sm"/></button>
                       </div>
                     </div>

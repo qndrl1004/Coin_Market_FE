@@ -11,10 +11,20 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { ScrollToTop } from "../../api/ScrollToTop-api";
 import { useDarkMode } from "../../context/Dark-mode";
+import LoginModal from '../modal/LoginModal';
 
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const { darkMode, toggleDarkMode } = useDarkMode();
+  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+
+  const openLoginModal = () => {
+    setLoginModalOpen(true);
+  };
+
+  const closeLoginModal = () => {
+    setLoginModalOpen(false); // 모달을 닫기 위해 상태 변경
+  };
 
   const handleSearch = (e: any) => {
     if (e.key === "Enter" && searchTerm.trim() !== "") {
@@ -67,9 +77,9 @@ export default function Header() {
               />
             )}
           </button>
-          <a
-            href="/login"
+          <button
             className=" md:cursor-pointer md:hover:underline md:hover:text-[#494949]"
+            onClick={()=>{openLoginModal()}}
           >
             <FontAwesomeIcon
               icon={faKey}
@@ -78,7 +88,7 @@ export default function Header() {
               }}
             />
             로그인
-          </a>
+          </button>
         </div>
 
         <div className="fixed top-0 mt-[50px] space-x-3 ml-[48%] md:flex md:top-0 md:mt-[5.5%] md:-ml-[50%] md:space-x-2 ">
@@ -132,6 +142,7 @@ export default function Header() {
         </div>
       </div>
       <ScrollToTop />
+      <LoginModal isModalOpen={isLoginModalOpen} onClose={closeLoginModal} />
     </header>
   );
 }
