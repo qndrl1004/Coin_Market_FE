@@ -4,16 +4,16 @@ export default function Footer() {
   const { darkMode } = useDarkMode();
 
   return (
-    <footer className="overflow-x-hidden">
-      <div className="border-t-4 border-black md:border-t-4 md:border-black">
+    <footer className="overflow-x-hidden md:h-[173px]">
+      <div className=" shadow-md shadow-slate-200 my-[6px] mx-[2px] rounded-lg overflow-hidden border-t-2 border-solid border-slate-200">
         <section className="w-screen">
           <div
             className={`md:flex items-center justify-between ${
               darkMode ? "dark" : "light"
             }`}
           >
-            <div className="flex items-end md:items-center justify-center md:flex-col w-[300px] ">
-              <div className="w-[30%] md:w-[200px]">
+            <div className="flex items-end md:items-center justify-center md:flex-col w-[300px]  ">
+              <div className="w-[40%] md:w-[100px]">
                 <img
                   src={`${darkMode ? "/footer-dark.png" : "/footer.png"}`}
                   alt={`${darkMode ? "Footer-dark" : "Footer"}`}
@@ -21,23 +21,25 @@ export default function Footer() {
               </div>
               <div
                 className={`${
-                  darkMode ? "mb-[20px] text-white" : "mb-[20px] text-black"
+                  darkMode ? " text-white" : "mb-[20px] text-black"
                 }`}
               >
-                <span className="text-[5px] md:ml-[40px]text">
-                  © 2023 CoinView. All rights reserved
-                </span>
               </div>
+                <span className="text-[4px]">
+                © 2023 CoinView.
+                <br />
+                All rights reserved
+                </span>
             </div>
 
-            <div className=" hidden md:block visible w-[800px]">
-              <div className="inset-y-0 right-0 flex items-center justify-center my-6 mr-20 overflow-hidden border-white shadow-lg border-1 rounded-xl border-opacity-70 shadow-white">
+            <div className=" hidden md:block visible w-[800px] ">
+              <div className=" flex items-center justify-center ml-40 overflow-hidden my-[10px] ">
                 <div className="mx-auto">
                   <div className="my-[2px] text-center ">
                     <h2 className="font-bold">GitHub</h2>
                   </div>
                   <ul className="flex-1 flex items-center justify-between w-[100%] p-[10px]">
-                    <li className="w-[100px]">
+                    <li className="w-[80px]">
                       <a
                         href="https://github.com/FullStackWeavers"
                         className="cursor-pointer group"
@@ -45,7 +47,7 @@ export default function Footer() {
                         <div className="overflow-hidden transition-opacity duration-500 border-2 rounded-lg group-hover:opacity-100 opacity-80">
                           <img
                             src="https://avatars.githubusercontent.com/u/144097591?s=200&v=4"
-                            alt="정붕기 깃허브 프로필"
+                            alt="FullStackWeavers's github link"
                             className="md:w-[100%]"
                           />
                         </div>
@@ -62,7 +64,7 @@ export default function Footer() {
 
                   <div className="flex flex-1">
                     <ul className="flex items-center justify-between w-[100%] p-[10px]">
-                      <li className="w-[100px]">
+                      <li className="w-[80px]">
                         <a
                           href="https://github.com/qndrl1004"
                           className="cursor-pointer group"
@@ -77,7 +79,7 @@ export default function Footer() {
                         </a>
                         <p className="text-[1px] text-center">qndrl1004</p>
                       </li>
-                      <li className="w-[100px] mx-[10px]">
+                      <li className="w-[80px] mx-[10px]">
                         <a
                           href="https://github.com/Ju-jh"
                           className="cursor-pointer group"
@@ -92,7 +94,7 @@ export default function Footer() {
                         </a>
                         <p className="text-[1px] text-center">Ju-jh</p>
                       </li>
-                      <li className="w-[100px] mr-[10px]">
+                      <li className="w-[80px] mr-[10px]">
                         <a
                           href="https://github.com/LKW9"
                           className="cursor-pointer group"
@@ -106,21 +108,6 @@ export default function Footer() {
                           </div>
                         </a>
                         <p className="text-[1px] text-center">LKW9</p>
-                      </li>
-                      <li className="w-[100px]">
-                        <a
-                          href="https://github.com/HanChangYun1"
-                          className="cursor-pointer group"
-                        >
-                          <div className=" border-2 rounded-lg overflow-hidden transition-opacity duration-500 group-hover:opacity-100 opacity-80 w-[100%] bg-green-500">
-                            <img
-                              src="https://avatars.githubusercontent.com/u/120299736?v=4"
-                              alt="한창윤 깃허브 프로필"
-                              className="w-[100%]"
-                            />
-                          </div>
-                        </a>
-                        <p className="text-[1px] text-center">HanChangYun1</p>
                       </li>
                     </ul>
                   </div>

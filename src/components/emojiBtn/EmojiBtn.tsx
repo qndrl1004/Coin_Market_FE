@@ -38,7 +38,7 @@ export default function EmojiBtn({ onEmojiSelect }: EmojiBtnProps) {
         </div>
       )}
       <button className="emoji-button relative w-[100%] h-[100%]" onClick={toggleSelector}>
-        <FontAwesomeIcon icon={faFaceSmile} className='text-lg text-black' />
+        <FontAwesomeIcon icon={faFaceSmile} className='text-lg text-yellow-500' />
       </button>
     </div>
   )

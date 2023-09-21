@@ -2,15 +2,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDarkMode } from '../context/Dark-mode';
 
 export default function TradingViewWidget() {
   const onLoadScriptRef = useRef<(() => void) | null>(null);
   const [isTVScriptLoaded, setIsTVScriptLoaded] = useState<boolean>(false);
   const { currency } = useParams();
+  const { darkMode } = useDarkMode();
 
   const coinName = currency;
 
   useEffect(() => {
+
     onLoadScriptRef.current = createWidget;
 
     if (!isTVScriptLoaded) {
@@ -43,11 +46,11 @@ export default function TradingViewWidget() {
           symbol: `BITHUMB:${coinName}KRW`,
           interval: '240',
           timezone: 'Asia/Seoul',
-          theme: 'white',
-          style: '9',
+          theme: `${darkMode ? 'dark' : 'light'}`,
+          style: '8',
           locale: 'kr',
           enable_publishing: false,
-          backgroundColor: 'rgba(255, 255, 255, 1)',
+          backgroundColor: `${darkMode ? 'rgba(0, 0, 0, 1)' : 'rgba(255, 255, 255, 1)'}`,
           withdateranges: true,
           hide_side_toolbar: false,
           allow_symbol_change: true,
@@ -64,7 +67,7 @@ export default function TradingViewWidget() {
         });
       }
     }
-  }, [isTVScriptLoaded, coinName]);
+  }, [isTVScriptLoaded, coinName, darkMode]);
 
   return (
     <div className='tradingview-widget-containe min-w-[200px] h-[500px] m-[20px] md:h-[1000px] shadow-lg	shadow-slate-500'>
