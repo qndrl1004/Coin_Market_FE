@@ -5,18 +5,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { BithumbResponse, TradingChartApi } from "../../api/TradingChart-api";
 import { Link } from "react-router-dom";
+import { useDarkMode } from "../../context/Dark-mode";
 
 export const WatchList: React.FC = () => {
     const [responseData, setResponseData] = useState<BithumbResponse | null>(
         null
     );
-    let DBdata = ['BTC', 'ETH', 'ETC']
-    let DBdata2 = ['BTC', 'ETH', 'ETC', 'XRP']
-    const [searchTerm, setSearchTerm] = useState<string>("");
+    const { darkMode } = useDarkMode();
+    let DBdata = ['BTC', 'ETH', 'ETC', 'BCH']
+    // let unitsTraded = [{}]
+    // let prevClosingPrice = [{}]
+    const [searchTerm, _setSearchTerm] = useState<string>("");
     const [showList, setShowList] = useState(false);
     const [showInput, setShowInput] = useState(false);
     const [inputValue, setInputValue] = useState("")
     const [nameList, setNameList] = useState(["DBdata", "DBdata2"])
+
+
 
     const onBtnShowInput = () => {
         setInputValue("")
@@ -32,7 +37,7 @@ export const WatchList: React.FC = () => {
     }
     const handleAddToList = () => {
         if (inputValue.trim() !== '') {
-            // setNameList([...nameList]);
+            setNameList([...nameList]);
             setInputValue('');
             setShowInput(false);
         }
@@ -60,21 +65,19 @@ export const WatchList: React.FC = () => {
     const filteredCoins = filterCoins(responseData, searchTerm);
 
     return (
-        <main className='mt-[140px] min-h-[1100px]'>
+        <main className='mt-[160px] min-h-[1100px]'>
             <TradingChartApi onDataLoaded={onDataLoaded} />
             <div className="flex justify-center ">
-                <div className="w-[80%] h-[100%]">
+                <div className="w-full md:w-[80%] h-[100%]">
                     <div className="pt-[3%]">
-                        <span className="bg-blue-600 rounded px-1 text-white text-[12px]">Main</span>
-                        <div className="flex items-center">
-                            <p className="text-[20px] pr-2 font-bold">My First Coin Watchlist</p>
-                            {/* 이름변경 */}
-
+                        <div className="flex justify-center md:justify-start items-center ">
+                            <span className="cursor-default md:absolute md:top-[15%] bg-blue-600 rounded px-1 text-white text-[1vw] mx-1">Main</span>
+                            <p className="cursor-default text-[3vw] md:text-[2vw] md:text-[2vw] pr-2 font-bold ">My First Coin Watchlist</p>
                             <button onClick={onBtnShowInput}>
                                 {showInput ? (
-                                    <div className="flex items-center">
+                                    <div className="flex">
                                         <div className=" mx-1 bg-gray-100">
-                                            <input className="bg-gray-100"
+                                            <input className="flex-1 bg-gray-100"
                                                 type="text"
                                                 value={inputValue}
                                                 onChange={handleInputChange}
@@ -88,7 +91,7 @@ export const WatchList: React.FC = () => {
                                 ) : (
                                     <div className="flex justify-center items-center bg-gray-200 h-5 w-5 px-2 rounded">
                                         <div className="text-center pb-1">
-                                            <FontAwesomeIcon className="text-[8px]" icon={faPen} style={{ color: 'gray' }} />
+                                            <FontAwesomeIcon className="text-[1vw]" icon={faPen} style={{ color: 'gray' }} />
                                         </div>
                                     </div>
                                 )}
@@ -99,135 +102,155 @@ export const WatchList: React.FC = () => {
                             <button className="pl-2 flex justify-center" onClick={onShowList}>
                                 {!showList ?
                                     <div>
-                                        <FontAwesomeIcon className="text-[8px] mb-1" icon={faChevronUp} />
+                                        <FontAwesomeIcon className="text-[2vw] md:text-[1vw] mb-1" icon={faChevronUp} />
                                     </div>
                                     :
                                     <div>
-                                        <FontAwesomeIcon className="text-[8px] mb-1" icon={faChevronDown} />
+                                        <FontAwesomeIcon className="text-[2vw] md:text-[1vw] mb-1" icon={faChevronDown} />
                                     </div>
                                 }
                             </button>
                         </div>
-                        <div className="flex">
-                            <ul className="text-center border-b-2">
+                        <div>
+                            <ul className="w-[100%] md:w-[25%] text-center" style={{ borderBottom: showList ? "#e5e7eb 2px solid" : "none" }}>
                                 {nameList.map((arr, index) => (
-                                    <li className="border-t-2" key={index} style={{ display: showList ? "block" : "none" }}>
+                                    <li className="border-t-2 hover:bg-gray-200" key={index} style={{ display: showList ? "block" : "none" }}>
                                         {arr}
                                     </li>
                                 ))}
                             </ul>
                         </div>
                     </div>
-                    <div className="pt-[8%] text-black">
+                    <div className="pt-[8%]">
                         <div className="flex justify-end py-4">
-                            <div className="text-[10px] h-[25px]">
-                                <button className="bg-gray-200 h-[100%] rounded px-2 mr-2">
+                            <div className="text-[1vw] h-[25px]">
+                                <button className={`${darkMode ? "bg-gray-500" : "bg-gray-200"} h-[100%] rounded px-2 mr-2`}>
                                     <FontAwesomeIcon className="pr-1" icon={faArrowUpFromBracket} />공유</button>
-                                <button className="bg-gray-200 h-[100%] rounded px-2 mr-2">
+                                <button className={`${darkMode ? "bg-gray-500" : "bg-gray-200"} h-[100%] rounded px-2 mr-2`}>
                                     <FontAwesomeIcon className="pr-1" icon={faPlus} />
                                     코인추가</button>
-                                <button className="bg-gray-200 h-[100%] rounded px-2 mr-2">...더</button>
-                                <button className="bg-gray-200 h-[100%] rounded px-2">
+                                <button className={`${darkMode ? "bg-gray-500" : "bg-gray-200"} h-[100%] rounded px-2 mr-2`}>...더</button>
+                                <button className={`${darkMode ? "bg-gray-500" : "bg-gray-200"} h-[100%] rounded px-2`}>
                                     <FontAwesomeIcon className="pr-1" icon={faMap} />
                                     맞춤설정</button>
                             </div>
                         </div>
-                        <table className="table-fixed pb-[200px]">
-                            <thead className=" h-[40px] bg-gray-100">
-                                <tr className="text-[10px]">
-                                    <th className="md:w-[10%] ">즐겨찾기</th>
-                                    <th className="md:w-[10%]">가상코인</th>
-                                    <th className="md:w-[20%]">현재가</th>
-                                    <th className="md:w-[10%]">거래량</th>
-                                    <th className="md:w-[20%] ">거래금액</th>
-                                    <th className="md:w-[15%] ">전일종가(24h)</th>
-                                    <th className="md:w-[10%]">변동률(24h)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {filteredCoins.map((currency: any) => {
-                                    (DBdata.indexOf(currency) == -1) ? currency = null : currency;
-                                    const item = responseData?.data[currency];
-                                    if (!item) return null;
-                                    if (currency === "date") return;
+                        <div className="flex">
+                            <table className="w-full table-fixed">
+                                <thead className={`h-[40px] ${darkMode ? "text-white bg-gray-500" : "bg-gray-100"}`}>
+                                    <tr className="text-[1vh] cursor-default">
+                                        <th className="hidden md:flex-1 md:table-cell">즐겨찾기</th>
+                                        <th className="flex-1">가상코인</th>
+                                        <th className="flex-1">현재가</th>
+                                        <th className="flex-1">거래량</th>
+                                        <th className="hidden md:flex-1 md:table-cell">거래금액</th>
+                                        <th className="hidden md:flex-1 md:table-cell">전일종가(24h)</th>
+                                        <th className="flex-1">변동률(24h)</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="drop-shadow-2xl border-b-2 border-white">
+                                    {filteredCoins.map((currency: any,index) => {
+                                        (DBdata.indexOf(currency) == -1) ? currency = null : currency;
+                                        const item = responseData?.data[currency];
+                                        if (!item) return null;
+                                        if (currency === "date") return;
+                                        console.log(index);
+                                        
+                                        // if (Math.floor(item.units_traded) > unitsTraded || Math.floor(item.units_traded) < unitsTraded) {
+                                        //     unitsTraded.push(currency, Math.floor(item.units_traded))
+                                        // }
+                                        // if (item.prev_closing_price > prevClosingPrice || item.prev_closing_price < prevClosingPrice) {
+                                        //     prevClosingPrice = item.prev_closing_price
+                                        // }
+
+                                        // const nowUnitsTraded =
+                                        //     Math.floor(item.units_traded) > unitsTraded
+                                        //         ? "text-red-500" : "text-blue-500";
+
+                                        // const nowPrevClosingPrice =
+                                        //     item.prev_closing_price > prevClosingPrice
+                                        //         ? "text-red-500" : "text-blue-500";
 
 
-                                    const fluctuationClass =
-                                        item.fluctate_rate_24H > 0
-                                            ? "text-red-500 "
-                                            : "text-blue-500";
-
-                                    const nowPriceClass =
-                                        item.opening_price > item.prev_closing_price
-                                            ? "text-red-500 "
-                                            : item.opening_price === item.prev_closing_price
-                                                ? "text-black"
+                                        const fluctuationClass =
+                                            item.fluctate_rate_24H > 0
+                                                ? "text-red-500 "
                                                 : "text-blue-500";
 
-                                    return (
-                                        <tr
-                                            key={currency}
-                                            className="shadow text-center hover:bg-[#efda7a] md:cursor-pointer md:hover:bg-[#efda7a] md:shadow"
-                                        >
-                                            <td className="hidden md:flex-1 md:py-2 md:table-cell md:border-r md:border-gray-200">
-                                                <FontAwesomeIcon icon={faStar} style={{ color: '#ffb574' }} />
-                                            </td>
-                                            <td className="flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200">
-                                                <Link to={`/trading-view/${currency}`}>{currency}</Link>
-                                            </td>
-                                            <td
-                                                className={`flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 ${nowPriceClass}`}
+                                        const nowPriceClass =
+                                            item.opening_price > item.prev_closing_price
+                                                ? "text-red-500 "
+                                                : item.opening_price === item.prev_closing_price
+                                                    ? ""
+                                                    : "text-blue-500";
+
+                                        return (
+                                            <tr
+                                                key={currency}
+                                                className={`${darkMode ? "border-t-2 border-white" : ""}shadow text-center hover:bg-[#efda7a] md:cursor-pointer md:hover:bg-[#efda7a] md:shadow`}
                                             >
-                                                <Link to={`/trading-view/${currency}`}>
-                                                    ₩{Number(item.opening_price).toLocaleString()}
-                                                </Link>
-                                            </td>
-                                            <td
-                                                className={
-                                                    "flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 md:table-cell"
-                                                }
-                                            >
-                                                <Link to={`/trading-view/${currency}`}>
-                                                    {Math.floor(item.units_traded).toLocaleString()}
-                                                </Link>
-                                            </td>
-                                            <td
-                                                className={
-                                                    "hidden flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 md:table-cell"
-                                                }
-                                            >
-                                                <Link to={`/trading-view/${currency}`}>
-                                                    ₩{Math.floor(item.acc_trade_value).toLocaleString()}
-                                                </Link>
-                                            </td>
-                                            <td className="hidden md:flex-1 md:py-2 md:border-r md:border-gray-200 md:table-cell">
-                                                <Link to={`/trading-view/${currency}`}>
-                                                    ₩{Number(item.prev_closing_price).toLocaleString()}
-                                                </Link>
-                                            </td>
-                                            <td
-                                                className={`flex-1 py-2 md:flex-1 md:py-2 ${fluctuationClass}`}
-                                            >
-                                                <Link to={`/trading-view/${currency}`}>
-                                                    <FontAwesomeIcon
-                                                        icon={
-                                                            item.fluctate_rate_24H >= 0
-                                                                ? faCaretUp
-                                                                : faCaretDown
-                                                        }
-                                                        size="sm"
-                                                        style={{
-                                                            paddingRight: "5px",
-                                                        }}
-                                                    />
-                                                    {Math.abs(item.fluctate_rate_24H).toFixed(2)}%
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        </table>
+                                                <td className="hidden md:flex-1 md:py-2 md:table-cell md:border-r md:border-gray-200">
+                                                    <FontAwesomeIcon icon={faStar} style={{ color: '#ffb574' }} />
+                                                </td>
+                                                <td className="flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200">
+                                                    <Link to={`/trading-view/${currency}`}>{currency}</Link>
+                                                </td>
+                                                {/* /////// */}
+                                                <td
+                                                    className={`flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 ${nowPriceClass}`}
+                                                >
+                                                    <Link to={`/trading-view/${currency}`}>
+                                                        ₩{Number(item.opening_price).toLocaleString()}
+                                                    </Link>
+                                                </td>
+                                                <td
+                                                    className={
+                                                        `flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 md:table-cell`
+                                                    }
+                                                >
+                                                    <Link to={`/trading-view/${currency}`}>
+                                                        {Math.floor(item.units_traded).toLocaleString()}
+                                                    </Link>
+                                                </td>
+                                                {/* /////// */}
+                                                <td
+                                                    className={
+                                                        `hidden flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 md:table-cell`
+                                                    }
+                                                >
+                                                    <Link to={`/trading-view/${currency}`}>
+                                                        ₩{Math.floor(item.acc_trade_value).toLocaleString()}
+                                                    </Link>
+                                                </td>
+                                                <td className="hidden md:flex-1 md:py-2 md:border-r md:border-gray-200 md:table-cell">
+                                                    <Link to={`/trading-view/${currency}`}>
+                                                        ₩{Number(item.prev_closing_price).toLocaleString()}
+                                                    </Link>
+                                                </td>
+                                                <td
+                                                    className={`flex-1 py-2 md:flex-1 md:py-2 ${fluctuationClass}`}
+                                                >
+                                                    <Link to={`/trading-view/${currency}`}>
+                                                        <FontAwesomeIcon
+                                                            icon={
+                                                                item.fluctate_rate_24H >= 0
+                                                                    ? faCaretUp
+                                                                    : faCaretDown
+                                                            }
+                                                            size="sm"
+                                                            style={{
+                                                                paddingRight: "5px",
+                                                            }}
+                                                        />
+                                                        {Math.abs(item.fluctate_rate_24H).toFixed(2)}%
+                                                    </Link>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

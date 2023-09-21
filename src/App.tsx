@@ -5,7 +5,7 @@ import NotFound from "./pages/error/404";
 import TermsOfUse from "./pages/notice/Terms-of-Use";
 import PrivacyPolicy from "./pages/notice/Privacy-Policy";
 import { PortFolioTracker } from "./pages/portfolio/Portfolio-tracker";
-import { WatchList } from "./pages/watchlist/WatchList";
+import { WatchList } from "./pages/watchlist/watchList";
 
 export default function App() {
   return (

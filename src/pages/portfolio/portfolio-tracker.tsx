@@ -21,11 +21,11 @@ export const PortFolioTracker = () => {
   };
 
   return (
-    <main className="mt-[130px]">
+    <main className="mt-[130px] min-h-[1100px]">
       <div className="flex justify-center">
         <div className="md:w-[80%] w-full md:h-[500px] h-full">
           <div className="hidden md:block md:pb-4 md:pt-8 text-glay-500 text-[8px]">
-            <span className="text-black ">
+            <span className=" text-[1vw]">
               <a href="#" className="text-gray-400">
                 홈
               </a>
@@ -59,14 +59,14 @@ export const PortFolioTracker = () => {
                   </div>
                 </div>
                 <div>
-                  <h2 className="font-bold text-[13px]">제목</h2>
+                  <h2 className="font-bold text-black text-[1vw]">제목</h2>
                   <span className="text-[10px] text-gray-500">
                     <FontAwesomeIcon icon={faWonSign} />
-                    <span className="text-[10px] ">0</span>
+                    <span className="text-[1vw] ">0</span>
                   </span>
                 </div>
               </div>
-              <span className="hidden md:flex justify-between items-center w-[90%] pt-3">
+              <span className="hidden md:flex cursor-pointer justify-between items-center w-[90%] pt-3">
                 <FontAwesomeIcon
                   className="pl-2"
                   icon={faCirclePlus}
@@ -79,20 +79,20 @@ export const PortFolioTracker = () => {
             </div>
             <div className="col-start-5 md:col-start-2 col-end-7 md:h-[100%] text-center flex justify-between">
               <div className="block md:hidden"></div>
-              <div className="hidden md:block">
-                <p className="text-[2px] text-gray-500">
+              <div className="hidden md:block text-center">
+                <p className="text-[1vw] text-gray-500">
                   현재 잔액
-                  <span className="text-[10px]">
+                  <span className="text-[1vw]">
                     <FontAwesomeIcon icon={faEye} />
                   </span>
                 </p>
-                <span className="text-[25px] font-medium ">
+                <span className="text-[2vw] font-medium ">
                   <FontAwesomeIcon icon={faWonSign} />
-                  <span className="text-[30px]">0</span>
+                  <span className="text-[2.5vw]">0</span>
                 </span>
-                <p className="text-[10px] text-green-500">
-                  + <FontAwesomeIcon icon={faWonSign} />
-                  <span className="pr-1 text-[12px]">0</span>
+                <p className="text-[1.2vw] text-green-500">
+                  + <FontAwesomeIcon className="text-[1vw]" icon={faWonSign} />
+                  <span className="pr-1 text-[1.2vw]">0</span>
                   <span className="px-1 text-gray-500 bg-gray-200 rounded">
                     24시간
                   </span>
@@ -107,12 +107,12 @@ export const PortFolioTracker = () => {
                 </button>
               </div>
             </div>
-            <p className="row-start-2 col-start-1 md:col-start-2 col-end-7 h-[100px] text-center  md:self-end self-start pb-5">
+            <p className="row-start-2 col-start-1 md:col-start-2 col-end-7 h-[100px] text-center text-[4vh]  md:self-end self-start pb-5">
               첫번째 포트폴리오를 시작합니다.
             </p>
             <div className="col-start-1 col-end-7 row-start-3 md:pl-2 md:col-start-2 md:flex md:justify-between">
               <div className="md:w-[48%] md:h-[30%] md:p-0 p-2">
-                <button className="flex rounded w-[100%] h-[80px] shadow-md">
+                <button className="flex rounded w-[100%] h-[80px] shadow-md shadow-white">
                   <div className="md:pt-4 pt-[30px] w-[20%] flex justify-center ">
                     <div className="w-6 h-6 text-center bg-gray-200 rounded-full">
                       <FontAwesomeIcon
@@ -143,7 +143,7 @@ export const PortFolioTracker = () => {
                 </button>
               </div>
               <div className="md:pr-2 md:w-[48%] md:h-[30%] md:p-0 p-2">
-                <button className="flex rounded w-[100%] h-[80px] shadow-md">
+                <button className="flex rounded w-[100%] h-[80px] shadow-md shadow-white">
                   <div className="md:pt-4 pt-[30px] w-[20%] flex justify-center ">
                     <div className="w-6 h-6 text-center bg-green-100 rounded-full">
                       <FontAwesomeIcon
