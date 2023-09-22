@@ -73,8 +73,7 @@ iframe {
   text-align: center;
 }
 
-@media (max-width: 768px) {
-}
+@media (max-width: 768px) {}
 
 @tailwind base;
 @tailwind components;

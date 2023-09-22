@@ -44,7 +44,7 @@ export default function ChattingWidget() {
   return (
     <section className={`relative flex flex-col my-[0] mx-auto w-[100%] h-[800px] group border-1 border-solid z-0 border-slate-300 rounded-lg shadow-md ${darkMode ? 'shadow-white':'shadow-slate-500'}`}>
       {/* 채팅 */}
-      <div className=" bg-slate-60 h-[90%] bottom-0 overflow-scroll mb-[5%] ">
+      <div className=" bg-slate-60 h-[90%] bottom-0 overflow-scroll overflow-x-hidden mb-[5%] ">
         {/* 채팅내용 */}
         <div className=" flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300">
           <div className="shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]">

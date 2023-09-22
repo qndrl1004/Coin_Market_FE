@@ -34,11 +34,13 @@ export default function Header() {
   };
 
   return (
+    
     <header
       className={`${
         darkMode ? "dark" : "light"
       } fixed top-0 w-full z-40 md:top-0 h-[120px] md:h-[155px] shadow-md shadow-slate-200 opacity-100`}
     >
+    <LoginModal isModalOpen={isLoginModalOpen} onClose={closeLoginModal} />
       <div className="flex items-center justify-between h-[100%] min-w-[300px] overflow-hidden mx-[20px]">
         {/* 로고 */}
         <a
@@ -47,7 +49,7 @@ export default function Header() {
         >
           <img
             src={`${darkMode ? "/header-dark.png" : "/header.png"}`}
-            alt={`${darkMode ? "Footer-dark" : "Footer"}`}
+            alt={`${darkMode ? "Header-dark" : "Header"}`}
           />
         </a>
 
@@ -78,7 +80,7 @@ export default function Header() {
               )}
             </button>
             <button
-              className=" md:cursor-pointer md:hover:underline md:hover:text-[#494949]"
+              className={` md:cursor-pointer md:hover:underline  ${darkMode? 'hover:text-[#efda7a]':'hover:text-blue-400'}`}
               onClick={() => {
                 openLoginModal();
               }}
@@ -152,7 +154,7 @@ export default function Header() {
         
       </div>
       <ScrollToTop />
-      <LoginModal isModalOpen={isLoginModalOpen} onClose={closeLoginModal} />
+      
     </header>
   );
 }

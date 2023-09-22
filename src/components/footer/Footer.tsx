@@ -4,8 +4,8 @@ export default function Footer() {
   const { darkMode } = useDarkMode();
 
   return (
-    <footer className="overflow-x-hidden md:h-[173px]">
-      <div className=" shadow-md shadow-slate-200 my-[6px] mx-[2px] rounded-lg overflow-hidden border-t-2 border-solid border-slate-200">
+    <footer className="overflow-x-hidden overflow-y-hidden md:h-[173px] ">
+      <div className=" shadow-md shadow-slate-200 my-[6px] mx-[2px] rounded-lg border-t-2 border-solid border-slate-200">
         <section className="w-screen">
           <div
             className={`md:flex items-center justify-between ${
