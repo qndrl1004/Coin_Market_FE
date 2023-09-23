@@ -12,6 +12,8 @@ import {
 import { BithumbResponse, TradingChartApi } from "../../api/TradingChart-api";
 import { ScrollToTop } from "../../api/ScrollToTop-api";
 import { useDarkMode } from "../../context/Dark-mode";
+import ChattingWidget from '../../api/Chat-api';
+import RealTimeTop5Coins from '../../api/GetTop5Coin-api';
 
 export const NowPrice: React.FC = () => {
   const [responseData, setResponseData] = useState<BithumbResponse | null>(
@@ -35,68 +37,102 @@ export const NowPrice: React.FC = () => {
 
   const filteredCoins = filterCoins(responseData, searchTerm);
 
+
+
   return (
-    <main className="mt-[130px] md:mt-[155px] overflow-x-hidden md:min-h-[1100px]">
-      <TradingChartApi onDataLoaded={onDataLoaded} />
-      <div className="flex items-center justify-center">
-        <div className="md:w-2/3">
-          <div className="max-h-[600px] overflow-y-scroll ">
-            <table className="w-full">
-              <thead className="shadow-md md:border-gray-200 md:text-center md:border-b md:shadow-md">
-                <tr className={`${darkMode}shadow-md  md:shadow-md`}>
-                  <th className="hidden md:flex-1 md:py-2 md:table-cell">
-                    즐겨찾기
-                  </th>
-                  <th className="md:flex-1 md:py-2">가상코인</th>
-                  <th className="md:flex-1 md:py-2">현재가</th>
-                  <th className="md:flex-1 md:py-2 ">거래량</th>
-                  <th className="hidden md:flex-1 md:py-2 md:table-cell">
-                    거래금액
-                  </th>
-                  <th className="hidden md:flex-1 md:py-2 md:table-cell">
-                    전일종가(24h)
-                  </th>
-                  <th className="md:flex-1 md:py-2">변동률(24h)</th>
-                </tr>
-              </thead>
-              <tbody className={`text-center md:text-center ${darkMode}`}>
-                {filteredCoins.map((currency: any) => {
-                  const item = responseData?.data[currency];
-                  if (!item) return null;
-                  if (currency === "date") return;
+    <main className="mt-[130px] md:mt-[155px] overflow-x-hidden md:min-h-[1100px] lg:flex">
+      <section className='min-w-[300px] md:w-[400px] hidden lg:block p-[20px] flex-col items-center '>
+        <div className='h-full flex flex-col'>
+          <div className='w-full h-[200px] mb-[20px] rounded-lg shadow-lg shadow-slate-400'>
+            <div className='w-full text-center'>
+              <RealTimeTop5Coins />
+            </div>
+          </div>
+          <div className='w-full'>
+            <ChattingWidget/>
+          </div>
+        </div>
+      </section>
+      <section className='flex-1 flex items-start justify-center p-[20px]'>
+        <TradingChartApi onDataLoaded={onDataLoaded} />
+        <div className="w-[100%] h-[700px] rounded-lg shadow-lg shadow-slate-400 overflow-x-auto">
+          <table className="w-full ">
+            <thead
+              className="min-h-[400px] shadow-md shadow-black bg-slate-400 md:border-gray-200 md:text-center sticky top-0"
+              style={{ zIndex: 1 }} // 이 부분을 추가합니다.
+              >
+              <tr className={`${darkMode}shadow-md md:shadow-md w-[100%] h-[50px]`}>
+                <th className="md:flex-1 md:py-2 md:table-cell w-[10%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
+                  즐겨찾기
+                </th>
+                <th className="md:flex-1 md:py-2 w-[10%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">가상코인</th>
+                <th className="md:flex-1 md:py-2 w-[15%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">현재가</th>
+                <th className="md:flex-1 md:py-2 w-[15%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">거래량</th>
+                <th className="hidden md:flex-1 md:py-2 md:table-cell w-[20%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
+                  거래금액
+                </th>
+                <th className="hidden md:flex-1 md:py-2 md:table-cell w-[20%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
+                  전일종가(24h)
+                </th>
+                <th className="md:flex-1 md:py-2 w-[20%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">변동률(24h)</th>
+              </tr>
+            </thead>
+            <tbody
+              className={`text-center md:text-center ${darkMode}`}
+            >
+              {filteredCoins.map((currency: any) => {
+                const item = responseData?.data[currency];
+                if (!item) return null;
+                if (currency === "date") return;
 
-                  const fluctuationClass =
-                    item.fluctate_rate_24H > 0
-                      ? "text-red-500 "
-                      : "text-blue-500";
+                const fluctuationClass =
+                  item.fluctate_rate_24H > 0
+                    ? "text-red-500 "
+                    : "text-blue-500";
 
-                  const nowPriceClass =
-                    item.closing_price > item.prev_closing_price
-                      ? "text-red-500 "
-                      : item.closing_price === item.prev_closing_price
-                      ? ""
-                      : "text-blue-500";
+                const nowPriceClass =
+                  item.closing_price > item.prev_closing_price
+                    ? "text-red-500 "
+                    : item.closing_price === item.prev_closing_price
+                    ? ""
+                    : "text-blue-500";
 
-                  return (
+                return (
                     <tr
                       key={currency}
-                      className="shadow hover:bg-[#efda7a] md:cursor-pointer md:hover:bg-[#efda7a] md:shadow"
+                      className={`cursor-pointer relative shadow-md border-1 border-solid hover:border-slate-400 ${darkMode?'hover:bg-yellow-600':'hover:bg-[#ffe45c]'}  hover:shadow-slate-400 transition-hover`}
+                      style={{ position: "relative", cursor: "pointer" }}
+                      onClick={(e) => {
+                        // 이동할 링크 설정
+                        const target = e.target as HTMLElement;
+                        if (target.parentElement?.id !== 'favorite') {
+                          window.location.href = `/trading-view/${currency}`;
+                        }
+                      }}
                     >
-                      <td className="hidden md:flex-1 md:py-2 md:table-cell md:border-r md:border-gray-200">
-                        <FontAwesomeIcon icon={faStar} />
+                      <td
+                        className="md:flex-1 md:table-cell md:border-r md:border-gray-200"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.location.href = `/favorites`;
+                        }}
+                        >
+                        <button id='favorite' className='w-full h-full hover:scale-150'>
+                          <FontAwesomeIcon icon={faStar} className='w-[100%]' />
+                        </button>
                       </td>
-                      <td className="flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200">
+                      <td className="flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 text-[4px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
                         <Link to={`/trading-view/${currency}`}>{currency}</Link>
                       </td>
                       <td
-                        className={`flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 ${nowPriceClass}`}
+                        className={`flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 ${nowPriceClass} text-[4px] sm:text-[12px] md:text-[15px] lg:text-[17px]`}
                       >
                         <Link to={`/trading-view/${currency}`}>
                           ₩{Number(item.closing_price).toLocaleString()}
                         </Link>
                       </td>
                       <td
-                        className={` flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 md:table-cell`}
+                        className={` flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 md:table-cell text-[4px] sm:text-[12px] md:text-[15px] lg:text-[17px]`}
                       >
                         <Link to={`/trading-view/${currency}`}>
                           {Math.floor(item.units_traded).toLocaleString()}
@@ -104,20 +140,20 @@ export const NowPrice: React.FC = () => {
                       </td>
                       <td
                         className={
-                          "hidden flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 md:table-cell"
+                          "hidden flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 md:table-cell text-[4px] sm:text-[12px] md:text-[15px] lg:text-[17px]"
                         }
                       >
                         <Link to={`/trading-view/${currency}`}>
                           ₩{Math.floor(item.acc_trade_value).toLocaleString()}
                         </Link>
                       </td>
-                      <td className="hidden md:flex-1 md:py-2 md:border-r md:border-gray-200 md:table-cell">
+                      <td className="hidden md:flex-1 md:py-2 md:border-r md:border-gray-200 md:table-cell text-[4px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
                         <Link to={`/trading-view/${currency}`}>
                           ₩{Number(item.prev_closing_price).toLocaleString()}
                         </Link>
                       </td>
                       <td
-                        className={`flex-1 py-2 md:flex-1 md:py-2 ${fluctuationClass}`}
+                        className={`flex-1 py-2 md:flex-1 md:py-2 ${fluctuationClass} text-[4px] sm:text-[12px] md:text-[15px] lg:text-[17px]`}
                       >
                         <Link to={`/trading-view/${currency}`}>
                           <FontAwesomeIcon
@@ -135,15 +171,15 @@ export const NowPrice: React.FC = () => {
                         </Link>
                       </td>
                     </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-            <ScrollToTop />
-          </div>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
-      </div>
-      <div />
+        <div />
+      </section>
+      <ScrollToTop />
     </main>
+
   );
 };
