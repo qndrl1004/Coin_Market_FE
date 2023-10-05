@@ -7,9 +7,13 @@ interface LoginModalProps {
   isModalOpen: boolean;
   onClose: () => void;
 }
-const getWindowHeight = () =>  {
-  return window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-}
+const getWindowHeight = () => {
+  return (
+    window.innerHeight ||
+    document.documentElement.clientHeight ||
+    document.body.clientHeight
+  );
+};
 
 const LoginModal: React.FC<LoginModalProps> = ({ isModalOpen, onClose }) => {
   const { darkMode } = useDarkMode();
@@ -17,7 +21,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isModalOpen, onClose }) => {
     backgroundColor: isModalOpen ? "rgba(0, 0, 0, 0.8)" : "transparent",
     display: isModalOpen ? "block" : "none",
   };
-  const [winHeight, setWinHeight] = useState(getWindowHeight)
+  const [winHeight, setWinHeight] = useState(getWindowHeight);
 
   const handleCloseClick = () => {
     onClose();
@@ -30,7 +34,6 @@ const LoginModal: React.FC<LoginModalProps> = ({ isModalOpen, onClose }) => {
   };
 
   useEffect(() => {
-    // 윈도우 창 크기가 변경될 때마다 실행
     const handleResize = () => {
       setWinHeight(getWindowHeight);
     };
@@ -38,7 +41,6 @@ const LoginModal: React.FC<LoginModalProps> = ({ isModalOpen, onClose }) => {
     window.addEventListener("resize", handleResize);
 
     return () => {
-      // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거
       window.removeEventListener("resize", handleResize);
     };
   }, []);
@@ -48,16 +50,19 @@ const LoginModal: React.FC<LoginModalProps> = ({ isModalOpen, onClose }) => {
 
   return (
     <div
-      className="modal fixed w-full h-full bg-black opacity-100 transition-opacity duration-100 z-400"
+      className="fixed w-full h-full transition-opacity duration-100 bg-black opacity-100 modal z-400"
       style={modalStyle}
       onClick={handleBackdropClick}
     >
       <div
-        className='modal-content flex flex-col  justify-between bg-slate-200 border-1 border-slate-300 overflow-hidden shadow-lg shadow-slate-100  rounded-lg opacity-100 mx-auto w-[300px] h-[500px]'
-        style={{ transform: `translateY(${winHeight / 2 -250}px)` }}>  
+        className="modal-content flex flex-col  justify-between bg-slate-200 border-1 border-slate-300 overflow-hidden shadow-lg shadow-slate-100  rounded-lg opacity-100 mx-auto w-[300px] h-[500px]"
+        style={{ transform: `translateY(${winHeight / 2 - 250}px)` }}
+      >
         <section className="loginSection flex-1 p-[10px] flex flex-col ">
           <button
-            className={`closeBtn shadow-lg border-0 border-solid rounded-sm shadow-slate-200 w-[20px] h-[25px] ml-auto mb-[10px] transition-all duration-500 hover:bg-[#efda7a] ${darkMode? 'bg-[#0c0e13]' : 'bg-transparent'}`}
+            className={`closeBtn shadow-lg border-0 border-solid rounded-sm shadow-slate-200 w-[20px] h-[25px] ml-auto mb-[10px] transition-all duration-500 hover:bg-[#efda7a] ${
+              darkMode ? "bg-[#0c0e13]" : "bg-transparent"
+            }`}
             onClick={handleCloseClick}
           >
             <FontAwesomeIcon icon={faX} />
