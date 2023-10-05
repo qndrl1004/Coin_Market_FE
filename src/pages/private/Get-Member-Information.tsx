@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 export const GetMemberInformations: React.FC = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [responseData, setResponseData] = useState<any | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -11,15 +11,15 @@ export const GetMemberInformations: React.FC = () => {
     const fetchData = async () => {
       try {
         const options = {
-          method: "POST",
-          url: "https://api.bithumb.com/info/account",
+          method: 'POST',
+          url: 'https://api.bithumb.com/info/account',
           headers: {
-            accept: "application/json",
-            "content-type": "application/x-www-form-urlencoded",
-            "Api-Key": "사용자 Access Key",
-            "Api-Nonce": "현재시각(ms)",
-            "Api-Sign": "상세 가이드 참고",
-          },
+            accept: 'application/json',
+            'content-type': 'application/x-www-form-urlencoded',
+            'Api-Key': '사용자 Access Key',
+            'Api-Nonce': '현재시각(ms)',
+            'Api-Sign': '상세 가이드 참고'
+          }
         };
 
         const response = await axios.request(options);

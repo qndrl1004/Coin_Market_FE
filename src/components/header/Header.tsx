@@ -34,22 +34,27 @@ export default function Header() {
   };
 
   return (
+    
     <header
       className={`${
         darkMode ? "dark" : "light"
       } fixed top-0 w-full z-40 md:top-0 h-[120px] md:h-[155px] shadow-md shadow-slate-200 opacity-100`}
     >
-      <LoginModal isModalOpen={isLoginModalOpen} onClose={closeLoginModal} />
+    <LoginModal isModalOpen={isLoginModalOpen} onClose={closeLoginModal} />
       <div className="flex items-center justify-between h-[100%] min-w-[300px] overflow-hidden mx-[20px]">
         {/* 로고 */}
-        <a href="/" className="md:w-[300px] max-w-[40%]">
+        <a
+          href="/"
+          className='md:w-[300px] max-w-[40%]'
+        >
           <img
             src={`${darkMode ? "/header-dark.png" : "/header.png"}`}
             alt={`${darkMode ? "Header-dark" : "Header"}`}
           />
         </a>
 
-        <div className="flex-1 max-w-[60%] h-[100%] flex flex-col items-end justify-center">
+        <div className='flex-1 max-w-[60%] h-[100%] flex flex-col items-end justify-center'>
+          {/* 다크모드 로그인키 */}
           <div className="flex mt-[30px]">
             <button
               className="mr-[40px] md:text-xl md:cursor-pointer md:hover:text-[#efda7a]"
@@ -75,9 +80,7 @@ export default function Header() {
               )}
             </button>
             <button
-              className={` md:cursor-pointer md:hover:underline  ${
-                darkMode ? "hover:text-[#efda7a]" : "hover:text-blue-400"
-              }`}
+              className={` md:cursor-pointer md:hover:underline  ${darkMode? 'hover:text-[#efda7a]':'hover:text-blue-400'}`}
               onClick={() => {
                 openLoginModal();
               }}
@@ -92,8 +95,8 @@ export default function Header() {
             </button>
           </div>
 
-          <div className="group flex items-center justify-end m-[20px] mr-0 h-[100px] flex-wrap">
-            {/* 관심목록 포트폴리오*/}
+          <div className='group flex items-center justify-end m-[20px] mr-0 h-[100px] flex-wrap'>
+              {/* 관심목록 포트폴리오*/}
             <div className="mb-[8px]">
               <a
                 href="/favorites"
@@ -126,10 +129,7 @@ export default function Header() {
             {/* 검색창 */}
             <div className="flex items-center  justify-start ml-[20px] mb-[10px] w-[190px] rounded-lg shadow-sm shadow-slate-200 group-focus-within:shadow-blue-400 hover:shadow-blue-400">
               <label htmlFor="search" className="ml-[10px]">
-                <FontAwesomeIcon
-                  icon={faSearch}
-                  style={{ paddingRight: "7px" }}
-                />
+                <FontAwesomeIcon icon={faSearch} style={{ paddingRight: "7px" }} />
               </label>
               <input
                 type="text"
@@ -140,17 +140,21 @@ export default function Header() {
                 value={searchTerm}
                 className="w-[100px] h-[30px] focus:outline-none bg-transparent md:focus:outline-none"
               />
-              <a
+                <a
                 href={`/search/${searchTerm}`}
                 className="ml-[20px] hover:text-blue-500"
               >
                 검색
               </a>
+              
             </div>
           </div>
+          
         </div>
+        
       </div>
       <ScrollToTop />
+      
     </header>
   );
 }
