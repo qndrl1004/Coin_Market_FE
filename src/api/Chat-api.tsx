@@ -4,15 +4,13 @@ import { useDarkMode } from '../context/Dark-mode';
 
 export default function ChattingWidget() {
   const [inputText, setInputText] = useState("");
-  const [socket, setSocket] = useState<WebSocket | null>(null); // WebSocket 또는 null로 타입 설정
+  const [socket, setSocket] = useState<WebSocket | null>(null);
   const { darkMode } = useDarkMode();
 
   useEffect(() => {
-    // WebSocket 서버에 연결
-    const newSocket = new WebSocket("ws://example.com"); // WebSocket 서버 주소로 변경하세요
+    const newSocket = new WebSocket("ws://example.com");
     setSocket(newSocket);
 
-    // 컴포넌트 언마운트 시 소켓 연결 해제
     return () => {
       newSocket.close();
     };
@@ -24,10 +22,8 @@ export default function ChattingWidget() {
 
   const sendMessage = () => {
     if (inputText.trim() !== "" && socket) {
-      // WebSocket을 통해 메시지 전송
       socket.send(inputText);
 
-      // 메시지 전송 후 입력 필드 초기화
       setInputText("");
     }
   };
@@ -36,16 +32,13 @@ export default function ChattingWidget() {
     if (e.key === "Enter") {
       sendMessage();
 
-      // 엔터 키를 누를 때 입력 필드 초기화
       setInputText("");
     }
   };
 
   return (
     <section className={`relative flex flex-col my-[0] mx-auto w-[100%] h-[800px] group border-1 border-solid z-0 border-slate-300 rounded-lg shadow-md ${darkMode ? 'shadow-white':'shadow-slate-500'}`}>
-      {/* 채팅 */}
       <div className=" bg-slate-60 h-[90%] bottom-0 overflow-scroll overflow-x-hidden mb-[5%] ">
-        {/* 채팅내용 */}
         <div className=" flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300">
           <div className="shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]">
             <img
@@ -64,7 +57,6 @@ export default function ChattingWidget() {
             </div>
           </div>
         </div>
-        {/* 채팅내용 */}
         <div className=" flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300">
           <div className="shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]">
             <img className="w-full h-full bg-white" src="/고양이.jpeg" alt="고양이" />
@@ -83,7 +75,6 @@ export default function ChattingWidget() {
             </div>
           </div>
         </div>
-        {/* 채팅내용 */}
         <div className=" flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300">
           <div className="shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]">
             <img className="w-full h-full bg-white" src="/고윤정1.webp" alt="고윤정1" />
@@ -98,7 +89,6 @@ export default function ChattingWidget() {
             </div>
           </div>
         </div>
-        {/* 채팅내용 */}
         <div className=" flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300">
           <div className="shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]">
             <img className="w-full h-full bg-white" src="/고윤정2.jpeg" alt="고윤정2" />
@@ -116,7 +106,6 @@ export default function ChattingWidget() {
             </div>
           </div>
         </div>
-        {/* 채팅내용 */}
         <div className=" flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300">
           <div className="shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]">
             <img className="w-full h-full bg-white" src="/로파이.png" alt="로파이" />
@@ -134,7 +123,6 @@ export default function ChattingWidget() {
             </div>
           </div>
         </div>
-        {/* 채팅내용 */}
         <div className=" flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300">
           <div className="shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]">
             <img
@@ -153,7 +141,6 @@ export default function ChattingWidget() {
             </div>
           </div>
         </div>
-        {/* 채팅내용 */}
         <div className=" flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300">
           <div className="shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]">
             <img
@@ -176,7 +163,6 @@ export default function ChattingWidget() {
             </div>
           </div>
         </div>
-        {/* 채팅내용 */}
         <div className=" flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300">
           <div className="shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]">
             <img
@@ -198,7 +184,6 @@ export default function ChattingWidget() {
             </div>
           </div>
         </div>
-        {/* 채팅내용 */}
         <div className=" flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300">
           <div className="shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]">
             <img
@@ -221,8 +206,6 @@ export default function ChattingWidget() {
           </div>
         </div>
       </div>
-
-      {/* 채팅입력창 */}
       <div className="absolute bottom-0 h-[60px] group cursor-pointer flex-1 flex items-center justify-center w-full rounded-lg border-2 border-solid border-grey-200 transition-opacity duration-500 group-hover:border-blue-300 group-focus-within:border-blue-300 opacity-100">
         <input
           placeholder="할 얘기가 있으신가요?"

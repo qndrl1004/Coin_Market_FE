@@ -30,7 +30,6 @@ const LoginModal: React.FC<LoginModalProps> = ({ isModalOpen, onClose }) => {
   };
 
   useEffect(() => {
-    // 윈도우 창 크기가 변경될 때마다 실행
     const handleResize = () => {
       setWinHeight(getWindowHeight);
     };
@@ -38,12 +37,10 @@ const LoginModal: React.FC<LoginModalProps> = ({ isModalOpen, onClose }) => {
     window.addEventListener("resize", handleResize);
 
     return () => {
-      // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
-  // 예시: 브라우저 높이를 출력
   console.log(winHeight);
 
   return (

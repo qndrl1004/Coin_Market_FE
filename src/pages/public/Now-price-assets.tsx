@@ -23,7 +23,6 @@ export default function NowPriceAssets() {
   return (
     <main className='mt-[130px] md:mt-[155px] overflow-x-hidden md:min-h-[1100px]'>
       <div className='w-screen md:flex overflow-x-hidden '>
-        {/* 왼쪽창 */}
         <section className='min-w-[300px] p-[20px] border-b-2 border-solid border-grey-200 object-scale-down flex flex-col md:w-[400px] md:border-none '>
         <div className={`w-[100%] p-[10px] md:mb-[20px] shadow-md border-1 rounded-md ${darkMode?'shadow-white':'shadow-slate-500'}`}>
           <div className=''>
@@ -98,7 +97,6 @@ export default function NowPriceAssets() {
           </div>
       </section>
 
-        {/* 오른쪽창 */}
         <section className='flex-1 md:border-s-2 border-solid border-grey-200'>
         <TradingViewWidget/>
         </section>
