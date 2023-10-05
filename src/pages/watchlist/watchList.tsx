@@ -11,10 +11,9 @@ export const WatchList: React.FC = () => {
     const [responseData, setResponseData] = useState<BithumbResponse | null>(
         null
     );
+
     const { darkMode } = useDarkMode();
     let DBdata = ['BTC', 'ETH', 'ETC', 'BCH']
-    // let unitsTraded = [{}]
-    // let prevClosingPrice = [{}]
     const [searchTerm, _setSearchTerm] = useState<string>("");
     const [showList, setShowList] = useState(false);
     const [showInput, setShowInput] = useState(false);
@@ -65,63 +64,65 @@ export const WatchList: React.FC = () => {
     const filteredCoins = filterCoins(responseData, searchTerm);
 
     return (
-        <main className='mt-[160px] min-h-[1100px]'>
+        <main className='mt-[130px] md:mt-[155px] overflow-x-hidden md:min-h-[1100px]'>
             <TradingChartApi onDataLoaded={onDataLoaded} />
             <div className="flex justify-center ">
                 <div className="w-full md:w-[80%] h-[100%]">
                     <div className="pt-[3%]">
-                        <div className="flex justify-center md:justify-start items-center ">
-                            <span className="cursor-default md:absolute md:top-[15%] bg-blue-600 rounded px-1 text-white text-[1vw] mx-1">Main</span>
-                            <p className="cursor-default text-[3vw] md:text-[2vw] md:text-[2vw] pr-2 font-bold ">My First Coin Watchlist</p>
-                            <button onClick={onBtnShowInput}>
-                                {showInput ? (
-                                    <div className="flex">
-                                        <div className=" mx-1 bg-gray-100">
-                                            <input className="flex-1 bg-gray-100"
-                                                type="text"
-                                                value={inputValue}
-                                                onChange={handleInputChange}
-                                                placeholder="이름 입력"
-                                            />
+                        <div className="md:block flex justify-center md:justify-start items-center ">
+                            <span className="cursor-default md:top-[21%] bg-blue-600 rounded px-1 text-white text-[1vw] mx-1">Main</span>
+                            <div className="flex">
+                                <p className="cursor-default text-[3vw] md:text-[2vw] md:text-[2vw] pr-2 font-bold ">My First Coin Watchlist</p>
+                                <button onClick={onBtnShowInput}>
+                                    {showInput ? (
+                                        <div className="flex">
+                                            <div className=" mx-1 bg-gray-100">
+                                                <input className="flex-1 bg-gray-100"
+                                                    type="text"
+                                                    value={inputValue}
+                                                    onChange={handleInputChange}
+                                                    placeholder="이름 입력"
+                                                />
+                                            </div>
+                                            <div className="bg-gray-200 rounded px-1" onClick={handleAddToList}>
+                                                추가
+                                            </div>
                                         </div>
-                                        <div className="bg-gray-200 rounded px-1" onClick={handleAddToList}>
-                                            추가
+                                    ) : (
+                                        <div className="flex justify-center items-center bg-gray-200 h-5 w-5 px-2 rounded">
+                                            <div className="text-center pb-1">
+                                                <FontAwesomeIcon className="text-[1vw]" icon={faPen} style={{ color: 'gray' }} />
+                                            </div>
                                         </div>
-                                    </div>
-                                ) : (
-                                    <div className="flex justify-center items-center bg-gray-200 h-5 w-5 px-2 rounded">
-                                        <div className="text-center pb-1">
-                                            <FontAwesomeIcon className="text-[1vw]" icon={faPen} style={{ color: 'gray' }} />
-                                        </div>
-                                    </div>
-                                )}
-                            </button>
-                            <button className="ml-1 bg-gray-200 rounded px-1" style={{ display: showInput ? "block" : "none" }} onClick={offBtnShowInput}>닫기</button>
+                                    )}
+                                </button>
+                                <button className="ml-1 bg-gray-200 rounded px-1" style={{ display: showInput ? "block" : "none" }} onClick={offBtnShowInput}>닫기</button>
 
 
-                            <button className="pl-2 flex justify-center" onClick={onShowList}>
-                                {!showList ?
-                                    <div>
-                                        <FontAwesomeIcon className="text-[2vw] md:text-[1vw] mb-1" icon={faChevronUp} />
-                                    </div>
-                                    :
-                                    <div>
-                                        <FontAwesomeIcon className="text-[2vw] md:text-[1vw] mb-1" icon={faChevronDown} />
-                                    </div>
-                                }
-                            </button>
+                                <button className="pl-2 flex justify-center" onClick={onShowList}>
+                                    {!showList ?
+                                        <div>
+                                            <FontAwesomeIcon className="text-[2vw] md:text-[1vw] mb-1" icon={faChevronUp} />
+                                        </div>
+                                        :
+                                        <div>
+                                            <FontAwesomeIcon className="text-[2vw] md:text-[1vw] mb-1" icon={faChevronDown} />
+                                        </div>
+                                    }
+                                </button>
+                            </div>
                         </div>
-                        <div>
-                            <ul className="w-[100%] md:w-[25%] text-center" style={{ borderBottom: showList ? "#e5e7eb 2px solid" : "none" }}>
+                        <div className="flex h-[100px]">
+                            <ul className="w-[100%] md:w-[25%] text-center">
                                 {nameList.map((arr, index) => (
-                                    <li className="border-t-2 hover:bg-gray-200" key={index} style={{ display: showList ? "block" : "none" }}>
+                                    <li className="border-b-2 hover:bg-gray-200" key={index} style={{ display: showList ? "block" : "none" }}>
                                         {arr}
                                     </li>
                                 ))}
                             </ul>
                         </div>
                     </div>
-                    <div className="pt-[8%]">
+                    <div >
                         <div className="flex justify-end py-4">
                             <div className="text-[1vw] h-[25px]">
                                 <button className={`${darkMode ? "bg-gray-500" : "bg-gray-200"} h-[100%] rounded px-2 mr-2`}>
@@ -129,7 +130,6 @@ export const WatchList: React.FC = () => {
                                 <button className={`${darkMode ? "bg-gray-500" : "bg-gray-200"} h-[100%] rounded px-2 mr-2`}>
                                     <FontAwesomeIcon className="pr-1" icon={faPlus} />
                                     코인추가</button>
-                                <button className={`${darkMode ? "bg-gray-500" : "bg-gray-200"} h-[100%] rounded px-2 mr-2`}>...더</button>
                                 <button className={`${darkMode ? "bg-gray-500" : "bg-gray-200"} h-[100%] rounded px-2`}>
                                     <FontAwesomeIcon className="pr-1" icon={faMap} />
                                     맞춤설정</button>
@@ -149,28 +149,11 @@ export const WatchList: React.FC = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="drop-shadow-2xl border-b-2 border-white">
-                                    {filteredCoins.map((currency: any,index) => {
+                                    {filteredCoins.map((currency: any) => {
                                         (DBdata.indexOf(currency) == -1) ? currency = null : currency;
                                         const item = responseData?.data[currency];
                                         if (!item) return null;
                                         if (currency === "date") return;
-                                        console.log(index);
-                                        
-                                        // if (Math.floor(item.units_traded) > unitsTraded || Math.floor(item.units_traded) < unitsTraded) {
-                                        //     unitsTraded.push(currency, Math.floor(item.units_traded))
-                                        // }
-                                        // if (item.prev_closing_price > prevClosingPrice || item.prev_closing_price < prevClosingPrice) {
-                                        //     prevClosingPrice = item.prev_closing_price
-                                        // }
-
-                                        // const nowUnitsTraded =
-                                        //     Math.floor(item.units_traded) > unitsTraded
-                                        //         ? "text-red-500" : "text-blue-500";
-
-                                        // const nowPrevClosingPrice =
-                                        //     item.prev_closing_price > prevClosingPrice
-                                        //         ? "text-red-500" : "text-blue-500";
-
 
                                         const fluctuationClass =
                                             item.fluctate_rate_24H > 0
@@ -195,7 +178,6 @@ export const WatchList: React.FC = () => {
                                                 <td className="flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200">
                                                     <Link to={`/trading-view/${currency}`}>{currency}</Link>
                                                 </td>
-                                                {/* /////// */}
                                                 <td
                                                     className={`flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 ${nowPriceClass}`}
                                                 >
@@ -205,14 +187,13 @@ export const WatchList: React.FC = () => {
                                                 </td>
                                                 <td
                                                     className={
-                                                        `flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 md:table-cell`
+                                                        `flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 md:table-cell `
                                                     }
                                                 >
                                                     <Link to={`/trading-view/${currency}`}>
                                                         {Math.floor(item.units_traded).toLocaleString()}
                                                     </Link>
                                                 </td>
-                                                {/* /////// */}
                                                 <td
                                                     className={
                                                         `hidden flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 md:table-cell`
