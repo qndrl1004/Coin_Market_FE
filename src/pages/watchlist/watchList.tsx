@@ -13,14 +13,12 @@ export const WatchList: React.FC = () => {
     );
 
     const { darkMode } = useDarkMode();
-    let DBdata = ['BTC', 'ETH', 'ETC', 'BCH']
+    const [DBdata, setDBdata] = useState(['a']);
     const [searchTerm, _setSearchTerm] = useState<string>("");
     const [showList, setShowList] = useState(false);
     const [showInput, setShowInput] = useState(false);
     const [inputValue, setInputValue] = useState("")
     const [nameList, setNameList] = useState(["DBdata", "DBdata2"])
-
-
 
     const onBtnShowInput = () => {
         setInputValue("")
@@ -71,7 +69,7 @@ export const WatchList: React.FC = () => {
                     <div className="pt-[3%]">
                         <div className="md:block flex justify-center md:justify-start items-center ">
                             <span className="cursor-default md:top-[21%] bg-blue-600 rounded px-1 text-white text-[1vw] mx-1">Main</span>
-                            <div className="flex">
+                            <div className="flex items-center">
                                 <p className="cursor-default text-[3vw] md:text-[2vw] md:text-[2vw] pr-2 font-bold ">My First Coin Watchlist</p>
                                 <button onClick={onBtnShowInput}>
                                     {showInput ? (
@@ -102,16 +100,17 @@ export const WatchList: React.FC = () => {
                                 <button className="pl-2 flex justify-center" onClick={onShowList}>
                                     {!showList ?
                                         <div>
-                                            <FontAwesomeIcon className="text-[2vw] md:text-[1vw] mb-1" icon={faChevronUp} />
+                                            <FontAwesomeIcon className="text-[2vw] md:text-[1vw]" icon={faChevronUp} />
                                         </div>
                                         :
                                         <div>
-                                            <FontAwesomeIcon className="text-[2vw] md:text-[1vw] mb-1" icon={faChevronDown} />
+                                            <FontAwesomeIcon className="text-[2vw] md:text-[1vw]" icon={faChevronDown} />
                                         </div>
                                     }
                                 </button>
                             </div>
                         </div>
+
                         <div className="flex h-[100px]">
                             <ul className="w-[100%] md:w-[25%] text-center">
                                 {nameList.map((arr, index) => (
@@ -170,7 +169,7 @@ export const WatchList: React.FC = () => {
                                         return (
                                             <tr
                                                 key={currency}
-                                                className={`${darkMode ? "border-t-2 border-white" : ""}shadow text-center hover:bg-[#efda7a] md:cursor-pointer md:hover:bg-[#efda7a] md:shadow`}
+                                                className={`${darkMode ? "border-t-2 border-white" : ""} shadow text-center hover:bg-[#efda7a] md:cursor-pointer md:hover:bg-[#efda7a] md:shadow`}
                                             >
                                                 <td className="hidden md:flex-1 md:py-2 md:table-cell md:border-r md:border-gray-200">
                                                     <FontAwesomeIcon icon={faStar} style={{ color: '#ffb574' }} />

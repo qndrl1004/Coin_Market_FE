@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCaretDown,
@@ -19,7 +19,11 @@ export const NowPrice: React.FC = () => {
   );
   const [searchTerm, _setSearchTerm] = useState<string>("");
   const { darkMode } = useDarkMode();
-  const [showScrollingContent, setShowScrollingContent] = useState(false);
+  const [bookmark, setBookmark] = useState(false)
+
+  const onBookmark = () => {
+    setBookmark(!bookmark)
+  }
 
   const onDataLoaded = (data: BithumbResponse) => {
     setResponseData(data);
@@ -36,21 +40,12 @@ export const NowPrice: React.FC = () => {
 
   const filteredCoins = filterCoins(responseData, searchTerm);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setShowScrollingContent(true);
-    }, 3000);
-
-    return () => clearTimeout(timeout);
-  }, []);
-
-
   return (
-    <main className="mt-[130px] md:mt-[155px] overflow-x-hidden min-h-[1100px] lg:flex">
-      <section className='min-w-[300px] md:w-[400px] hidden lg:block p-[20px] flex-col items-center '>
-        <div className='h-full flex flex-col'>
-          <div className='w-full h-[200px] mb-[20px] rounded-lg shadow-lg shadow-slate-400'>
-            <div className='w-full text-center'>
+    <main className="mt-[130px] md:mt-[155px] overflow-x-hidden md:min-h-[1100px] lg:flex">
+      <section className="min-w-[300px] md:w-[400px] hidden lg:block p-[20px] flex-col items-center ">
+        <div className="flex flex-col h-full">
+          <div className="w-full h-[200px] mb-[20px] rounded-lg shadow-lg shadow-slate-400">
+            <div className="w-full text-center">
               <RealTimeTop5Coins />
             </div>
           </div>
@@ -61,8 +56,7 @@ export const NowPrice: React.FC = () => {
       </section>
       <section className="flex-1 flex items-start justify-center p-[20px]">
         <TradingChartApi onDataLoaded={onDataLoaded} />
-        <div className="w-[100%]  h-[1020px] rounded-lg shadow-lg shadow-slate-400 overflow-x-auto " style={{ overflowY: 'scroll' }}>
-          <div className={`h-[1020px] overflow-y-scroll ${showScrollingContent ? '' : 'hidden'}`}>
+        <div className="w-[100%] h-[700px] rounded-lg shadow-lg shadow-slate-400 overflow-x-auto">
           <table className="w-full ">
             <thead
               className="min-h-[400px] shadow-md shadow-black bg-slate-400 md:border-gray-200 md:text-center sticky top-0"
@@ -128,20 +122,17 @@ export const NowPrice: React.FC = () => {
                   >
                     <td
                       className="md:flex-1 md:table-cell md:border-r md:border-gray-200"
-                      onClick={(e) => {
-                        const target = e.target as HTMLElement;
-                        if (target.parentElement?.id !== 'favorite') {
-                          window.location.href = `/trading-view/${currency}`;
-                        }
+                      onClick={
+                        (e) => {
                         e.stopPropagation();
-                        window.location.href = `/favorites`;
-                      }}
+                        window.location.href = `/favorites`;}
+                      }
                     >
                       <button
                         id="favorite"
                         className="w-full h-full hover:scale-150"
                       >
-                        <FontAwesomeIcon icon={faStar} className="w-[100%]" />
+                        <FontAwesomeIcon icon={faStar} className="w-[100%]" style={bookmark ? {color: '#ffb574'}: {color:"black"}} />
                       </button>
                     </td>
                     <td className="flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 text-[4px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
@@ -185,8 +176,7 @@ export const NowPrice: React.FC = () => {
                 );
               })}
             </tbody>
-            </table>
-            </div>
+          </table>
         </div>
         <div />
       </section>
