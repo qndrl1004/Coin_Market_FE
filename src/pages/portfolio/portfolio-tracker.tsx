@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { BookModal } from "../../components/modal/ManualModal";
 import { useDarkMode } from "../../context/Dark-mode";
 import Key from "../../components/key/key";
-import { WalletConnectionModal } from "../../components/modal/ WalletConnectionModal";
+import { WalletConnectionModal } from "../../components/modal/WalletConnectionModal";
 
 export const PortFolioTracker = () => {
   const { darkMode } = useDarkMode();
