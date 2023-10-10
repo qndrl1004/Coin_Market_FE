@@ -14,6 +14,7 @@ export const WalletConnectionModal: React.FC<WalletModalProps> = ({ isOpen, onCl
   const { darkMode } = useDarkMode();
   const [walletAddress, setWalletAddress] = useState("");
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const inWalletAddress = (e: any) => {
     setWalletAddress(e.target.value);
   };
