@@ -8,7 +8,7 @@ export default function ChattingWidget() {
   const [inputText, setInputText] = useState("");
   const [messages, setMessages] = useState<any[]>([]);
   const { darkMode } = useDarkMode();
-  const socketUrl = "ws://localhost:3030"; // WebSocket 서버 주소
+  const socketUrl = "ws://localhost:3030";
 
   const { sendJsonMessage, lastJsonMessage, readyState } =
     useWebSocket(socketUrl);
@@ -30,7 +30,6 @@ export default function ChattingWidget() {
     setInputText((prevText) => prevText + emoji);
   };
 
-  // 웹소켓 연결 상태 확인
   useEffect(() => {
     if (readyState === ReadyState.OPEN) {
       console.log("WebSocket 연결이 열렸습니다.");
@@ -39,7 +38,6 @@ export default function ChattingWidget() {
     }
   }, [readyState]);
 
-  // 웹소켓 메시지 처리
   useEffect(() => {
     if (lastJsonMessage) {
       const message = lastJsonMessage;
