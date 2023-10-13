@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { useDarkMode } from "../../context/Dark-mode";
+import { LoginBtnComponent } from "../loginBtn/LoginBtn";
 
 interface LoginModalProps {
   isModalOpen: boolean;
@@ -15,7 +16,10 @@ const getWindowHeight = () => {
   );
 };
 
-const LoginModal: React.FC<LoginModalProps> = ({ isModalOpen, onClose }) => {
+export const LoginModal: React.FC<LoginModalProps> = ({
+  isModalOpen,
+  onClose,
+}) => {
   const { darkMode } = useDarkMode();
   const modalStyle = {
     backgroundColor: isModalOpen ? "rgba(0, 0, 0, 0.8)" : "transparent",
@@ -33,8 +37,19 @@ const LoginModal: React.FC<LoginModalProps> = ({ isModalOpen, onClose }) => {
     }
   };
 
+  const redirectToNaverAutoPath = () => {
+    window.location.href = "/api/auth/naver";
+  };
+
+  const redirectToKakaoAutoPath = () => {
+    window.location.href = "/api/auth/kakao";
+  };
+
+  const redirectToGoogleAutoPath = () => {
+    window.location.href = "/api/auth/google";
+  };
+
   useEffect(() => {
-    // 윈도우 창 크기가 변경될 때마다 실행
     const handleResize = () => {
       setWinHeight(getWindowHeight);
     };
@@ -42,10 +57,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ isModalOpen, onClose }) => {
     window.addEventListener("resize", handleResize);
 
     return () => {
-      // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  console.log(winHeight);
 
   return (
     <div
@@ -75,36 +91,18 @@ const LoginModal: React.FC<LoginModalProps> = ({ isModalOpen, onClose }) => {
               <h1 className="text-lg font-bold">로그인</h1>
             </div>
             <div className="w-full">
-              <button className="loginBtn flex justify-between items-center w-full shadow-sm shadow-slate-400 rounded-lg h-[50px] transition-all duration-500 hover:bg-green-500">
-                <img
-                  className="ml-[10px] w-[30px] h-[30px]"
-                  src="/naver.png"
-                  alt="Naver image"
-                />
-                <span className="ml-[30px] flex-1 text-start">
-                  Continue with Naver
-                </span>
-              </button>
-              <button className="loginBtn flex justify-between items-center w-full shadow-sm shadow-slate-400 rounded-lg h-[50px] transition-all duration-500 hover:bg-yellow-400 my-[20px]">
-                <img
-                  className="ml-[10px] w-[30px] h-[30px]"
-                  src="/kakao.png"
-                  alt="kakao image"
-                />
-                <span className="ml-[30px] flex-1 text-start">
-                  Continue with Kakao
-                </span>
-              </button>
-              <button className="loginBtn flex justify-between items-center w-full shadow-sm shadow-slate-400 rounded-lg h-[50px] transition-all duration-500 hover:bg-blue-500">
-                <img
-                  className="ml-[10px] w-[30px] h-[30px]"
-                  src="/google.png"
-                  alt="Google image"
-                />
-                <span className="ml-[30px] flex-1 text-start">
-                  Continue with Google
-                </span>
-              </button>
+              <LoginBtnComponent
+                name="naver"
+                redirectToAutoPath={redirectToNaverAutoPath}
+              />
+              <LoginBtnComponent
+                name="kakao"
+                redirectToAutoPath={redirectToKakaoAutoPath}
+              />
+              <LoginBtnComponent
+                name="google"
+                redirectToAutoPath={redirectToGoogleAutoPath}
+              />
             </div>
             <div className="textCotainer">
               <p className="text-xs text-center">
@@ -131,5 +129,3 @@ const LoginModal: React.FC<LoginModalProps> = ({ isModalOpen, onClose }) => {
     </div>
   );
 };
-
-export default LoginModal;
