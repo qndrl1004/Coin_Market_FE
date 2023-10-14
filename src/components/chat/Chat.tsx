@@ -42,7 +42,7 @@ const Chat = () => {
     return () => {
       newSocket.disconnect();
     };
-  }, [messages]); // messages 배열 변경 시에만 이펙트 재실행
+  }, [messages]);
 
   const sendMessage = () => {
     if (message.trim() !== "") {

@@ -38,15 +38,15 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   };
 
   const redirectToNaverAutoPath = () => {
-    window.location.href = "/api/auth/naver";
+    window.location.href = "/api/auth/naver/callback";
   };
 
   const redirectToKakaoAutoPath = () => {
-    window.location.href = "/api/auth/kakao";
+    window.location.href = "/api/auth/kakao/callback";
   };
 
   const redirectToGoogleAutoPath = () => {
-    window.location.href = "/api/auth/google";
+    window.location.href = "/api/auth/google/callback";
   };
 
   useEffect(() => {
