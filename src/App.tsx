@@ -7,12 +7,14 @@ import TermsOfUse from "./pages/notice/Terms-of-Use";
 import PrivacyPolicy from "./pages/notice/Privacy-Policy";
 import { PortFolioTracker } from "./pages/portfolio/portfolio-tracker";
 import { WatchList } from "./pages/watchlist/watchList";
+import Chat from "./components/chat/Chat";
 
 export default function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<NowPrice />} />
+        <Route path="/" element={<Chat />} />
         <Route path="/search/:currency" element={<NowPriceAssets />} />
         <Route path="/trading-view/:currency" element={<NowPriceAssets />} />
         <Route path="/portfolio" element={<PortFolioTracker />} />

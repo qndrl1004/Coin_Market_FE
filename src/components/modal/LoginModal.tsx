@@ -61,8 +61,6 @@ export const LoginModal: React.FC<LoginModalProps> = ({
     };
   }, []);
 
-  console.log(winHeight);
-
   return (
     <div
       className="fixed w-full h-full transition-opacity duration-100 bg-black opacity-100 modal z-400"

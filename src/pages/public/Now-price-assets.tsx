@@ -8,7 +8,7 @@ import {
   faShareNodes,
 } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
-import ChattingWidget from "../../api/Chat-api";
+import ChattingWidget from "../../components/chat/Chat";
 import TradingViewWidget from "../../api/TradingView-api";
 import { GetCoinPrice } from "../../api/GetCoinPrice-api";
 import { useDarkMode } from "../../context/Dark-mode";

@@ -10,7 +10,7 @@ import {
 import { BithumbResponse, TradingChartApi } from "../../api/TradingChart-api";
 import { ScrollToTop } from "../../api/ScrollToTop-api";
 import { useDarkMode } from "../../context/Dark-mode";
-import ChattingWidget from "../../api/Chat-api";
+import ChattingWidget from "../../components/chat/Chat";
 import RealTimeTop5Coins from "../../api/GetTop5Coin-api";
 
 export const NowPrice: React.FC = () => {
