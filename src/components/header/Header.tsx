@@ -3,7 +3,6 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartPie,
-  faKey,
   faMoon,
   faSearch,
   faStarHalfAlt,
@@ -12,11 +11,16 @@ import {
 import { ScrollToTop } from "../../api/ScrollToTop-api";
 import { useDarkMode } from "../../context/Dark-mode";
 import { LoginModal } from "../modal/LoginModal";
+import LogoutBtn from './LogoutBtn';
+import LoginBtn from './LoginBtn';
+import { useAuth } from '../../context/IsLogined';
+
 
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const { darkMode, toggleDarkMode } = useDarkMode();
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+  const { accessToken } = useAuth();
 
   const openLoginModal = () => {
     setLoginModalOpen(true);
@@ -49,9 +53,9 @@ export default function Header() {
           />
         </a>
 
-        <div className="flex-1 max-w-[60%] h-[100%] flex flex-col items-end justify-center">
+        <div className="flex-1 max-w-[60%] h-[100%] flex flex-col items-end justify-between">
           {/* 다크모드 로그인키 */}
-          <div className="flex mt-[30px]">
+          <div className="flex-1 flex h-full">
             <button
               className="mr-[40px] md:text-xl md:cursor-pointer md:hover:text-[#efda7a]"
               onClick={toggleDarkMode}
@@ -75,26 +79,11 @@ export default function Header() {
                 />
               )}
             </button>
-            <button
-              className={` md:cursor-pointer md:hover:underline  ${
-                darkMode ? "hover:text-[#efda7a]" : "hover:text-blue-400"
-              }`}
-              onClick={() => {
-                openLoginModal();
-              }}
-            >
-              <FontAwesomeIcon
-                icon={faKey}
-                style={{
-                  paddingRight: "7px",
-                }}
-              />
-              로그인
-            </button>
+            {accessToken  ?  <LogoutBtn /> : <LoginBtn openLoginModal={openLoginModal}/>}
+            
           </div>
 
-          <div className="group flex items-center justify-end m-[20px] mr-0 h-[100px] flex-wrap">
-            {/* 관심목록 포트폴리오*/}
+          <div className="group flex items-center justify-end mx-[20px] mr-0 mb-[20px] flex-wrap">
             <div className="mb-[8px]">
               <a
                 href="/favorites"
@@ -124,7 +113,6 @@ export default function Header() {
               </a>
             </div>
 
-            {/* 검색창 */}
             <div className="flex items-center  justify-start ml-[20px] mb-[10px] w-[190px] rounded-lg shadow-sm shadow-slate-200 group-focus-within:shadow-blue-400 hover:shadow-blue-400">
               <label htmlFor="search" className="ml-[10px]">
                 <FontAwesomeIcon
