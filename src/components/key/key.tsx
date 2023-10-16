@@ -22,10 +22,9 @@ export default function Key() {
         headers: {
           'Content-Type': 'application/json',
         },
-        withCredentials: true, // 쿠키를 요청 헤더에 포함시킴
+        withCredentials: true,
       })
       .then((response) => {
-        // 토큰을 받아온 경우 로컬 스토리지에 저장하고 state에도 업데이트합니다.
         const receivedToken = response.data.token;
         localStorage.setItem("token", receivedToken);
         console.log("API 키가 성공적으로 전송되었습니다.", receivedToken);
