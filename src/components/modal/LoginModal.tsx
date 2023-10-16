@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { useDarkMode } from "../../context/Dark-mode";
-import { LoginBtnComponent } from "../loginBtn/LoginBtn";
+import { LoginBtnComponent } from "../continueWithLoginBtn/continueWithLoginBtn";
 
 interface LoginModalProps {
   isModalOpen: boolean;
