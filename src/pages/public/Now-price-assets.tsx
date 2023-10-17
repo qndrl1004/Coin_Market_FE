@@ -28,7 +28,7 @@ export default function NowPriceAssets() {
   };
 
   const createCoin = (name: any) => {
-    axios.post('/api/list/checkCoin', { name }, {
+    axios.post('/api/favorites/checkCoin', { name }, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -45,19 +45,31 @@ export default function NowPriceAssets() {
   }
 
   useEffect(() => {
-    axios.get('/api/list/viewCoin', {
+    axios.get('/api/favorites/checkCookie', {
       headers: {
         'Content-Type': 'application/json',
       },
       withCredentials: true
+    }).then((response) => {
+      if (response.data) {
+        axios.get('/api/favorites/viewCoin', {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true
+        })
+          .then((response) => {
+              setCoinData(response.data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
     })
-      .then((response) => {
-        setCoinData(response.data);
-      })
       .catch((error) => {
         console.error(error);
       });
-  }, [coinData]);
+  },[]);
 
   return (
     <main className="mt-[130px] md:mt-[155px] overflow-x-hidden md:min-h-[1100px]">

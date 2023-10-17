@@ -28,7 +28,7 @@ export const WatchList: React.FC = () => {
   };
 
   const createCoin = (name: string) => {
-    axios.post('/api/list/checkCoin', { name }, {
+    axios.post('/api/favorites/checkCoin', { name }, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -46,26 +46,31 @@ export const WatchList: React.FC = () => {
 
 
   useEffect(() => {
-    axios.get("/api/list/viewCoin", {
+    axios.get('/api/favorites/checkCookie', {
       headers: {
         'Content-Type': 'application/json',
       },
-      withCredentials: true,
+      withCredentials: true
+    }).then((response) => {
+      if (response.data) {
+        axios.get('/api/favorites/viewCoin', {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true
+        })
+          .then((response) => {
+              setCoinData(response.data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
     })
-      .then((response) => {
-        const receivedToken = response.data.token;
-        localStorage.setItem("token", receivedToken);
-        if (coinData == response.data) {
-          console.log(coinData);
-        } else {
-          setCoinData(response.data)
-        }
-
-      })
       .catch((error) => {
         console.error(error);
       });
-  }, [])
+  },[]);
 
   const onDataLoaded = (data: BithumbResponse) => {
     setResponseData(data);
@@ -88,10 +93,12 @@ export const WatchList: React.FC = () => {
       <div className="flex justify-center ">
         <div className="w-full md:w-[80%] h-[100%]">
           <div className="pt-[3%]">
-            <div className="flex items-center justify-center md:justify-start ">
-              <span className="cursor-default md:absolute md:top-[21%] bg-blue-600 rounded px-1 text-white text-[1vw] mx-1">
-                Main
-              </span>
+          <div className={`flex md:block items-center justify-center md:justify-start`}>
+              <div className="md:flex">
+                  <p className="cursor-default bg-blue-600 rounded px-1 text-white text-[1vw] mx-1">
+                    Main
+                  </p>
+              </div>
               <p className="cursor-default text-[3vw] md:text-[2vw] pr-2 font-bold ">
                 My First Coin Watchlist
               </p>

@@ -35,9 +35,9 @@ export const NowPrice: React.FC = () => {
       key.toLowerCase().includes(searchTerm.toLowerCase())
     );
   };
-  //////////////////////
+
   const createCoin = (name: string) => {
-    axios.post('/api/list/checkCoin', { name }, {
+    axios.post('/api/favorites/checkCoin', { name }, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -54,21 +54,31 @@ export const NowPrice: React.FC = () => {
   }
 
   useEffect(() => {
-    axios.get('/api/list/viewCoin', {
+    axios.get('/api/favorites/checkCookie', {
       headers: {
         'Content-Type': 'application/json',
       },
-      withCredentials: true})
-      .then((response) => {
-        setCoinData(response.data);
-      })
+      withCredentials: true
+    }).then((response) => {
+      if (response.data) {
+        axios.get('/api/favorites/viewCoin', {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true
+        })
+          .then((response) => {
+              setCoinData(response.data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    })
       .catch((error) => {
         console.error(error);
       });
-  }, [coinData]);
-
-
-  //////////////////////
+  },[]);
 
   const filteredCoins = filterCoins(responseData, searchTerm);
 
