@@ -11,22 +11,61 @@ import ChattingWidget from "../../components/chat/Chat";
 import TradingViewWidget from "../../api/TradingView-api";
 import { GetCoinPrice } from "../../api/GetCoinPrice-api";
 import { useDarkMode } from "../../context/Dark-mode";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const price = <GetCoinPrice />;
 
 export default function NowPriceAssets() {
   const { currency } = useParams();
-  const coinName = currency;
+  const coinName: any = currency;
   const { darkMode } = useDarkMode();
+  const [coinData, setCoinData] = useState(['a']);
+
+  const link = () => {
+    const currentURL = window.location.href;
+    navigator.clipboard.writeText(currentURL)
+  };
+
+  const createCoin = (name: any) => {
+    axios.post('/api/list/checkCoin', { name }, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    })
+      .then((response) => {
+        const receivedToken = response.data.token;
+        localStorage.setItem("token", receivedToken);
+        setCoinData(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  useEffect(() => {
+    axios.get('/api/list/viewCoin', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true
+    })
+      .then((response) => {
+        setCoinData(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [coinData]);
 
   return (
     <main className="mt-[130px] md:mt-[155px] overflow-x-hidden md:min-h-[1100px]">
       <div className="w-screen overflow-x-hidden md:flex ">
         <section className="min-w-[300px] p-[20px] border-b-2 border-solid border-grey-200 object-scale-down flex flex-col md:w-[400px] md:border-none ">
           <div
-            className={`w-[100%] p-[10px] md:mb-[20px] shadow-md border-1 rounded-md ${
-              darkMode ? "shadow-white" : "shadow-slate-500"
-            }`}
+            className={`w-[100%] p-[10px] md:mb-[20px] shadow-md border-1 rounded-md ${darkMode ? "shadow-white" : "shadow-slate-500"
+              }`}
           >
             <div className="">
               <div className="flex justify-between">
@@ -51,7 +90,7 @@ export default function NowPriceAssets() {
                           <FontAwesomeIcon
                             icon={faStar}
                             size="sm"
-                            className="text-black"
+                            className={`${(coinData.indexOf(coinName) != -1) ? "text-yellow-400" : "text-black"}`}
                           />
                         </button>
                       </div>
@@ -60,7 +99,7 @@ export default function NowPriceAssets() {
                   <div className="flex-1 text-center">
                     <div>
                       <div className="cursor-pointer group">
-                        <div className="mx-auto w-[25px] bg-slate-200	rounded-md overflow-hidden transition-all duration-500 group-hover:bg-[#efda7a] group-hover:opacity-100 opacity-70">
+                        <div className="mx-auto w-[25px] bg-slate-200	rounded-md overflow-hidden transition-all duration-500 group-hover:bg-[#efda7a] group-hover:opacity-100 opacity-70" onClick={link}>
                           <button>
                             <FontAwesomeIcon
                               icon={faShareNodes}
@@ -78,14 +117,14 @@ export default function NowPriceAssets() {
             <section className="max-w-[400px]">
               <div className="cursor-pointer group ">
                 <div className="w-[100%] h-[30px] my-[4%] rounded-lg overflow-hidden">
-                  <button className="bg-slate-200 w-[100%] h-[100%] transition-opacity duration-500 group-hover:opacity-100 opacity-60">
+                  <button className="bg-slate-200 w-[100%] h-[100%] transition-opacity duration-500 group-hover:opacity-100 opacity-60" onClick={_e => { createCoin(coinName) }}>
                     <div className="flex justify-between px-[6%]">
                       <div>
                         <span>
                           <FontAwesomeIcon
                             icon={faStar}
                             size="sm"
-                            className="text-yellow-400"
+                            className={`${(coinData.indexOf(coinName) != -1) ? "text-yellow-400" : "text-black"}`}
                           />
                         </span>
                         <label className="ml-[10px] text-black">
