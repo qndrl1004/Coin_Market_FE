@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// TradingViewWidget.jsx
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faStar,

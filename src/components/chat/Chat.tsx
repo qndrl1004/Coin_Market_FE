@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
@@ -16,30 +17,26 @@ const Chat = () => {
     const newSocket: Socket = io("http://localhost:3000", {
       transports: ["websocket"],
     });
+    setSocket(newSocket);
 
     newSocket.on("connect", () => {
-      console.log("Socket connected");
+      console.log("Socket connected ");
     });
 
     newSocket.on("disconnect", () => {
-      console.log("Socket disconnected");
+      console.log("Socket disconnected ");
     });
 
     newSocket.on("new message", (data) => {
-      setMessages((prevMessages) => {
-        if (
-          !prevMessages.some(
-            (msg) =>
-              msg.username === data.username && msg.message === data.message
-          )
-        ) {
-          return [...prevMessages, data];
-        }
-        return prevMessages;
-      });
+      if (
+        !messages.some(
+          (msg) =>
+            msg.username === data.username && msg.message === data.message
+        )
+      ) {
+        setMessages((prevMessages) => [...prevMessages, data]);
+      }
     });
-
-    setSocket(newSocket);
 
     return () => {
       newSocket.disconnect();
@@ -47,8 +44,8 @@ const Chat = () => {
   }, []);
 
   const sendMessage = () => {
-    if (message.trim() !== "") {
-      socket?.emit("new message", { username: "YourUsername", message });
+    if (socket && message.trim() !== "") {
+      socket.emit("new message", { username: "YourUsername", message });
       setMessage("");
     }
   };
