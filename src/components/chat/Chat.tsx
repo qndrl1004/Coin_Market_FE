@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Socket } from "socket.io-client";
 import io from "socket.io-client";
 import { useDarkMode } from "../../context/Dark-mode";
-import EmojiBtn from "../emojiBtn/EmojiBtn";
+import EmojiBtn from "../button/EmojiBtn";
 import axios from "axios";
 import useTime from "../../hooks/TimeStamp";
 
@@ -34,14 +34,14 @@ const Chat: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const newSocket: Socket = io("http://localhost:3000", {
+    const newSocket: Socket = io("http://192.168.10.5:3000", {
       transports: ["websocket"],
     });
     setSocket(newSocket);
 
-    newSocket.on("connect", () => {});
-
-    newSocket.on("disconnect", () => {});
+    newSocket.on("connect", () => {
+      newSocket.emit("join room", "coin");
+    });
 
     newSocket.on("new message", (data) => {
       setMessages((prevMessages) => [...prevMessages, data]);
@@ -55,7 +55,7 @@ const Chat: React.FC = () => {
   const sendMessage = () => {
     if (socket && message.trim() !== "") {
       if (isLoggedIn) {
-        socket.emit("new message", { photo, email, message });
+        socket.emit("new message", { photo, email, message, room: "coin" });
         setMessage("");
       } else {
         alert("로그인이 필요합니다.");
@@ -63,6 +63,7 @@ const Chat: React.FC = () => {
       }
     }
   };
+
   const isEmojiSelect = (emoji: any) => {
     setMessage((prevText) => prevText + emoji);
   };

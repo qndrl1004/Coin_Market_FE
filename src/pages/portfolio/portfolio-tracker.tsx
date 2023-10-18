@@ -124,7 +124,6 @@ export const PortFolioTracker = () => {
                   </ul>
                 </div>
               </div>
-
               <div className="flex items-center">
                 <p className="text-[4vh]">첫번째 포트폴리오를 시작합니다.</p>
               </div>
@@ -141,7 +140,6 @@ export const PortFolioTracker = () => {
                 </button>
               </div>
             </div>
-
             <div className=" md:pl-2 md:flex md:justify-between">
               <div className="md:w-[48%] md:h-[30%] md:p-0 p-2">
                 <div>
@@ -185,7 +183,6 @@ export const PortFolioTracker = () => {
                   />
                 </div>
               </div>
-
               <div className="md:pr-2 md:w-[48%] md:h-[30%] md:p-0 p-2">
                 <div>
                   <button

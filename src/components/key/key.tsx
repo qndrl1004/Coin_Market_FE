@@ -1,39 +1,38 @@
 import { useState, SetStateAction } from "react";
 import axios from "axios";
 
-
-
 export default function Key() {
-  
   const [connectKey, setConnectKey] = useState("");
   const [secretKey, setSecretKey] = useState("");
 
-  const inConnectKey = (e: { target: { value: SetStateAction<string>; }; }) => {
+  const inConnectKey = (e: { target: { value: SetStateAction<string> } }) => {
     setConnectKey(e.target.value);
   };
 
-  const inSecretKey = (e: { target: { value: SetStateAction<string>; }; }) => {
+  const inSecretKey = (e: { target: { value: SetStateAction<string> } }) => {
     setSecretKey(e.target.value);
   };
 
   const onKeyBtn = () => {
     axios
-      .post("/api/info/userkey", { connectKey, secretKey }, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      })
+      .post(
+        "/api/info/userkey",
+        { connectKey, secretKey },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      )
       .then((response) => {
         const receivedToken = response.data.token;
         localStorage.setItem("token", receivedToken);
-        console.log("API 키가 성공적으로 전송되었습니다.", receivedToken);
       })
       .catch((error) => {
         console.error("API 키 전송 중 오류 발생", error);
       });
   };
-
 
   return (
     <div className="flex justify-center items-center rounded border-2 h-[160px] px-3">
