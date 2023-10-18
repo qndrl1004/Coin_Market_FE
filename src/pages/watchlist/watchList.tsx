@@ -30,7 +30,7 @@ export const WatchList: React.FC = () => {
   const createCoin = (name: string) => {
     axios
       .post(
-        "/api/favorites/checkCoin",
+        "/api/favorites/checkcoin",
         { name },
         {
           headers: {
@@ -51,7 +51,7 @@ export const WatchList: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get("/api/favorites/checkCookie", {
+      .get("/api/favorites/checkcookie", {
         headers: {
           "Content-Type": "application/json",
         },
@@ -60,7 +60,7 @@ export const WatchList: React.FC = () => {
       .then((response) => {
         if (response.data) {
           axios
-            .get("/api/favorites/viewCoin", {
+            .get("/api/favorites/viewcoin", {
               headers: {
                 "Content-Type": "application/json",
               },

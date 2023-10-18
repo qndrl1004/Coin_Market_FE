@@ -21,20 +21,34 @@ const Chat: React.FC = () => {
 
   useEffect(() => {
     axios
-      .post("/api/info/userprofile")
+      .get("/api/favorites/checkcookie", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
       .then((response) => {
-        setEmail(response.data.decodedToken.user.email);
-        setPhoto(response.data.decodedToken.user.photo);
-        setIsLoggedIn(true);
+        if (response.data) {
+          axios
+            .post("/api/info/userprofile")
+            .then((response) => {
+              setEmail(response.data.decodedToken.user.email);
+              setPhoto(response.data.decodedToken.user.photo);
+              setIsLoggedIn(true);
+            })
+            .catch((error) => {
+              console.error("Error fetching user profile:", error);
+              setIsLoggedIn(false);
+            });
+        }
       })
       .catch((error) => {
-        console.error("Error fetching user profile:", error);
-        setIsLoggedIn(false);
+        console.error(error);
       });
   }, []);
 
   useEffect(() => {
-    const newSocket: Socket = io("http://192.168.10.5:3000", {
+    const newSocket: Socket = io("http://localhost:3000", {
       transports: ["websocket"],
     });
     setSocket(newSocket);
@@ -76,9 +90,8 @@ const Chat: React.FC = () => {
 
   return (
     <section
-      className={`relative flex flex-col my-[0] mx-auto w-[100%] h-[800px] group border-1 border-solid z-0 border-slate-300 rounded-lg shadow-md ${
-        darkMode ? "shadow-white" : "shadow-slate-500"
-      }`}
+      className={`relative flex flex-col my-[0] mx-auto w-[100%] h-[800px] group border-1 border-solid z-0 border-slate-300 rounded-lg shadow-md ${darkMode ? "shadow-white" : "shadow-slate-500"
+        }`}
     >
       <div className="bg-slate-60 h-[90%] bottom-0 overflow-scroll overflow-x-hidden mb-[5%]">
         {messages.map((msg, index) => (

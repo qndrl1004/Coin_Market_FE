@@ -6,12 +6,26 @@ const LogoutBtn = () => {
   const [photo, setPhoto] = useState("");
   useEffect(() => {
     axios
-      .post("/api/info/userprofile")
-      .then((response) => {
-        setEmail(response.data.decodedToken.user.email);
-        setPhoto(response.data.decodedToken.user.photo);
+      .get("/api/favorites/checkcookie", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
       })
-      .catch(() => {});
+      .then((response) => {
+        if (response.data) {
+          axios
+            .post("/api/info/userprofile")
+            .then((response) => {
+              setEmail(response.data.decodedToken.user.email);
+              setPhoto(response.data.decodedToken.user.photo);
+            })
+            .catch(() => { });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
 
   const redirectAfterLogoutPath = () => {

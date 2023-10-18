@@ -31,7 +31,7 @@ export default function NowPriceAssets() {
   const createCoin = (name: any) => {
     axios
       .post(
-        "/api/favorites/checkCoin",
+        "/api/favorites/checkcoin",
         { name },
         {
           headers: {
@@ -52,7 +52,7 @@ export default function NowPriceAssets() {
 
   useEffect(() => {
     axios
-      .get("/api/favorites/checkCookie", {
+      .get("/api/favorites/checkcookie", {
         headers: {
           "Content-Type": "application/json",
         },
@@ -61,7 +61,7 @@ export default function NowPriceAssets() {
       .then((response) => {
         if (response.data) {
           axios
-            .get("/api/favorites/viewCoin", {
+            .get("/api/favorites/viewcoin", {
               headers: {
                 "Content-Type": "application/json",
               },

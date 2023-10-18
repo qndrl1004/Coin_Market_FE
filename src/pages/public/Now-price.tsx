@@ -37,7 +37,7 @@ export const NowPrice: React.FC = () => {
   };
 
   const createCoin = (name: string) => {
-    axios.post('/api/favorites/checkCoin', { name }, {
+    axios.post('/api/favorites/checkcoin', { name }, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -54,14 +54,14 @@ export const NowPrice: React.FC = () => {
   }
 
   useEffect(() => {
-    axios.get('/api/favorites/checkCookie', {
+    axios.get('/api/favorites/checkcookie', {
       headers: {
         'Content-Type': 'application/json',
       },
       withCredentials: true
     }).then((response) => {
       if (response.data) {
-        axios.get('/api/favorites/viewCoin', {
+        axios.get('/api/favorites/viewcoin', {
           headers: {
             'Content-Type': 'application/json',
           },
