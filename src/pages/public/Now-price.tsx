@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCaretDown,
@@ -10,8 +10,10 @@ import {
 import { BithumbResponse, TradingChartApi } from "../../api/TradingChart-api";
 import { ScrollToTop } from "../../api/ScrollToTop-api";
 import { useDarkMode } from "../../context/Dark-mode";
-import ChattingWidget from "../../api/Chat-api";
+import ChattingWidget from "../../components/chat/Chat";
 import RealTimeTop5Coins from "../../api/GetTop5Coin-api";
+import axios from "axios";
+
 
 export const NowPrice: React.FC = () => {
   const [responseData, setResponseData] = useState<BithumbResponse | null>(
@@ -19,6 +21,7 @@ export const NowPrice: React.FC = () => {
   );
   const [searchTerm, _setSearchTerm] = useState<string>("");
   const { darkMode } = useDarkMode();
+  const [coinData, setCoinData] = useState(['a']);
 
   const onDataLoaded = (data: BithumbResponse) => {
     setResponseData(data);
@@ -32,6 +35,50 @@ export const NowPrice: React.FC = () => {
       key.toLowerCase().includes(searchTerm.toLowerCase())
     );
   };
+
+  const createCoin = (name: string) => {
+    axios.post('/api/favorites/checkCoin', { name }, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    })
+      .then((response) => {
+        const receivedToken = response.data.token;
+        localStorage.setItem("token", receivedToken);
+        setCoinData(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  useEffect(() => {
+    axios.get('/api/favorites/checkCookie', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true
+    }).then((response) => {
+      if (response.data) {
+        axios.get('/api/favorites/viewCoin', {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true
+        })
+          .then((response) => {
+              setCoinData(response.data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    })
+      .catch((error) => {
+        console.error(error);
+      });
+  },[]);
 
   const filteredCoins = filterCoins(responseData, searchTerm);
 
@@ -98,15 +145,14 @@ export const NowPrice: React.FC = () => {
                   item.closing_price > item.prev_closing_price
                     ? "text-red-500 "
                     : item.closing_price === item.prev_closing_price
-                    ? ""
-                    : "text-blue-500";
+                      ? ""
+                      : "text-blue-500";
 
                 return (
                   <tr
                     key={currency}
-                    className={`cursor-pointer relative shadow-md border-1 border-solid hover:border-slate-400 ${
-                      darkMode ? "hover:bg-yellow-600" : "hover:bg-[#ffe45c]"
-                    }  hover:shadow-slate-400 transition-hover`}
+                    className={`cursor-pointer relative shadow-md border-1 border-solid hover:border-slate-400 ${darkMode ? "hover:bg-yellow-600" : "hover:bg-[#ffe45c]"
+                      }  hover:shadow-slate-400 transition-hover`}
                     style={{ position: "relative", cursor: "pointer" }}
                     onClick={(e) => {
                       const target = e.target as HTMLElement;
@@ -119,14 +165,14 @@ export const NowPrice: React.FC = () => {
                       className="md:flex-1 md:table-cell md:border-r md:border-gray-200"
                       onClick={(e) => {
                         e.stopPropagation();
-                        window.location.href = `/favorites`;
+                        createCoin(currency)
                       }}
                     >
                       <button
                         id="favorite"
                         className="w-full h-full hover:scale-150"
                       >
-                        <FontAwesomeIcon icon={faStar} className="w-[100%]" />
+                        <FontAwesomeIcon icon={faStar} className={`w-[100%] ${(coinData.indexOf(currency) != -1) ? "text-yellow-400" : ""}`} />
                       </button>
                     </td>
                     <td className="flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 text-[4px] sm:text-[12px] md:text-[15px] lg:text-[17px]">

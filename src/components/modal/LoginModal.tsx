@@ -2,22 +2,30 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { useDarkMode } from "../../context/Dark-mode";
+import { LoginBtnComponent } from "../continueWithLoginBtn/continueWithLoginBtn";
 
 interface LoginModalProps {
   isModalOpen: boolean;
   onClose: () => void;
 }
-const getWindowHeight = () =>  {
-  return window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-}
+const getWindowHeight = () => {
+  return (
+    window.innerHeight ||
+    document.documentElement.clientHeight ||
+    document.body.clientHeight
+  );
+};
 
-const LoginModal: React.FC<LoginModalProps> = ({ isModalOpen, onClose }) => {
+export const LoginModal: React.FC<LoginModalProps> = ({
+  isModalOpen,
+  onClose,
+}) => {
   const { darkMode } = useDarkMode();
   const modalStyle = {
     backgroundColor: isModalOpen ? "rgba(0, 0, 0, 0.8)" : "transparent",
     display: isModalOpen ? "block" : "none",
   };
-  const [winHeight, setWinHeight] = useState(getWindowHeight)
+  const [winHeight, setWinHeight] = useState(getWindowHeight);
 
   const handleCloseClick = () => {
     onClose();
@@ -29,8 +37,19 @@ const LoginModal: React.FC<LoginModalProps> = ({ isModalOpen, onClose }) => {
     }
   };
 
+  const redirectToNaverAutoPath = () => {
+    window.location.href = "/api/auth/naver/callback";
+  };
+
+  const redirectToKakaoAutoPath = () => {
+    window.location.href = "/api/auth/kakao/callback";
+  };
+
+  const redirectToGoogleAutoPath = () => {
+    window.location.href = "/api/auth/google/callback";
+  };
+
   useEffect(() => {
-    // 윈도우 창 크기가 변경될 때마다 실행
     const handleResize = () => {
       setWinHeight(getWindowHeight);
     };
@@ -38,26 +57,25 @@ const LoginModal: React.FC<LoginModalProps> = ({ isModalOpen, onClose }) => {
     window.addEventListener("resize", handleResize);
 
     return () => {
-      // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
-  // 예시: 브라우저 높이를 출력
-  console.log(winHeight);
-
   return (
     <div
-      className="modal fixed w-full h-full bg-black opacity-100 transition-opacity duration-100 z-400"
+      className="fixed w-full h-full transition-opacity duration-100 bg-black opacity-100 modal z-400"
       style={modalStyle}
       onClick={handleBackdropClick}
     >
       <div
-        className='modal-content flex flex-col  justify-between bg-slate-200 border-1 border-slate-300 overflow-hidden shadow-lg shadow-slate-100  rounded-lg opacity-100 mx-auto w-[300px] h-[500px]'
-        style={{ transform: `translateY(${winHeight / 2 -250}px)` }}>  
+        className="modal-content flex flex-col  justify-between bg-slate-200 border-1 border-slate-300 overflow-hidden shadow-lg shadow-slate-100  rounded-lg opacity-100 mx-auto w-[300px] h-[500px]"
+        style={{ transform: `translateY(${winHeight / 2 - 250}px)` }}
+      >
         <section className="loginSection flex-1 p-[10px] flex flex-col ">
           <button
-            className={`closeBtn shadow-lg border-0 border-solid rounded-sm shadow-slate-200 w-[20px] h-[25px] ml-auto mb-[10px] transition-all duration-500 hover:bg-[#efda7a] ${darkMode? 'bg-[#0c0e13]' : 'bg-transparent'}`}
+            className={`closeBtn shadow-lg border-0 border-solid rounded-sm shadow-slate-200 w-[20px] h-[25px] ml-auto mb-[10px] transition-all duration-500 hover:bg-[#efda7a] ${
+              darkMode ? "bg-[#0c0e13]" : "bg-transparent"
+            }`}
             onClick={handleCloseClick}
           >
             <FontAwesomeIcon icon={faX} />
@@ -71,36 +89,18 @@ const LoginModal: React.FC<LoginModalProps> = ({ isModalOpen, onClose }) => {
               <h1 className="text-lg font-bold">로그인</h1>
             </div>
             <div className="w-full">
-              <button className="loginBtn flex justify-between items-center w-full shadow-sm shadow-slate-400 rounded-lg h-[50px] transition-all duration-500 hover:bg-green-500">
-                <img
-                  className="ml-[10px] w-[30px] h-[30px]"
-                  src="/naver.png"
-                  alt="Naver image"
-                />
-                <span className="ml-[30px] flex-1 text-start">
-                  Continue with Naver
-                </span>
-              </button>
-              <button className="loginBtn flex justify-between items-center w-full shadow-sm shadow-slate-400 rounded-lg h-[50px] transition-all duration-500 hover:bg-yellow-400 my-[20px]">
-                <img
-                  className="ml-[10px] w-[30px] h-[30px]"
-                  src="/kakao.png"
-                  alt="kakao image"
-                />
-                <span className="ml-[30px] flex-1 text-start">
-                  Continue with Kakao
-                </span>
-              </button>
-              <button className="loginBtn flex justify-between items-center w-full shadow-sm shadow-slate-400 rounded-lg h-[50px] transition-all duration-500 hover:bg-blue-500">
-                <img
-                  className="ml-[10px] w-[30px] h-[30px]"
-                  src="/google.png"
-                  alt="Google image"
-                />
-                <span className="ml-[30px] flex-1 text-start">
-                  Continue with Google
-                </span>
-              </button>
+              <LoginBtnComponent
+                name="naver"
+                redirectToAutoPath={redirectToNaverAutoPath}
+              />
+              <LoginBtnComponent
+                name="kakao"
+                redirectToAutoPath={redirectToKakaoAutoPath}
+              />
+              <LoginBtnComponent
+                name="google"
+                redirectToAutoPath={redirectToGoogleAutoPath}
+              />
             </div>
             <div className="textCotainer">
               <p className="text-xs text-center">
@@ -127,5 +127,3 @@ const LoginModal: React.FC<LoginModalProps> = ({ isModalOpen, onClose }) => {
     </div>
   );
 };
-
-export default LoginModal;
