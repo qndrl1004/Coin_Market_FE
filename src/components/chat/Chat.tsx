@@ -6,12 +6,32 @@ import { Socket } from "socket.io-client";
 import io from "socket.io-client";
 import { useDarkMode } from "../../context/Dark-mode";
 import EmojiBtn from "../emojiBtn/EmojiBtn";
+import axios from "axios";
+import useTime from "../../hooks/TimeStamp";
 
-const Chat = () => {
+const Chat: React.FC = () => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<any[]>([]);
   const { darkMode } = useDarkMode();
+  const [email, setEmail] = useState("");
+  const [photo, setPhoto] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const timeInfo = useTime();
+
+  useEffect(() => {
+    axios
+      .post("/api/info/userprofile")
+      .then((response) => {
+        setEmail(response.data.decodedToken.user.email);
+        setPhoto(response.data.decodedToken.user.photo);
+        setIsLoggedIn(true);
+      })
+      .catch((error) => {
+        console.error("Error fetching user profile:", error);
+        setIsLoggedIn(false);
+      });
+  }, []);
 
   useEffect(() => {
     const newSocket: Socket = io("http://localhost:3000", {
@@ -19,23 +39,12 @@ const Chat = () => {
     });
     setSocket(newSocket);
 
-    newSocket.on("connect", () => {
-      console.log("Socket connected ");
-    });
+    newSocket.on("connect", () => {});
 
-    newSocket.on("disconnect", () => {
-      console.log("Socket disconnected ");
-    });
+    newSocket.on("disconnect", () => {});
 
     newSocket.on("new message", (data) => {
-      if (
-        !messages.some(
-          (msg) =>
-            msg.username === data.username && msg.message === data.message
-        )
-      ) {
-        setMessages((prevMessages) => [...prevMessages, data]);
-      }
+      setMessages((prevMessages) => [...prevMessages, data]);
     });
 
     return () => {
@@ -45,11 +54,15 @@ const Chat = () => {
 
   const sendMessage = () => {
     if (socket && message.trim() !== "") {
-      socket.emit("new message", { username: "YourUsername", message });
-      setMessage("");
+      if (isLoggedIn) {
+        socket.emit("new message", { photo, email, message });
+        setMessage("");
+      } else {
+        alert("로그인이 필요합니다.");
+        setMessage("");
+      }
     }
   };
-
   const isEmojiSelect = (emoji: any) => {
     setMessage((prevText) => prevText + emoji);
   };
@@ -68,8 +81,26 @@ const Chat = () => {
     >
       <div className="bg-slate-60 h-[90%] bottom-0 overflow-scroll overflow-x-hidden mb-[5%]">
         {messages.map((msg, index) => (
-          <div key={index}>
-            {msg.username}: {msg.message}
+          <div
+            key={index}
+            className="flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300"
+          >
+            <div className="shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]">
+              <img
+                className="w-full h-full bg-white"
+                src={msg.photo}
+                alt="profile"
+              />
+            </div>
+            <div className="flex flex-col flex-1 ">
+              <div className="mt-[27px]">
+                <span>{msg.email}</span>
+                <span className="ml-[10%]">{`${timeInfo.hours}시 ${timeInfo.minutes}분`}</span>
+              </div>
+              <div className="my-[20px]">
+                <span>{msg.message}</span>
+              </div>
+            </div>
           </div>
         ))}
       </div>
@@ -79,7 +110,9 @@ const Chat = () => {
           className="mx-[2%] w-[85%] h-[90%] text-lg placeholder:text-slate-300 outline-none bg-transparent"
           type="text"
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={(e) => {
+            setMessage(e.target.value);
+          }}
           onKeyPress={isKeyDown}
         />
         <div className="z-410 flex-1 mx-[1%] h-[90%]">
