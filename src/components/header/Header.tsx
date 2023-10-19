@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,12 +15,27 @@ import { LoginModal } from "../modal/LoginModal";
 import LogoutBtn from "../button/LogoutBtn";
 import LoginBtn from "../button/LoginBtn";
 import { useAuth } from "../../context/IsLogined";
+import { BithumbResponse } from "../../api/TradingChart-api";
 
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [responseData, _setResponseData] = useState<BithumbResponse | null>(
+    null
+  );
   const { darkMode, toggleDarkMode } = useDarkMode();
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const { accessToken } = useAuth();
+
+  const filterCoins = (data: BithumbResponse | null, searchTerm: string) => {
+    if (!data) return [];
+    if (!searchTerm) return Object.keys(data.data);
+
+    return Object.keys(data.data).filter((key) =>
+      key.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
+
+  const filteredCoins = filterCoins(responseData, searchTerm);
 
   const openLoginModal = () => {
     setLoginModalOpen(true);
@@ -32,7 +48,14 @@ export default function Header() {
   const handleSearch = (e: any) => {
     if (e.key === "Enter" && searchTerm.trim() !== "") {
       const coin = searchTerm.toUpperCase();
-      window.location.href = `/search/${coin}`;
+
+      const hasResults = filteredCoins.includes(coin);
+
+      if (hasResults) {
+        window.location.href = `/search/${coin}`;
+      } else {
+        window.location.href = "/nonecoin";
+      }
     }
   };
 
@@ -128,12 +151,6 @@ export default function Header() {
                 value={searchTerm}
                 className="w-[100px] h-[30px] focus:outline-none bg-transparent md:focus:outline-none"
               />
-              <a
-                href={`/search/${searchTerm}`}
-                className="ml-[20px] hover:text-blue-500"
-              >
-                검색
-              </a>
             </div>
           </div>
         </div>
