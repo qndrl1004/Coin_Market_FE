@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartPie,
@@ -16,6 +16,7 @@ import LogoutBtn from "../button/LogoutBtn";
 import LoginBtn from "../button/LoginBtn";
 import { useAuth } from "../../context/IsLogined";
 import { BithumbResponse } from "../../api/TradingChart-api";
+import axios from "axios";
 
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -23,6 +24,7 @@ export default function Header() {
     null
   );
   const { darkMode, toggleDarkMode } = useDarkMode();
+  const [isLogin, setLogin] = useState(false);
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const { accessToken } = useAuth();
 
@@ -58,6 +60,28 @@ export default function Header() {
       }
     }
   };
+
+  const sendMessage = () => {
+    if(!isLogin){
+      alert("로그인이 필요합니다.");
+    }
+  }
+
+  useEffect(() => {
+    axios
+      .get("/api/favorites/checkcookie", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      .then((response) => {
+        setLogin(response.data)
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   return (
     <header
@@ -108,7 +132,8 @@ export default function Header() {
           <div className="group flex items-center justify-end mx-[20px] mr-0 mb-[20px] flex-wrap">
             <div className="mb-[8px]">
               <a
-                href="/favorites"
+                href={isLogin? "/favorites":""}
+                onClick={sendMessage}
                 className="mr-[20px] md:cursor-pointer md:hover:underline md:hover:text-[#efda7a]"
               >
                 <FontAwesomeIcon
@@ -121,7 +146,8 @@ export default function Header() {
                 관심목록
               </a>
               <a
-                href="/portfolio"
+                href={isLogin? "/portfolio":""}
+                onClick={sendMessage}
                 className="md:cursor-pointer md:hover:underline md:hover:text-[#38bdf8] "
               >
                 <FontAwesomeIcon

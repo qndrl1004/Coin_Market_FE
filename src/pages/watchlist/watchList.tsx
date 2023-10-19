@@ -132,7 +132,7 @@ export const WatchList: React.FC = () => {
               </div>
             </div>
             <div
-              className={`flex h-[350px] ${
+              className={`h-[350px] ${
                 coinData.length >= 10 ? "overflow-y-scroll" : ""
               }`}
             >
@@ -182,7 +182,7 @@ export const WatchList: React.FC = () => {
                         key={currency}
                         className={`${
                           darkMode ? "border-t-2 border-white" : ""
-                        }shadow text-center hover:bg-[#efda7a] md:cursor-pointer md:hover:bg-[#efda7a] md:shadow`}
+                        } shadow text-center hover:bg-[#efda7a] md:cursor-pointer md:hover:bg-[#efda7a] md:shadow`}
                         onClick={(e) => {
                           const target = e.target as HTMLElement;
                           if (target.parentElement?.id !== "favorite") {
