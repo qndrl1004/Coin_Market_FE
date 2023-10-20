@@ -12,11 +12,11 @@ import {
 import { ScrollToTop } from "../../api/ScrollToTop-api";
 import { useDarkMode } from "../../context/Dark-mode";
 import { LoginModal } from "../modal/LoginModal";
-import LogoutBtn from "../button/LogoutBtn";
 import LoginBtn from "../button/LoginBtn";
 import { useAuth } from "../../context/IsLogined";
 import { BithumbResponse } from "../../api/TradingChart-api";
 import axios from "axios";
+import LogoutBtn from './LogoutBtn';
 
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -91,14 +91,17 @@ export default function Header() {
     >
       <LoginModal isModalOpen={isLoginModalOpen} onClose={closeLoginModal} />
       <div className="flex items-center justify-between h-[100%] min-w-[300px] overflow-hidden mx-[20px]">
+        {/* 로고 */}
         <a href="/" className="md:w-[300px] max-w-[40%]">
           <img
             src={`${darkMode ? "/header-dark.png" : "/header.png"}`}
             alt={`${darkMode ? "Header-dark" : "Header"}`}
           />
         </a>
+
         <div className="flex-1 max-w-[60%] h-[100%] flex flex-col items-end justify-between">
-          <div className="flex flex-1 h-full">
+          {/* 다크모드 로그인키 */}
+          <div className="flex-1 flex h-full">
             <button
               className="mr-[40px] md:text-xl md:cursor-pointer md:hover:text-[#efda7a]"
               onClick={toggleDarkMode}
@@ -122,11 +125,8 @@ export default function Header() {
                 />
               )}
             </button>
-            {accessToken ? (
-              <LogoutBtn />
-            ) : (
-              <LoginBtn openLoginModal={openLoginModal} />
-            )}
+            {accessToken  ?  <LogoutBtn /> : <LoginBtn openLoginModal={openLoginModal}/>}
+            
           </div>
 
           <div className="group flex items-center justify-end mx-[20px] mr-0 mb-[20px] flex-wrap">

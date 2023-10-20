@@ -5,7 +5,7 @@ import NowPriceAssets from "./pages/public/Now-price-assets";
 import NotFound from "./pages/error/404";
 import TermsOfUse from "./pages/notice/Terms-of-Use";
 import PrivacyPolicy from "./pages/notice/Privacy-Policy";
-import { PortFolioTracker } from "./pages/portfolio/portfolio-tracker";
+import { PortFolioTracker } from "./pages/portfolio/portfolio";
 import { WatchList } from "./pages/watchlist/watchList";
 import NoneCoin from "./pages/error/noneCoin";
 
