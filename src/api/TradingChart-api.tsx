@@ -6,6 +6,7 @@ export interface BithumbResponse {
   status: string;
   data: {
     [key: string]: {
+      data: any;
       opening_price: number;
       closing_price: number;
       max_price: number;

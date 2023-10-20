@@ -38,8 +38,6 @@ export const WalletConnectionModal: React.FC<WalletModalProps> = ({
 
   const handleCloseModal = () => {
     onClose();
-    console.log(onClose);
-    console.log(isOpen);
   };
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {

@@ -1,36 +1,48 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const LogoutBtn = () => {
-  const [email, setEmail] = useState('')
-  const [photo, setPhoto] = useState('')
+  const [email, setEmail] = useState("");
+  const [photo, setPhoto] = useState("");
   useEffect(() => {
     axios
-    .post("/api/info/userprofile")
+      .get("/api/favorites/checkcookie", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
       .then((response) => {
-      console.log(response.data.decodedToken.user)
-        setEmail(response.data.decodedToken.user.email)
-        setPhoto(response.data.decodedToken.user.photo)
-  })
-    .catch(() => {
-  });
+        if (response.data) {
+          axios
+            .post("/api/user/userprofile")
+            .then((response) => {
+              setEmail(response.data.decodedToken.user.email);
+              setPhoto(response.data.decodedToken.user.photo);
+            })
+            .catch(() => { });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
-
 
   const redirectAfterLogoutPath = () => {
     window.location.href = "/api/auth/logout";
   };
 
   return (
-    <button
-      className=' w-[200px] h-full'
-      onClick={redirectAfterLogoutPath}
-    >
-      <img className='w-[50px] mx-auto' src={photo} alt="userImage" />
-      <p className='text-[4px]'>{email}</p>
-      <p>로그아웃</p>
-    </button>
-  )
-}
+    <div className="flex items-center w-[200px] h-full">
+      <div className="px-2">
+        <img className="w-[50px] rounded-lg" src={photo} alt="userImage" />
+      </div>
+      <div>
+        <p className="text-[13px] pb-1">{email}</p>
+        <p className="hover:text-yellow-500" onClick={redirectAfterLogoutPath}>로그아웃</p>
+      </div>
+    </div>
+  );
+};
 
-export default LogoutBtn
+export default LogoutBtn;

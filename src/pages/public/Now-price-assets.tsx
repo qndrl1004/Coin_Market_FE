@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,20 +21,25 @@ export default function NowPriceAssets() {
   const { currency } = useParams();
   const coinName: any = currency;
   const { darkMode } = useDarkMode();
-  const [coinData, setCoinData] = useState(['a']);
+  const [coinData, setCoinData] = useState(["a"]);
 
   const link = () => {
     const currentURL = window.location.href;
-    navigator.clipboard.writeText(currentURL)
+    navigator.clipboard.writeText(currentURL);
   };
 
   const createCoin = (name: any) => {
-    axios.post('/api/favorites/checkCoin', { name }, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      withCredentials: true,
-    })
+    axios
+      .post(
+        "/api/favorites/checkcoin",
+        { name },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      )
       .then((response) => {
         const receivedToken = response.data.token;
         localStorage.setItem("token", receivedToken);
@@ -42,34 +48,37 @@ export default function NowPriceAssets() {
       .catch((error) => {
         console.error(error);
       });
-  }
+  };
 
   useEffect(() => {
-    axios.get('/api/favorites/checkCookie', {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      withCredentials: true
-    }).then((response) => {
-      if (response.data) {
-        axios.get('/api/favorites/viewCoin', {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true
-        })
-          .then((response) => {
+    axios
+      .get("/api/favorites/checkcookie", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      .then((response) => {
+        if (response.data) {
+          axios
+            .get("/api/favorites/viewcoin", {
+              headers: {
+                "Content-Type": "application/json",
+              },
+              withCredentials: true,
+            })
+            .then((response) => {
               setCoinData(response.data);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
-    })
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+      })
       .catch((error) => {
         console.error(error);
       });
-  },[]);
+  }, []);
 
   return (
     <main className="mt-[130px] md:mt-[155px] overflow-x-hidden md:min-h-[1100px]">
@@ -98,11 +107,16 @@ export default function NowPriceAssets() {
                   <div className=" flex-1 text-center mr-[7px]">
                     <div className="cursor-pointer group">
                       <div className="mx-auto w-[25px] bg-slate-200	rounded-md overflow-hidden transition-all duration-500 group-hover:bg-[#efda7a] group-hover:opacity-100 opacity-70">
-                        <button>
+                        <button onClick={_e => {
+                          createCoin(coinName);
+                        }}>
                           <FontAwesomeIcon
                             icon={faStar}
                             size="sm"
-                            className={`${(coinData.indexOf(coinName) != -1) ? "text-yellow-400" : "text-black"}`}
+                            className={`${coinData.indexOf(coinName) != -1
+                                ? "text-yellow-400"
+                                : "text-black"
+                              }`}
                           />
                         </button>
                       </div>
@@ -111,7 +125,10 @@ export default function NowPriceAssets() {
                   <div className="flex-1 text-center">
                     <div>
                       <div className="cursor-pointer group">
-                        <div className="mx-auto w-[25px] bg-slate-200	rounded-md overflow-hidden transition-all duration-500 group-hover:bg-[#efda7a] group-hover:opacity-100 opacity-70" onClick={link}>
+                        <div
+                          className="mx-auto w-[25px] bg-slate-200	rounded-md overflow-hidden transition-all duration-500 group-hover:bg-[#efda7a] group-hover:opacity-100 opacity-70"
+                          onClick={link}
+                        >
                           <button>
                             <FontAwesomeIcon
                               icon={faShareNodes}
@@ -129,14 +146,22 @@ export default function NowPriceAssets() {
             <section className="max-w-[400px]">
               <div className="cursor-pointer group ">
                 <div className="w-[100%] h-[30px] my-[4%] rounded-lg overflow-hidden">
-                  <button className="bg-slate-200 w-[100%] h-[100%] transition-opacity duration-500 group-hover:opacity-100 opacity-60" onClick={_e => { createCoin(coinName) }}>
+                  <button
+                    className="bg-slate-200 w-[100%] h-[100%] transition-opacity duration-500 group-hover:opacity-100 opacity-60"
+                    onClick={(_e) => {
+                      createCoin(coinName);
+                    }}
+                  >
                     <div className="flex justify-between px-[6%]">
                       <div>
                         <span>
                           <FontAwesomeIcon
                             icon={faStar}
                             size="sm"
-                            className={`${(coinData.indexOf(coinName) != -1) ? "text-yellow-400" : "text-black"}`}
+                            className={`${coinData.indexOf(coinName) != -1
+                                ? "text-yellow-400"
+                                : "text-black"
+                              }`}
                           />
                         </span>
                         <label className="ml-[10px] text-black">

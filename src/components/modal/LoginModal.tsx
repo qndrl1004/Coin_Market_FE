@@ -8,6 +8,7 @@ interface LoginModalProps {
   isModalOpen: boolean;
   onClose: () => void;
 }
+
 const getWindowHeight = () => {
   return (
     window.innerHeight ||

@@ -1,6 +1,12 @@
-
-import axios from 'axios';
-import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import axios from "axios";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
 
 interface AuthContextProps {
   accessToken: boolean;
@@ -8,24 +14,26 @@ interface AuthContextProps {
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [accessToken, setAccessToken] = useState<boolean>(false);
 
   useEffect(() => {
     axios
-    .post("/api/info/cookie")
-    .then((response) => {
-    if (response.data && response.data.isCookie) {
-      setAccessToken(true);
-    } else {
-      setAccessToken(false);
-    }
-  })
-    .catch(() => {
-    setAccessToken(false);
-  });
+      .post("/api/user/cookie")
+      .then((response) => {
+        if (response.data && response.data.isCookie) {
+          setAccessToken(true);
+        } else {
+          setAccessToken(false);
+        }
+      })
+      .catch(() => {
+        setAccessToken(false);
+      });
   }, []);
-  
+
   return (
     <AuthContext.Provider value={{ accessToken }}>
       {children}
@@ -33,7 +41,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = (): AuthContextProps => {
   const context = useContext(AuthContext);
   if (!context) {
