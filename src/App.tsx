@@ -7,6 +7,7 @@ import TermsOfUse from "./pages/notice/Terms-of-Use";
 import PrivacyPolicy from "./pages/notice/Privacy-Policy";
 import { PortFolioTracker } from "./pages/portfolio/portfolio";
 import { WatchList } from "./pages/watchlist/watchList";
+import NoneCoin from "./pages/error/noneCoin";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<NowPrice />} />
         <Route path="/search/:currency" element={<NowPriceAssets />} />
+        <Route path="/nonecoin" element={<NoneCoin />} />
         <Route path="/trading-view/:currency" element={<NowPriceAssets />} />
         <Route path="/portfolio" element={<PortFolioTracker />} />
         <Route path="/favorites" element={<WatchList />} />

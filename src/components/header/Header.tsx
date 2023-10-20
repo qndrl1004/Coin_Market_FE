@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartPie,
@@ -11,16 +12,32 @@ import {
 import { ScrollToTop } from "../../api/ScrollToTop-api";
 import { useDarkMode } from "../../context/Dark-mode";
 import { LoginModal } from "../modal/LoginModal";
-import LoginBtn from './LoginBtn';
-import { useAuth } from '../../context/IsLogined';
-import LogoutBtn from './LogoutBtn';
-
+import LogoutBtn from "../button/LogoutBtn";
+import LoginBtn from "../button/LoginBtn";
+import { useAuth } from "../../context/IsLogined";
+import { BithumbResponse } from "../../api/TradingChart-api";
+import axios from "axios";
 
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [responseData, _setResponseData] = useState<BithumbResponse | null>(
+    null
+  );
   const { darkMode, toggleDarkMode } = useDarkMode();
+  const [isLogin, setLogin] = useState(false);
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const { accessToken } = useAuth();
+
+  const filterCoins = (data: BithumbResponse | null, searchTerm: string) => {
+    if (!data) return [];
+    if (!searchTerm) return Object.keys(data.data);
+
+    return Object.keys(data.data).filter((key) =>
+      key.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
+
+  const filteredCoins = filterCoins(responseData, searchTerm);
 
   const openLoginModal = () => {
     setLoginModalOpen(true);
@@ -33,9 +50,38 @@ export default function Header() {
   const handleSearch = (e: any) => {
     if (e.key === "Enter" && searchTerm.trim() !== "") {
       const coin = searchTerm.toUpperCase();
-      window.location.href = `/search/${coin}`;
+
+      const hasResults = filteredCoins.includes(coin);
+
+      if (hasResults) {
+        window.location.href = `/search/${coin}`;
+      } else {
+        window.location.href = "/nonecoin";
+      }
     }
   };
+
+  const sendMessage = () => {
+    if(!isLogin){
+      alert("로그인이 필요합니다.");
+    }
+  }
+
+  useEffect(() => {
+    axios
+      .get("/api/favorites/checkcookie", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      .then((response) => {
+        setLogin(response.data)
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   return (
     <header
@@ -86,7 +132,8 @@ export default function Header() {
           <div className="group flex items-center justify-end mx-[20px] mr-0 mb-[20px] flex-wrap">
             <div className="mb-[8px]">
               <a
-                href="/favorites"
+                href={isLogin? "/favorites":""}
+                onClick={sendMessage}
                 className="mr-[20px] md:cursor-pointer md:hover:underline md:hover:text-[#efda7a]"
               >
                 <FontAwesomeIcon
@@ -99,7 +146,8 @@ export default function Header() {
                 관심목록
               </a>
               <a
-                href="/portfolio"
+                href={isLogin? "/portfolio":""}
+                onClick={sendMessage}
                 className="md:cursor-pointer md:hover:underline md:hover:text-[#38bdf8] "
               >
                 <FontAwesomeIcon
@@ -129,12 +177,6 @@ export default function Header() {
                 value={searchTerm}
                 className="w-[100px] h-[30px] focus:outline-none bg-transparent md:focus:outline-none"
               />
-              <a
-                href={`/search/${searchTerm}`}
-                className="ml-[20px] hover:text-blue-500"
-              >
-                검색
-              </a>
             </div>
           </div>
         </div>

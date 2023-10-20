@@ -33,11 +33,15 @@ const LogoutBtn = () => {
   };
 
   return (
-    <button className=" w-[200px] h-full" onClick={redirectAfterLogoutPath}>
-      <img className="w-[50px] mx-auto" src={photo} alt="userImage" />
-      <p className="text-[4px]">{email}</p>
-      <p>로그아웃</p>
-    </button>
+    <div className="flex items-center w-[200px] h-full">
+      <div className="px-2">
+        <img className="w-[50px] rounded-lg" src={photo} alt="userImage" />
+      </div>
+      <div>
+        <p className="text-[13px] pb-1">{email}</p>
+        <p className="hover:text-yellow-500" onClick={redirectAfterLogoutPath}>로그아웃</p>
+      </div>
+    </div>
   );
 };
 
