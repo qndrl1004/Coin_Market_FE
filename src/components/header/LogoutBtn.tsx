@@ -15,7 +15,7 @@ const LogoutBtn = () => {
       .then((response) => {
         if (response.data) {
           axios
-            .post("/api/info/userprofile")
+            .post("/api/user/userprofile")
             .then((response) => {
               setEmail(response.data.decodedToken.user.email);
               setPhoto(response.data.decodedToken.user.photo);

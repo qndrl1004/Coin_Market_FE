@@ -1,7 +1,11 @@
 import { useState, SetStateAction } from "react";
 import axios from "axios";
 
-export default function Key() {
+interface KeyProps {
+  setIsKeyInDB: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Key:React.FC<KeyProps> = ({setIsKeyInDB}) => {
   const [connectKey, setConnectKey] = useState("");
   const [secretKey, setSecretKey] = useState("");
 
@@ -11,12 +15,13 @@ export default function Key() {
 
   const inSecretKey = (e: { target: { value: SetStateAction<string> } }) => {
     setSecretKey(e.target.value);
-  };
+  };  
 
   const onKeyBtn = () => {
+    setIsKeyInDB(true);
     axios
       .post(
-        "/api/info/userkey",
+        "/api/portfolio/apikey",
         { connectKey, secretKey },
         {
           headers: {
@@ -35,15 +40,19 @@ export default function Key() {
   };
 
   return (
-    <div className="flex justify-center items-center rounded border-2 h-[160px] px-3">
-      <div className="pr-2">
-        <p>connect key</p>
-        <input className="bg-gray-200" onChange={inConnectKey} type="text" />
-        <p>secret key</p>
-        <input className="bg-gray-200" onChange={inSecretKey} type="text" />
+    <div className="flex flex-col justify-center items-center  h-[80%] px-3">
+      <div className="w-[500px]">
+        <div>
+          <p>connect key</p>
+          <input className="bg-gray-200 w-full h-[60px]" onChange={inConnectKey} type="text" />
+        </div>
+        <div>
+          <p>secret key</p>
+          <input className="bg-gray-200 w-full h-[60px]" onChange={inSecretKey} type="text" />
+        </div>
       </div>
       <button
-        className="rounded bg-blue-500 hover:bg-blue-700 text-white h-[60%] mt-[20px] mx-2 px-4"
+        className="rounded bg-blue-500 hover:bg-blue-700 text-white w-[500px] h-[60px] mt-[20px] mx-2 px-4"
         onClick={onKeyBtn}
       >
         전송
@@ -51,3 +60,5 @@ export default function Key() {
     </div>
   );
 }
+
+export default Key
