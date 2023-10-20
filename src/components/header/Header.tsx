@@ -12,11 +12,11 @@ import {
 import { ScrollToTop } from "../../api/ScrollToTop-api";
 import { useDarkMode } from "../../context/Dark-mode";
 import { LoginModal } from "../modal/LoginModal";
-import LogoutBtn from "../button/LogoutBtn";
 import LoginBtn from "../button/LoginBtn";
 import { useAuth } from "../../context/IsLogined";
 import { BithumbResponse } from "../../api/TradingChart-api";
 import axios from "axios";
+import LogoutBtn from './LogoutBtn';
 
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState<string>("");
