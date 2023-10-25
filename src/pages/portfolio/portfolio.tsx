@@ -25,7 +25,7 @@ export const PortFolioTracker = () => {
   const [alreadyInDBCoins, setAlreadyInDBCoins] = useState<string[]>([]);
   const [refresh, setRefresh] = useState(false);
   const [isDataSuccess, setisDataSuccess]=useState(false)
-
+  
 
   const handleRefresh = () => {
     setRefresh(true); 
@@ -54,10 +54,6 @@ export const PortFolioTracker = () => {
     openModal();
     setIsName("page1");
   };
-  const onMenual = () => {
-    openModal();
-    setIsName("page2");
-  };
 
   const onIsMenu = () => {
     setIsMenu(!isMenu);
@@ -85,11 +81,11 @@ export const PortFolioTracker = () => {
         connectkey.length !== 0 && secretkey.length !== 0
           ? setIsKeyInDB(true)
           : setIsKeyInDB(false);
-        console.log("API 키가 성공적으로 전송되었습니다.");
+        // console.log("API 키가 성공적으로 전송되었습니다.");
       })
-      .catch((error) => {
-        console.error("API 키 전송 중 오류 발생 isKeyInDBFunction", error);
-      });
+      // .catch((error) => {
+      //   console.error("API 키 전송 중 오류 발생 isKeyInDBFunction", error);
+      // });
   };
 
   const fetchDataSequentially = async () => {
@@ -102,7 +98,7 @@ export const PortFolioTracker = () => {
       },
       withCredentials: true,
     });
-
+    
     const requests = response.data.map(async (coin: string) => {
       let attempts = 30;
       while (attempts > 0) {
@@ -113,16 +109,16 @@ export const PortFolioTracker = () => {
             },
             withCredentials: true,
           });
-
+          
           return response.data;
         } catch (error) {
-          console.error(`요청 실패: ${coin}. 재시도 중...`);
+          // console.error(`요청 실패: ${coin}. 재시도 중...`);
           attempts--;
         }
       }
 
       if (attempts === 0) {
-        console.error(`요청 실패: ${coin}. 최대 재시도 횟수 초과.`);
+        // console.error(`요청 실패: ${coin}. 최대 재시도 횟수 초과.`);
         return {};
       }
     });
@@ -138,8 +134,6 @@ export const PortFolioTracker = () => {
     console.error('전체 불러오기를 실패하였을 수도 있습니다.', error);
   }
 };
-
-
 
   const deleteSelectedCoinsToServer = (coinName: string) => { 
     axios.post("/api/portfolio/delete", { coinName }, {
@@ -188,7 +182,7 @@ export const PortFolioTracker = () => {
   const filteredCoins = filterCoins(responseData);
 
   return (
-    <main className={`mt-[130px] md:mt-[155px] overflow-x-hidden h-[1100px]`}>
+    <main className={`mt-[60px] md:mt-[70px] overflow-x-hidden h-[1100px]`}>
       <div className="w-full h-full ">
         <div className="md:w-[99%] p-[20px] w-full h-full  mx-auto">
           <div className="md:pl-0 pl-2 md:mt-0 mt-4 h-[100%]">
@@ -210,35 +204,19 @@ export const PortFolioTracker = () => {
                   </button>
                 </div>
                 <div className="flex-1 w-full text-center">
-                  <p className=" font-bold text-[20px] text-start">사용방법</p>
+                  <p className="pl-2 font-bold text-[20px] text-start">사용방법</p>
                   <ul
                     className="text-left"
                     style={{ display: isMenu ? "block" : "none" }}
                   >
                     <li className="text-gray-300 list-disc">
-                      <link rel="stylesheet" href="" />
                       <button
                         className={`${
                           darkMode ? "text-white" : "text-black"
-                        } hover:underline decoration-1 hover:text-red-200 text-[14px]`}
+                        } hover:underline decoration-1 hover:text-blue-500 text-[14px]`}
                         onClick={onWallet}
                       >
-                        지갑연결 방법
-                      </button>
-                      <BookModal
-                        isNames={isName}
-                        isOpen={isModalOpen}
-                        onClose={closeModal}
-                      />
-                    </li>
-                    <li className="text-gray-300 list-disc">
-                      <button
-                        className={`${
-                          darkMode ? "text-white" : "text-black"
-                        } hover:underline decoration-1 hover:text-red-200 text-[14px]`}
-                        onClick={onMenual}
-                      >
-                        수동거래 추가 방법
+                        api key 발급방법
                       </button>
                       <BookModal
                         isNames={isName}
@@ -254,10 +232,10 @@ export const PortFolioTracker = () => {
                   <Key setIsKeyInDB={setIsKeyInDB} />
                 ) : (
                   <div className="flex justify-between px-[20px] h-[900px]">
-                    <div className="w-[300px] flex flex-col items-center justify-between mr-[20px] h-full">
+                    <div className="w-[300px] hidden md:flex flex-col items-center justify-between mr-[20px] h-full">
                       <TradingChartApi onDataLoaded={onDataLoaded} />
-                      <div className="IndexOFCoin w-full h-[800px] bg-white  shadow-sm shadow-black overflow-y-auto">
-                        <table className="w-full ">
+                      <div className={`IndexOFCoin w-full h-[800px] ${darkMode ? "bg-black":"bg-white"}  shadow-sm shadow-black overflow-y-auto`}>
+                        <table className="w-full">
                           <thead
                             className="min-h-[400px] shadow-md shadow-black bg-slate-400 md:border-gray-200 md:text-center sticky top-0"
                             style={{ zIndex: 1 }}
@@ -316,8 +294,8 @@ export const PortFolioTracker = () => {
                                         icon={faSquareCheck}
                                         style={{
                                           color: isSelected || isAlreadyInDB
-                                            ? "#01060e"
-                                            : "bababa",
+                                            ? `${darkMode ? "white":"#01060e"}`
+                                            : `${darkMode ? "gray":"bababa"}`,
                                         }}
                                         className={`w-[100%] ${ isSelected ? "text-yellow-400" : "" }`}
                                       />
@@ -352,21 +330,21 @@ export const PortFolioTracker = () => {
                         </button>
                       </div>
                     </div>
-                    <ul className=" flex-1 px-[20px] h-full overflow-y-auto rounded-sm bg-blue-100">
+                    <ul className={`flex-1 px-[20px] h-full overflow-y-auto rounded-sm ${darkMode ? "bg-black shadow-white":"bg-white shadow-black"} shadow-md`}>
                         {isDataSuccess &&
                           lists.map((item, index) => (
                             <li
                               key={index}
-                              className="mb-[20px] -500 h-[60px] first:mt-[20px] shadow-black shadow-md flex items-center jus"
+                              className={`mb-[20px] h-[60px] first:mt-[20px] rounded-xl ${darkMode ? "shadow-white":"shadow-black"} shadow-md flex items-center jus`}
                             >
-                              <div className='w-[90%] text-start'>
+                              <div className='w-[90%] text-start ml-3'>
                                 <span>코인 : {item.data.order_currency}</span>
                                 <span>화폐 : {item.data.payment_currency}</span>
                                 <span>수수료 : {item.data.trade_fee}</span>
                                 <span>보유수량 : {item.data.balance}</span>
                               </div>
                               <button
-                                className='w-[10%]'
+                                className='w-[10%] bg-blue-500 hover:bg-blue-300 rounded mr-3 '
                                 onClick={() => { deleteSelectedCoinsToServer(item.data.order_currency) }}
                               >
                                 삭제

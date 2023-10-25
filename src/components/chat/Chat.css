@@ -1,0 +1,11 @@
+.wrap-text {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  max-width: 200px;
+}
+
+.parent-container {
+  max-height: 840px;
+  overflow-y: auto;
+}

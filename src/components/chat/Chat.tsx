@@ -8,6 +8,7 @@ import { useDarkMode } from "../../context/Dark-mode";
 import EmojiBtn from "../button/EmojiBtn";
 import axios from "axios";
 import useTime from "../../hooks/TimeStamp";
+import "./Chat.css"
 
 const Chat: React.FC = () => {
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -88,16 +89,32 @@ const Chat: React.FC = () => {
     }
   };
 
+
+  const scrollToBottom = () => {
+    const chatContainer = document.getElementById("chat-container");
+    if (chatContainer) {
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+
   return (
     <section
-      className={`relative flex flex-col my-[0] mx-auto w-[100%] h-[800px] group border-1 border-solid z-0 border-slate-300 rounded-lg shadow-md ${darkMode ? "shadow-white" : "shadow-slate-500"
+      className={`relative flex flex-col my-[0] mx-auto w-[100%] h-[840px] group border-1 border-solid z-0 border-slate-300 rounded-lg shadow-sm ${darkMode ? "shadow-white" : "shadow-slate-500"
         }`}
     >
-      <div className="bg-slate-60 h-[90%] bottom-0 overflow-scroll overflow-x-hidden mb-[5%]">
+      <div
+        className="bg-slate-60 h-[90%] bottom-0 overflow-scroll overflow-x-hidden mb-[5%]"
+        id='chat-container'
+      >
         {messages.map((msg, index) => (
           <div
             key={index}
-            className="flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300"
+            className="flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300 odd:bg-slate-200"
           >
             <div className="shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]">
               <img
@@ -107,11 +124,11 @@ const Chat: React.FC = () => {
               />
             </div>
             <div className="flex flex-col flex-1 ">
-              <div className="mt-[27px]">
+              <div className="mt-[23px]">
                 <span>{msg.email}</span>
-                <span className="ml-[10%]">{`${timeInfo.hours}시 ${timeInfo.minutes}분`}</span>
+                <p className="">{`${timeInfo.hours}시 ${timeInfo.minutes}분`}</p>
               </div>
-              <div className="my-[20px]">
+              <div className="my-[20px] w-[200px] wrap-text ">
                 <span>{msg.message}</span>
               </div>
             </div>
@@ -138,3 +155,5 @@ const Chat: React.FC = () => {
 };
 
 export default Chat;
+
+

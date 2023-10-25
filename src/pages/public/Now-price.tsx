@@ -83,10 +83,10 @@ export const NowPrice: React.FC = () => {
   const filteredCoins = filterCoins(responseData, searchTerm);
 
   return (
-    <main className="mt-[130px] md:mt-[155px] overflow-x-hidden md:min-h-[1100px] lg:flex">
-      <section className="min-w-[300px] md:w-[400px] hidden lg:block p-[20px] flex-col items-center ">
+    <main className="mt-[90px] md:mt-[70px] overflow-x-hidden h-[1100px] md:min-h-[1100px] lg:flex justify-between">
+      <section className="md:w-[300px] hidden lg:block p-[20px] pr-0 flex-col items-center ">
         <div className="flex flex-col h-full">
-          <div className="w-full h-[200px] mb-[20px] rounded-lg shadow-lg shadow-slate-400">
+          <div className="w-full h-[200px]">
             <div className="w-full text-center">
               <RealTimeTop5Coins />
             </div>
@@ -96,36 +96,36 @@ export const NowPrice: React.FC = () => {
           </div>
         </div>
       </section>
-      <section className="flex-1 flex items-start justify-center p-[20px]">
+      <section className="flex-1 flex items-start justify-center p-[20px] h-full">
         <TradingChartApi onDataLoaded={onDataLoaded} />
-        <div className="w-[100%] h-[700px] rounded-lg shadow-lg shadow-slate-400 overflow-x-auto">
+        <div className="w-[100%] h-[98%] rounded-lg shadow-sm shadow-slate-400 overflow-x-auto">
           <table className="w-full ">
             <thead
-              className="min-h-[400px] shadow-md shadow-black bg-slate-400 md:border-gray-200 md:text-center sticky top-0"
+              className="min-h-[400px] shadow-sm shadow-black bg-slate-300 md:border-gray-200 md:text-center sticky top-0"
               style={{ zIndex: 1 }}
             >
               <tr
-                className={`${darkMode}shadow-md md:shadow-md w-[100%] h-[50px]`}
+                className={`${darkMode}shadow-md md:shadow-md w-[100%] h-[30px]`}
               >
-                <th className="md:flex-1 md:py-2 md:table-cell w-[10%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
+                <th className="md:flex-1 md:py-[6px] md:table-cell w-[10%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
                   즐겨찾기
                 </th>
-                <th className="md:flex-1 md:py-2 w-[10%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
+                <th className="md:flex-1 md:py-[3px] w-[10%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
                   가상코인
                 </th>
-                <th className="md:flex-1 md:py-2 w-[15%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
+                <th className="md:flex-1 md:py-[3px] w-[15%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
                   현재가
                 </th>
-                <th className="md:flex-1 md:py-2 w-[15%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
+                <th className="md:flex-1 md:py-[3px] w-[15%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
                   거래량
                 </th>
-                <th className="hidden md:flex-1 md:py-2 md:table-cell w-[20%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
+                <th className="hidden md:flex-1 md:py-[3px] md:table-cell w-[20%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
                   거래금액
                 </th>
-                <th className="hidden md:flex-1 md:py-2 md:table-cell w-[20%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
+                <th className="hidden md:flex-1 md:py-[3px] md:table-cell w-[20%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
                   전일종가(24h)
                 </th>
-                <th className="md:flex-1 md:py-2 w-[20%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
+                <th className="md:flex-1 md:py-[3px] w-[20%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
                   변동률(24h)
                 </th>
               </tr>
@@ -172,7 +172,7 @@ export const NowPrice: React.FC = () => {
                         id="favorite"
                         className="w-full h-full hover:scale-150"
                       >
-                        <FontAwesomeIcon icon={faStar} className={`w-[100%] ${(coinData.indexOf(currency) != -1) ? "text-yellow-400" : ""}`} />
+                        <FontAwesomeIcon icon={faStar} className={`w-[100%] ${(coinData.indexOf(currency) != -1) ? "text-yellow-400" : "text-[#e1e1e1]"}`} />
                       </button>
                     </td>
                     <td className="flex-1 py-2 border-r border-gray-200 md:flex-1 md:py-2 md:border-r md:border-gray-200 text-[4px] sm:text-[12px] md:text-[15px] lg:text-[17px]">

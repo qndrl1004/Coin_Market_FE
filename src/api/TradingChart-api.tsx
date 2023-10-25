@@ -49,10 +49,10 @@ export const TradingChartApi: React.FC<{
     return () => clearInterval(intervalId);
   }, [onDataLoaded]);
 
-  return (
-    <div>
+  return loading ?(
+    <div className='absolute w-full h-full flex items-center justify-center'>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
     </div>
-  );
+  ):null;
 };
