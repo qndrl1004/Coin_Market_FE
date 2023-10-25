@@ -1,3 +1,5 @@
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -43,8 +45,14 @@ const LogoutBtn = () => {
           <p className="hidden sm:block text-[5px] md:text-[13px] pb-1">@{emailBack}</p>
         </div>
       </div>
-      <div className='rounded-md shadow-sm shadow-slate-400 bg-slate-400 w-full sm:w-[40px] sm:mx-[10px] md:w-[110px] sm:h-[50px] flex items-center justify-center mb-[5px] cursor-grab hover:bg-slate-600 hover:text-white '>
-        <p className="w-full h-[20px] text-center shadow-sm rounded-md text-[10px] md:text-[15px] flex items-center justify-center" onClick={redirectAfterLogoutPath}>로그아웃</p>
+      <div className='rounded-md shadow-sm w-full sm:w-[40px] sm:mx-[10px] md:w-[110px] sm:h-[50px] flex items-center justify-center mb-[5px] cursor-grab hover:bg-slate-600 hover:text-white' onClick={redirectAfterLogoutPath}>
+        <p className="w-full h-[20px] text-center shadow-sm rounded-md text-[10px] md:text-[15px] flex items-center justify-center" ><FontAwesomeIcon
+          icon={faRightFromBracket}
+          style={{
+            paddingRight: "7px",
+            fontSize:"20px"
+          }}
+        /></p>
       </div>
     </div>
   );
