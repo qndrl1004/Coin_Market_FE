@@ -16,7 +16,7 @@ import LoginBtn from "../button/LoginBtn";
 import { useAuth } from "../../context/IsLogined";
 import { BithumbResponse } from "../../api/TradingChart-api";
 import axios from "axios";
-import LogoutBtn from './LogoutBtn';
+import LogoutBtn from '../button/LogoutBtn';
 
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -87,54 +87,25 @@ export default function Header() {
     <header
       className={`${
         darkMode ? "dark" : "light"
-      } fixed top-0 w-full z-40 md:top-0 h-[120px] md:h-[155px] shadow-md shadow-slate-200 opacity-100`}
+      } fixed top-0 w-full z-40 md:top-0 h-[60px] md:h-[70px] shadow-sm shadow-slate-200 opacity-100`}
     >
       <LoginModal isModalOpen={isLoginModalOpen} onClose={closeLoginModal} />
-      <div className="flex items-center justify-between h-[100%] min-w-[300px] overflow-hidden mx-[20px]">
-        {/* 로고 */}
-        <a href="/" className="md:w-[300px] max-w-[40%]">
+      <div className="flex items-center justify-between h-[100%] overflow-hidden md:mx-[20px]">
+        <a href="/" className="min-w-[100px] sm:w-[130px] md:w-[150px] max-w-[40%]">
           <img
             src={`${darkMode ? "/header-dark.png" : "/header.png"}`}
             alt={`${darkMode ? "Header-dark" : "Header"}`}
           />
         </a>
 
-        <div className="flex-1 max-w-[60%] h-[100%] flex flex-col items-end justify-between">
-          {/* 다크모드 로그인키 */}
-          <div className="flex-1 flex h-full">
-            <button
-              className="mr-[40px] md:text-xl md:cursor-pointer md:hover:text-[#efda7a]"
-              onClick={toggleDarkMode}
-            >
-              {!darkMode && (
-                <FontAwesomeIcon
-                  icon={faMoon}
-                  size="lg"
-                  style={{
-                    paddingRight: "7px",
-                  }}
-                />
-              )}
-              {darkMode && (
-                <FontAwesomeIcon
-                  icon={faSun}
-                  size="lg"
-                  style={{
-                    paddingRight: "7px",
-                  }}
-                />
-              )}
-            </button>
-            {accessToken  ?  <LogoutBtn /> : <LoginBtn openLoginModal={openLoginModal}/>}
-            
-          </div>
-
-          <div className="group flex items-center justify-end mx-[20px] mr-0 mb-[20px] flex-wrap">
-            <div className="mb-[8px]">
-              <a
+        <div className="flex-1 w-full h-[100%] flex">
+          <div className="group hidden flex-1 md:flex items-end justify-end mx-[20px] mr-0 flex-wrap">
+            <div className="flex flex-col items-center h-full">
+              <div className='w-full md:flex items-center justify-center flex-1 hidden'>
+                <a
                 href={isLogin? "/favorites":""}
                 onClick={sendMessage}
-                className="mr-[20px] md:cursor-pointer md:hover:underline md:hover:text-[#efda7a]"
+                className="mr-[20px] md:cursor-pointer md:hover:underline md:hover:text-[#efda7a] w-[120px] text-center"
               >
                 <FontAwesomeIcon
                   icon={faStarHalfAlt}
@@ -143,43 +114,89 @@ export default function Header() {
                     paddingRight: "7px",
                   }}
                 />
-                관심목록
-              </a>
-              <a
-                href={isLogin? "/portfolio":""}
-                onClick={sendMessage}
-                className="md:cursor-pointer md:hover:underline md:hover:text-[#38bdf8] "
-              >
+                <span className='text-[14px]'>즐겨찾기</span>
+                </a>
+                <a
+                  href={isLogin? "/portfolio":""}
+                  onClick={sendMessage}
+                  className="md:cursor-pointer md:hover:underline md:hover:text-[#38bdf8] w-[120px] text-center"
+                >
+                  <FontAwesomeIcon
+                    icon={faChartPie}
+                    style={{
+                      color: "#38bdf8",
+                      paddingRight: "7px",
+                    }}
+                  />
+                  <span className='text-[14px]'>포트폴리오</span>
+                </a>
+              </div>
+              <div className=" w-[230px] hidden md:flex items-center rounded-lg shadow-sm shadow-slate-200 group-focus-within:shadow-blue-400 hover:shadow-blue-400 mb-[5px]">
+                <label htmlFor="search" className="ml-[10px]">
+                  <FontAwesomeIcon
+                    icon={faSearch}
+                    style={{ paddingRight: "7px" }}
+                  />
+                </label>
+                <input
+                  type="text"
+                  id="search"
+                  placeholder="코인입력"
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onKeyPress={handleSearch}
+                  value={searchTerm}
+                  className="flex-1 h-[30px] focus:outline-none bg-transparent md:focus:outline-none"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="flex-1 md:flex-none flex h-full md:px-[10px]">
+            <div className='flex-1 flex itmes-center justify-center'>
+              {accessToken  ?  <LogoutBtn /> : <LoginBtn openLoginModal={openLoginModal}/>}
+            </div>
+            <button
+              className="md:text-xl md:cursor-pointer flex md:hover:text-[#efda7a] text-end"
+              onClick={toggleDarkMode}
+            >
+              {!darkMode && (
                 <FontAwesomeIcon
-                  icon={faChartPie}
+                  icon={faMoon}
+                  className='text-[20px] m-[10px]'
                   style={{
-                    color: "#38bdf8",
                     paddingRight: "7px",
                   }}
                 />
-                포트폴리오
-              </a>
-            </div>
-
-            <div className="flex items-center  justify-start ml-[20px] mb-[10px] w-[190px] rounded-lg shadow-sm shadow-slate-200 group-focus-within:shadow-blue-400 hover:shadow-blue-400">
-              <label htmlFor="search" className="ml-[10px]">
+              )}
+              {darkMode && (
                 <FontAwesomeIcon
-                  icon={faSearch}
-                  style={{ paddingRight: "7px" }}
+                  icon={faSun}
+                  className='text-[20px] m-[10px]'
+                  style={{
+                    paddingRight: "7px",
+                  }}
                 />
-              </label>
-              <input
-                type="text"
-                id="search"
-                placeholder="코인입력"
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyPress={handleSearch}
-                value={searchTerm}
-                className="w-[100px] h-[30px] focus:outline-none bg-transparent md:focus:outline-none"
-              />
-            </div>
+              )}
+            </button>
+            
           </div>
         </div>
+      </div>
+      <div className=" w-full flex md:hidden bg-white items-center shadow-sm shadow-slate-200 group-focus-within:shadow-blue-400 hover:shadow-blue-400 mb-[5px]">
+        <label htmlFor="smallSearch" className="ml-[10px]">
+          <FontAwesomeIcon
+            icon={faSearch}
+            style={{ paddingRight: "7px" }}
+          />
+        </label>
+        <input
+          type="text"
+          id="smallSearch"
+          placeholder="코인입력"
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyPress={handleSearch}
+          value={searchTerm}
+          className="flex-1 h-[30px] focus:outline-none bg-transparent md:focus:outline-none"
+        />
       </div>
       <ScrollToTop />
     </header>
