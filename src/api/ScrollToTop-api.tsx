@@ -6,7 +6,7 @@ export const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false)
 
   const toggleVisibility = () => {
-    if (window.scrollY > 300) {
+    if (window.scrollY > 200) {
       setIsVisible(true)
     } else {
       setIsVisible(false)
@@ -34,7 +34,7 @@ export const ScrollToTop = () => {
       <button
         type="button"
         onClick={scrollToTop}
-        className='bg-sky-600 hover:bg-sky-700 focus:ring-sky-500 inline-flex items-center justify-center rounded-full p-3 text-white shadow-sm transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2 w-8 h-8'
+        className='bg-sky-600 hover:bg-sky-700 hover:ring-sky-500 inline-flex items-center justify-center rounded-full p-3 text-white shadow-sm transition-opacity hover:outline-none hover:ring-2 hover:ring-offset-2 w-8 h-8'
       >
         <FontAwesomeIcon 
         icon={faCaretUp} 

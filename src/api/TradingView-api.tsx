@@ -71,7 +71,7 @@ export default function TradingViewWidget() {
   }, [isTVScriptLoaded, coinName, darkMode]);
 
   return (
-    <div className="tradingview-widget-containe min-w-[200px] h-[500px] m-[20px] md:h-[1000px] shadow-lg	shadow-slate-500">
+    <div className="tradingview-widget-containe min-w-[200px] h-[500px] m-[20px] md:h-[1033px] shadow-sm	shadow-slate-500">
       <div id="tradingview_56581" className="h-[100%]" />
       <div className="tradingview-widget-copyright border-1 ">
         <a

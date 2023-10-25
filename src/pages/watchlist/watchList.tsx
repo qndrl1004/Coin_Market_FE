@@ -140,7 +140,7 @@ export const WatchList: React.FC = () => {
                 <thead
                   className={`h-[40px] ${
                     darkMode ? "text-white bg-gray-500" : "bg-gray-100"
-                  }`}
+                  } sticky top-0` }style={{ zIndex: 1 }}
                 >
                   <tr className="text-[2vh] cursor-default">
                     <th className="hidden md:flex-1 md:table-cell md:w-[10%]">
