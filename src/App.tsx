@@ -7,7 +7,7 @@ import TermsOfUse from "./pages/notice/Terms-of-Use";
 import PrivacyPolicy from "./pages/notice/Privacy-Policy";
 import { PortFolioTracker } from "./pages/portfolio/portfolio";
 import { WatchList } from "./pages/watchlist/watchList";
-import NoneCoin from "./pages/error/noneCoin";
+import NoneCoin from "./pages/error/NoneCoin";
 
 export default function App() {
   return (
