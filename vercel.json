@@ -1,3 +1,8 @@
 {
-  "rewrites": [{ "source": "/api/(.*)", "destination": "/" }]
+  "redirects": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://coinview.store/:path*"
+    }
+  ]
 }
