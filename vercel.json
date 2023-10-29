@@ -1,8 +1,9 @@
 {
   "rewrites": [
     {
-      "source": "/api/:match*",
-      "destination": "https://coinview.store/:match*"
-    }
+      "source": "/api/:path*",
+      "destination": "https://coinview.store/:path*"
+    },
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
