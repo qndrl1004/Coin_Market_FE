@@ -47,7 +47,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   };
 
   const redirectToGoogleAutoPath = () => {
-    window.location.href = "http://localhost:3000/api/auth/google/callback";
+    window.location.href = "/api/auth/google/callback";
   };
 
   useEffect(() => {
