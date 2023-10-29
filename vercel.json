@@ -1,9 +1,5 @@
 {
   "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "https://coinview.store/:path*"
-    },
     { "source": "/(.*)", "destination": "/" }
   ]
 }
