@@ -20,8 +20,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const [accessToken, setAccessToken] = useState<boolean>(false);
 
   useEffect(() => {
-    axios
-      .post("https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/user/cookie")
+    // axios
+      // .post("api/user/cookie")
+      axios.get('https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/favorites/checkcookie', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true
+    })
       .then((response) => {
         if (response.data && response.data.isCookie) {
           setAccessToken(true);

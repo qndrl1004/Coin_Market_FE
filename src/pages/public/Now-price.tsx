@@ -54,14 +54,13 @@ export const NowPrice: React.FC = () => {
   }
 
   useEffect(() => {
-    console.log(Headers);
     axios.get('https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/favorites/checkcookie', {
       headers: {
         'Content-Type': 'application/json',
       },
       withCredentials: true
     }).then((response) => {
-      console.log(response);
+      console.log(response.data);
       if (response.data) {
         axios.get('https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/favorites/viewcoin', {
           headers: {
@@ -70,7 +69,7 @@ export const NowPrice: React.FC = () => {
           withCredentials: true
         })
           .then((response) => {
-            console.log(response);
+            console.log(response.data);
               setCoinData(response.data);
           })
           .catch((error) => {
