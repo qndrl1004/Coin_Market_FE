@@ -34,7 +34,7 @@ const Chat: React.FC = () => {
       .then((response) => {
         if (response.data) {
           axios
-            .get(
+            .post(
               "https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/user/userprofile"
             )
             .then((response) => {
@@ -43,7 +43,7 @@ const Chat: React.FC = () => {
               setIsLoggedIn(true);
             })
             .catch((error) => {
-              console.error("Error fetching user profile:", error);
+              console.error("chatError fetching user profile:", error);
               setIsLoggedIn(false);
             });
         }
