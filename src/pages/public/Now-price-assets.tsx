@@ -41,7 +41,7 @@ export default function NowPriceAssets() {
   const createCoin = (name: any) => {
     axios
       .post(
-        "/api/favorites/checkcoin",
+        "https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/favorites/checkcoin",
         { name },
         {
           headers: {
@@ -77,14 +77,14 @@ export default function NowPriceAssets() {
     };
 
     axios
-      .post("/api/portfolio/create", data, {
+      .post("https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/portfolio/create", data, {
         headers: {
           "Content-Type": "application/json",
         },
         withCredentials: true,
       })
       .then((_response) => {
-        axios.get("/api/portfolio/mylist", {
+        axios.get("https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/portfolio/mylist", {
           headers: {
             "Content-Type": "application/json",
           },
@@ -103,7 +103,7 @@ export default function NowPriceAssets() {
   };
 
   const deleteSelectedCoinsToServer = (coinName: string) => {
-    axios.post("/api/portfolio/delete", { coinName }, {
+    axios.post("https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/portfolio/delete", { coinName }, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -118,7 +118,7 @@ export default function NowPriceAssets() {
 
   useEffect(() => {
     axios
-      .get("/api/favorites/checkcookie", {
+      .get("https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/favorites/checkcookie", {
         headers: {
           "Content-Type": "application/json",
         },
@@ -127,7 +127,7 @@ export default function NowPriceAssets() {
       .then((response) => {
         if (response.data) {
           axios
-            .get("/api/favorites/viewcoin", {
+            .get("https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/favorites/viewcoin", {
               headers: {
                 "Content-Type": "application/json",
               },
@@ -142,7 +142,7 @@ export default function NowPriceAssets() {
         }
 
         if (response.data) {
-          axios.get("/api/portfolio/mylist", {
+          axios.get("https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/portfolio/mylist", {
             headers: {
               "Content-Type": "application/json",
             },

@@ -37,7 +37,7 @@ export const NowPrice: React.FC = () => {
   };
 
   const createCoin = (name: string) => {
-    axios.post('/api/favorites/checkcoin', { name }, {
+    axios.post('https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/favorites/checkcoin', { name }, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -54,20 +54,22 @@ export const NowPrice: React.FC = () => {
   }
 
   useEffect(() => {
-    axios.get('/api/favorites/checkcookie', {
+    axios.get('https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/favorites/checkcookie', {
       headers: {
         'Content-Type': 'application/json',
       },
       withCredentials: true
     }).then((response) => {
+      console.log(response);
       if (response.data) {
-        axios.get('/api/favorites/viewcoin', {
+        axios.get('https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/favorites/viewcoin', {
           headers: {
             'Content-Type': 'application/json',
           },
           withCredentials: true
         })
           .then((response) => {
+            console.log(response);
               setCoinData(response.data);
           })
           .catch((error) => {

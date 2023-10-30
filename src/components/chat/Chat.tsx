@@ -8,7 +8,7 @@ import { useDarkMode } from "../../context/Dark-mode";
 import EmojiBtn from "../button/EmojiBtn";
 import axios from "axios";
 import useTime from "../../hooks/TimeStamp";
-import "./Chat.css"
+import "./Chat.css";
 
 const Chat: React.FC = () => {
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -22,7 +22,7 @@ const Chat: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get("/api/favorites/checkcookie", {
+      .get("https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/favorites/checkcookie", {
         headers: {
           "Content-Type": "application/json",
         },
@@ -31,7 +31,7 @@ const Chat: React.FC = () => {
       .then((response) => {
         if (response.data) {
           axios
-            .post("/api/user/userprofile")
+            .post("https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/user/userprofile")
             .then((response) => {
               setEmail(response.data.decodedToken.user.email);
               setPhoto(response.data.decodedToken.user.photo);
@@ -49,9 +49,12 @@ const Chat: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const newSocket: Socket = io("http://localhost:3000", {
-      transports: ["websocket"],
-    });
+    const newSocket: Socket = io(
+      "https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app",
+      {
+        transports: ["websocket"],
+      }
+    );
     setSocket(newSocket);
 
     newSocket.on("connect", () => {
@@ -89,7 +92,6 @@ const Chat: React.FC = () => {
     }
   };
 
-
   const scrollToBottom = () => {
     const chatContainer = document.getElementById("chat-container");
     if (chatContainer) {
@@ -101,15 +103,15 @@ const Chat: React.FC = () => {
     scrollToBottom();
   }, [messages]);
 
-
   return (
     <section
-      className={`relative flex flex-col my-[0] mx-auto w-[100%] h-[840px] group border-1 border-solid z-0 border-slate-300 rounded-lg shadow-sm ${darkMode ? "shadow-white" : "shadow-slate-500"
-        }`}
+      className={`relative flex flex-col my-[0] mx-auto w-[100%] h-[840px] group border-1 border-solid z-0 border-slate-300 rounded-lg shadow-sm ${
+        darkMode ? "shadow-white" : "shadow-slate-500"
+      }`}
     >
       <div
         className="bg-slate-60 h-[90%] bottom-0 overflow-scroll overflow-x-hidden mb-[5%]"
-        id='chat-container'
+        id="chat-container"
       >
         {messages.map((msg, index) => (
           <div
@@ -155,5 +157,3 @@ const Chat: React.FC = () => {
 };
 
 export default Chat;
-
-
