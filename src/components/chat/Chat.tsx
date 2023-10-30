@@ -22,16 +22,21 @@ const Chat: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get("https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/favorites/checkcookie", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
+      .get(
+        "https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/favorites/checkcookie",
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      )
       .then((response) => {
         if (response.data) {
           axios
-            .post("https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/user/userprofile")
+            .get(
+              "https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/user/userprofile"
+            )
             .then((response) => {
               setEmail(response.data.decodedToken.user.email);
               setPhoto(response.data.decodedToken.user.photo);
