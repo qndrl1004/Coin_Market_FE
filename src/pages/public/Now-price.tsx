@@ -54,6 +54,7 @@ export const NowPrice: React.FC = () => {
   }
 
   useEffect(() => {
+    console.log(Headers);
     axios.get('https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/favorites/checkcookie', {
       headers: {
         'Content-Type': 'application/json',
