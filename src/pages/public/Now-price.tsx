@@ -60,6 +60,7 @@ export const NowPrice: React.FC = () => {
       },
       withCredentials: true
     }).then((response) => {
+      console.log(response);
       if (response.data) {
         axios.get('https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/favorites/viewcoin', {
           headers: {
@@ -68,6 +69,7 @@ export const NowPrice: React.FC = () => {
           withCredentials: true
         })
           .then((response) => {
+            console.log(response);
               setCoinData(response.data);
           })
           .catch((error) => {
