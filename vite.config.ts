@@ -10,7 +10,7 @@ export default defineConfig({
     // port: 5174,
     proxy: {
       "/api": {
-        target: "http://localhost:3000",
+        target: "https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
