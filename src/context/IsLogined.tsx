@@ -29,6 +29,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       withCredentials: true
     })
       .then((response) => {
+        console.log(response.data);
+        
         if (response.data && response.data.isCookie) {
           setAccessToken(true);
         } else {
