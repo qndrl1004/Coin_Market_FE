@@ -22,23 +22,28 @@ const Chat: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get("https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/favorites/checkcookie", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
+      .get(
+        "https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/favorites/checkcookie",
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      )
       .then((response) => {
         if (response.data) {
           axios
-            .post("https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/user/userprofile")
+            .post(
+              "https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/user/userprofile"
+            )
             .then((response) => {
               setEmail(response.data.decodedToken.user.email);
               setPhoto(response.data.decodedToken.user.photo);
               setIsLoggedIn(true);
             })
             .catch((error) => {
-              console.error("Error fetching user profile:", error);
+              console.error("chatError fetching user profile:", error);
               setIsLoggedIn(false);
             });
         }
@@ -116,7 +121,7 @@ const Chat: React.FC = () => {
         {messages.map((msg, index) => (
           <div
             key={index}
-            className="flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300 odd:bg-slate-200"
+            className="flex items-start w-[100%] min-h-[50px] border-b-2 border-solid  border-slate-300 odd:bg-slate-200 odd:text-black"
           >
             <div className="shadow-sm	shadow-slate-500 border-2  rounded-lg overflow-hidden w-[50px] h-[50px] mx-[10px] mt-[20px]">
               <img

@@ -60,7 +60,6 @@ export const NowPrice: React.FC = () => {
       },
       withCredentials: true
     }).then((response) => {
-      console.log(response);
       if (response.data) {
         axios.get('https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/favorites/viewcoin', {
           headers: {
@@ -69,7 +68,6 @@ export const NowPrice: React.FC = () => {
           withCredentials: true
         })
           .then((response) => {
-            console.log(response);
               setCoinData(response.data);
           })
           .catch((error) => {
@@ -107,9 +105,9 @@ export const NowPrice: React.FC = () => {
               style={{ zIndex: 1 }}
             >
               <tr
-                className={`${darkMode}shadow-md md:shadow-md w-[100%] h-[30px]`}
+                className={`${darkMode ? "text-black":"text-white"}  shadow-md md:shadow-md w-[100%] h-[30px]`}
               >
-                <th className="md:flex-1 md:py-[6px] md:table-cell w-[10%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
+                <th className={`md:flex-1 md:py-[6px] md:table-cell w-[10%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]`}>
                   즐겨찾기
                 </th>
                 <th className="md:flex-1 md:py-[3px] w-[10%] text-[10px] sm:text-[12px] md:text-[15px] lg:text-[17px]">
