@@ -45,8 +45,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
   const redirectToKakaoAutoPath = () => {
     window.location.href =
-      // "https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/auth/kakao/callback";
-      `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_CLIENT_KEY}&redirect_uri=${process.env.KAKAO_REDIRECT_URL}&response_type=code`;
+      "https://port-0-coin-market-be-12fhqa2llob5p0if.sel5.cloudtype.app/auth/kakao/callback";
   };
 
   const redirectToGoogleAutoPath = () => {
