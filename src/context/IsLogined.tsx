@@ -43,6 +43,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       });
   }, []);
 
+  
   return (
     <AuthContext.Provider value={{ accessToken }}>
       {children}
